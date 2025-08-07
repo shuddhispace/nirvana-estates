@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nirvana Estates - Trusted Real Estate in Malad, Kandivali & Borivali (MaKaBo). Buy, Sell, Rent with experts.">
   <title>Nirvana Estates</title>
+
   <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Alpine.js for reactivity -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
   <style>
     @keyframes fade-in {
       0% { opacity: 0; transform: translateY(30px); }
@@ -14,74 +19,109 @@
     .animate-fade-in {
       animation: fade-in 1s ease-out forwards;
     }
+    [id] {
+        scroll-margin-top: 6rem; /* height of your header */
+    }
   </style>
+  <!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-<!-- HEADER START -->
-<header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <!-- HEADER START -->
+<header class="bg-[#0A3D62] text-white shadow-md sticky top-0 z-50">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="h-16 md:h-20 flex items-center w-full">
 
-      <!-- Mobile View -->
+        <!-- Mobile View -->
+<div class="flex items-center justify-between w-full md:hidden px-4 py-2 bg-[#0A3D62] shadow-md">
+  <!-- Left: Logo -->
+  <div class="flex-shrink-0">
+    <img src="images/logo.png" alt="Logo" class="h-10 w-10 rounded-full" />
+  </div>
+
+  <!-- Center: Name + MAHA RERA -->
+  <div class="flex flex-col items-center justify-center text-center flex-1">
+    <img src="images/name.jpeg" alt="Nirvana Estates" class="h-6 object-contain" />
+    <p class="text-[10px] text-white leading-tight mt-1">MAHA RERA No: A51800046168</p>
+  </div>
+
+  <!-- Right: Hamburger -->
+  <div class="flex-shrink-0">
+    <button id="menu-toggle" class="text-white focus:outline-none">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
+        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- 
+      Mobile View
       <div class="flex items-center justify-between w-full md:hidden">
-        <!-- Left: Logo -->
+        Left: Logo
         <div class="flex-shrink-0">
-          <img src="images/logo.jpeg" alt="Logo" class="h-10 w-10 rounded-full" />
+          <img src="images/logo.png" alt="Logo" class="h-10 w-10 rounded-full" />
         </div>
 
-        <!-- Center: Name and RERA No -->
-        <div class="flex flex-col items-center text-center">
-          <span class="text-sm font-bold">Nirvana Estates</span>
-          <span class="text-xs text-gray-500">RERA No: A51800027670</span>
+        Center: Name Image
+        <div class="flex-shrink-0">
+          <img src="images/name.jpeg" alt="Nirvana Estates" class="h-8 object-contain" />
+          <p class="text-[10px] text-white sm:text-[10px] md:text-xs lg:text-sm">MAHA RERA No: A51800046168</p>
+
         </div>
 
-        <!-- Right: Hamburger -->
+        Right: Hamburger
         <div class="flex-shrink-0">
-          <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+          <button id="menu-toggle" class="text-white focus:outline-none">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
               viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
-      </div>
+      </div> -->
 
-      <!-- Desktop View -->
-      <div class="hidden md:flex items-center justify-between w-full">
-        <!-- Left: Logo and Text -->
-        <div class="flex items-center space-x-3">
-          <img src="images/logo.jpeg" alt="Logo" class="h-10 w-10 rounded-full" />
-          <div class="flex flex-col text-left md:text-center leading-tight">
-            <span class="text-sm md:text-lg font-bold">Nirvana Estates</span>
-            <span class="text-xs md:text-sm text-gray-500">RERA No: A51800027670</span>
-          </div>
-        </div>
+   <!-- Desktop View -->
+<div class="hidden md:flex items-center justify-between w-full px-4 py-2">
+  <!-- Left Section: Logo + Name -->
+  <div class="flex items-center space-x-3">
+    <img src="images/logo.png" alt="Logo" class="h-10 w-10 rounded-full" />
+    <img src="images/name.jpeg" alt="Nirvana Estates" class="h-10 object-contain" />
+  </div>
 
-        <!-- Desktop Nav -->
-        <nav class="hidden md:flex space-x-6 text-sm font-medium">
-          <a href="#buy" class="hover:text-blue-600">Buy</a>
-          <a href="#sell" class="hover:text-blue-600">Sell</a>
-          <a href="#rent" class="hover:text-blue-600">Rent</a>
-          <!-- <a href="#" onclick="showAboutSection()" class="text-gray-700 hover:text-blue-500">About Us</a> -->
-          <a href="about.html" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-500">About Us</a>
-          <a href="#contact" class="hover:text-blue-600">Contact</a>
-        </nav>
-      </div>
+  <!-- Center: MAHA RERA Number -->
+  <div class="text-xs text-white font-medium whitespace-nowrap">
+    MAHA RERA No: A51800046168
+  </div>
 
-    </div>
+  <!-- Right Section: Navigation Links -->
+  <div class="flex space-x-6 text-sm font-medium text-white">
+    <a href="#buy" class="hover:text-blue-300">Buy</a>
+    <a href="#sell" class="hover:text-blue-300">Sell</a>
+    <a href="#rent" class="hover:text-blue-300">Rent</a>
+    <a href="about.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300">About Us</a>
+    <a href="#contact" class="hover:text-blue-300">Contact</a>
+  </div>
+</div>
+
 
     <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white shadow">
-      <a href="#buy" class="block py-2 text-sm hover:text-blue-600">Buy</a>
-      <a href="#sell" class="block py-2 text-sm hover:text-blue-600">Sell</a>
-      <a href="#rent" class="block py-2 text-sm hover:text-blue-600">Rent</a>
-      <!-- <a href="#" onclick="showAboutSection(); mobileMenu.classList.add('hidden');" class="block py-2 text-sm hover:text-blue-600">About Us</a> -->
-      <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm hover:text-blue-600">About Us</a>
-      <a href="#contact" class="block py-2 text-sm hover:text-blue-600">Contact</a>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-[#0A3D62] shadow">
+      <a href="#buy" class="block py-2 text-sm text-white hover:text-blue-300">Buy</a>
+      <a href="#sell" class="block py-2 text-sm text-white hover:text-blue-300">Sell</a>
+      <a href="#rent" class="block py-2 text-sm text-white hover:text-blue-300">Rent</a>
+      <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-white hover:text-blue-300">About Us</a>
+      <a href="#contact" class="block py-2 text-sm text-white hover:text-blue-300">Contact</a>
     </div>
   </div>
 </header>
+
 
 <!-- Mobile Menu Script -->
 
@@ -107,7 +147,8 @@
 
 
 <!-- FIRST HERO SECTION -->
-<section class="bg-gradient-to-br from-white via-gray-100 to-blue-50 min-h-screen flex items-center px-6 md:px-16 text-center relative overflow-hidden">
+<section class="pt-20 bg-gradient-to-br from-white via-gray-100 to-blue-50 min-h-screen flex items-center px-6 md:px-16 text-center relative overflow-hidden">
+<!-- <section class="pt-20 bg-gradient-to-br from-white via-gray-100 to-blue-50 flex items-center px-6 md:px-16 text-center relative overflow-hidden"> -->
   <div class="w-full max-w-4xl mx-auto z-10 relative">
     <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Nirvana Estates</h1>
     <p class="text-lg md:text-xl text-gray-600 mb-6">Trusted Real Estate Guidance Since 2007</p>
@@ -122,29 +163,81 @@
 </section> 
 
 <!-- SECOND HERO SECTION -->
+<!-- <section class="min-h-screen bg-gradient-to-br from-white via-gray-100 to-blue-50 flex items-center justify-center px-6 md:px-16 text-center relative overflow-hidden"> -->
+<section class="pt-24 min-h-screen bg-gradient-to-br from-white via-gray-100 to-blue-50 flex items-center justify-center px-6 md:px-16 text-center relative overflow-hidden">
 
+  <div class="w-full max-w-5xl mx-auto">
+    <!-- Swiper -->
+    <div class="swiper mySwiper w-full h-full">
+      <div class="swiper-wrapper">
 
+        <!-- Slide 1 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-white/80 backdrop-blur-md rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gray-800">LOOKING FOR YOUR DREAM HOME IN MaKaBo?</h2>
+            <p class="text-indigo-600 italic mb-4">“WE GOT YOU”</p>
+            <p class="text-gray-700 mb-6">Discover verified listings, honest advice and local expertise with zero pressure. From site visits to keys-in-hand, we’re by your side.</p>
+            <a href="#properties" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">Explore Properties</a>
+          </div>
+        </div>
 
-<!-- HERO SECTION -->
-<!-- 
-<section class="relative bg-gradient-to-r from-slate-900 to-gray-800 text-white py-24 px-6 sm:px-10 lg:px-20">
-  <div class="max-w-6xl mx-auto flex flex-col items-center text-center space-y-6 animate-fade-in">
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-      Find Your Perfect Home with<br><span class="text-emerald-400">Nirvana Estates</span>
-    </h1>
-    <p class="text-lg sm:text-xl max-w-2xl">
-      Luxury · Location · Lifestyle — Discover premium properties tailored to your dreams.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 mt-6">
-      <a href="#properties" class="px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 transition text-white text-lg font-medium shadow-md">
-        Explore Properties
-      </a>
-      <a href="#contact" class="px-6 py-3 rounded-full bg-white text-slate-900 hover:bg-gray-100 transition text-lg font-medium shadow-md">
-        Contact Us
-      </a>
+        <!-- Slide 2 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-white/80 backdrop-blur-md rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gray-800">WHY MaKaBo?</h2>
+            <p class="text-indigo-600 italic mb-4">“IT IS MUMBAI’s NEXT BIG GROWTH BELT”</p>
+            <p class="text-gray-700 mb-6">Connected by Metro, growing with infrastructure and rich in resale value, Malad, Kandivali, and Borivali are where smart investments live.</p>
+            <a href="#makabo" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">Know the Potential</a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-white/80 backdrop-blur-md rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gray-800">HOW NIRVANA ESTATES HELP YOU?</h2>
+            <p class="text-indigo-600 italic mb-4">“NOT JUST AGENTS, WE’RE YOUR PROPERTY PARTNERS”</p>
+            <p class="text-gray-700 mb-6">We shortlist what fits you, handle the heavy lifting, and negotiate like it’s our own deal — cause finding the right home isn’t luck, it’s strategy.</p>
+            <a href="#how-we-work" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">How We Work</a>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-white/80 backdrop-blur-md rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gray-800">LET’s TALK BEFORE YOU DECIDE</h2>
+            <p class="text-indigo-600 italic mb-4">No spam, no pressure. Just real talk.</p>
+            <p class="text-gray-700 mb-6">Real estate advice tailored to your needs. Book a free one-on-one consultation today.</p>
+            <a href="#contact" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">Book Appointment</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination mt-4"></div>
     </div>
   </div>
-</section> -->
+</section>
+
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
+
+
 
 </body>
 </html>
