@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nirvana Estates</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fade-in {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 1s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<!-- HEADER START -->
+<header class="fixed top-0 w-full bg-white shadow-md z-50">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="h-16 md:h-20 flex items-center w-full">
+
+      <!-- Mobile View -->
+      <div class="flex items-center justify-between w-full md:hidden">
+        <!-- Left: Logo -->
+        <div class="flex-shrink-0">
+          <img src="images/logo.jpeg" alt="Logo" class="h-10 w-10 rounded-full" />
+        </div>
+
+        <!-- Center: Name and RERA No -->
+        <div class="flex flex-col items-center text-center">
+          <span class="text-sm font-bold">Nirvana Estates</span>
+          <span class="text-xs text-gray-500">RERA No: A51800027670</span>
+        </div>
+
+        <!-- Right: Hamburger -->
+        <div class="flex-shrink-0">
+          <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Desktop View -->
+      <div class="hidden md:flex items-center justify-between w-full">
+        <!-- Left: Logo and Text -->
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.jpeg" alt="Logo" class="h-10 w-10 rounded-full" />
+          <div class="flex flex-col text-left md:text-center leading-tight">
+            <span class="text-sm md:text-lg font-bold">Nirvana Estates</span>
+            <span class="text-xs md:text-sm text-gray-500">RERA No: A51800027670</span>
+          </div>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex space-x-6 text-sm font-medium">
+          <a href="#buy" class="hover:text-blue-600">Buy</a>
+          <a href="#sell" class="hover:text-blue-600">Sell</a>
+          <a href="#rent" class="hover:text-blue-600">Rent</a>
+          <!-- <a href="#" onclick="showAboutSection()" class="text-gray-700 hover:text-blue-500">About Us</a> -->
+          <a href="about.html" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-500">About Us</a>
+          <a href="#contact" class="hover:text-blue-600">Contact</a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white shadow">
+      <a href="#buy" class="block py-2 text-sm hover:text-blue-600">Buy</a>
+      <a href="#sell" class="block py-2 text-sm hover:text-blue-600">Sell</a>
+      <a href="#rent" class="block py-2 text-sm hover:text-blue-600">Rent</a>
+      <!-- <a href="#" onclick="showAboutSection(); mobileMenu.classList.add('hidden');" class="block py-2 text-sm hover:text-blue-600">About Us</a> -->
+      <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm hover:text-blue-600">About Us</a>
+      <a href="#contact" class="block py-2 text-sm hover:text-blue-600">Contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu Script -->
+
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (toggleBtn && mobileMenu) {
+    // Toggle menu open/close on button click
+    toggleBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close menu on any link click inside the mobile menu
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  }
+</script>
+
+
+<!-- FIRST HERO SECTION -->
+<section class="bg-gradient-to-br from-white via-gray-100 to-blue-50 min-h-screen flex items-center px-6 md:px-16 text-center relative overflow-hidden">
+  <div class="w-full max-w-4xl mx-auto z-10 relative">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Nirvana Estates</h1>
+    <p class="text-lg md:text-xl text-gray-600 mb-6">Trusted Real Estate Guidance Since 2007</p>
+    <p class="text-md md:text-lg text-gray-500 mb-8">
+      Helping families buy, sell, and rent homes in Malad, Kandivali & Borivali (MaKaBo) with transparency and local expertise.
+    </p>
+    <div class="flex justify-center space-x-4">
+      <a href="tel:+919999999999" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">📞 Call Us</a>
+      <a href="#listings" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">🏡 View Listings</a>
+    </div>
+  </div>
+</section> 
+
+<!-- SECOND HERO SECTION -->
+
+
+
+<!-- HERO SECTION -->
+<!-- 
+<section class="relative bg-gradient-to-r from-slate-900 to-gray-800 text-white py-24 px-6 sm:px-10 lg:px-20">
+  <div class="max-w-6xl mx-auto flex flex-col items-center text-center space-y-6 animate-fade-in">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+      Find Your Perfect Home with<br><span class="text-emerald-400">Nirvana Estates</span>
+    </h1>
+    <p class="text-lg sm:text-xl max-w-2xl">
+      Luxury · Location · Lifestyle — Discover premium properties tailored to your dreams.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 mt-6">
+      <a href="#properties" class="px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 transition text-white text-lg font-medium shadow-md">
+        Explore Properties
+      </a>
+      <a href="#contact" class="px-6 py-3 rounded-full bg-white text-slate-900 hover:bg-gray-100 transition text-lg font-medium shadow-md">
+        Contact Us
+      </a>
+    </div>
+  </div>
+</section> -->
+
+</body>
+</html>
