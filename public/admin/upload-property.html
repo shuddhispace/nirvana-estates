@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Property - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Upload Property</h1>
+
+    <form id="uploadForm" action="/admin/upload-property" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow-lg">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="font-medium">Title</label>
+          <input type="text" name="title" required class="w-full p-2 border rounded" placeholder="2 BHK Apartment" />
+        </div>
+        <div>
+          <label class="font-medium">Price</label>
+          <input type="number" name="price" required class="w-full p-2 border rounded" placeholder="9000000" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="font-medium">Location</label>
+          <input type="text" name="location" required class="w-full p-2 border rounded" placeholder="Kandivali" />
+        </div>
+        <div>
+          <label class="font-medium">Category</label>
+          <select name="category" required class="w-full p-2 border rounded">
+            <option value="buyers">Buyers</option>
+            <option value="rentals">Rentals</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="font-medium">Bedrooms</label>
+          <input type="number" name="bedrooms" required class="w-full p-2 border rounded" placeholder="3" />
+        </div>
+        <div>
+          <label class="font-medium">Bathrooms</label>
+          <input type="number" name="bathrooms" required class="w-full p-2 border rounded" placeholder="2" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="font-medium">Carpet Area (sq ft)</label>
+          <input type="number" name="carpetArea" required class="w-full p-2 border rounded" placeholder="800" />
+        </div>
+        <div>
+          <label class="font-medium">Built-up Area (sq ft)</label>
+          <input type="number" name="builtupArea" required class="w-full p-2 border rounded" placeholder="1000" />
+        </div>
+      </div>
+
+      <div>
+        <label class="font-medium">Description</label>
+        <textarea name="description" required class="w-full p-2 border rounded" placeholder="Write property details..."></textarea>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <input type="checkbox" name="negotiable" id="negotiable" class="w-4 h-4">
+        <label for="negotiable" class="font-medium">Negotiable</label>
+      </div>
+
+      <!-- Images -->
+      <div>
+        <label class="font-medium">Upload Images (multiple)</label>
+        <input type="file" name="images" accept="image/*" multiple required class="w-full p-2 border rounded" id="imagesInput" />
+        <div id="imagesPreview" class="grid grid-cols-3 gap-2 mt-2"></div>
+      </div>
+
+      <!-- Videos -->
+      <div>
+        <label class="font-medium">Upload Videos (multiple)</label>
+        <input type="file" name="videos" accept="video/*" multiple class="w-full p-2 border rounded" id="videosInput" />
+        <div id="videosPreview" class="grid grid-cols-2 gap-2 mt-2"></div>
+      </div>
+
+      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full text-lg font-semibold">Upload Property</button>
+    </form>
+  </div>
+
+  <script>
+    const imagesInput = document.getElementById('imagesInput');
+    const imagesPreview = document.getElementById('imagesPreview');
+    imagesInput.addEventListener('change', () => {
+      imagesPreview.innerHTML = '';
+      Array.from(imagesInput.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'w-full h-32 object-cover rounded';
+          imagesPreview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    const videosInput = document.getElementById('videosInput');
+    const videosPreview = document.getElementById('videosPreview');
+    videosInput.addEventListener('change', () => {
+      videosPreview.innerHTML = '';
+      Array.from(videosInput.files).forEach(file => {
+        const url = URL.createObjectURL(file);
+        const video = document.createElement('video');
+        video.src = url;
+        video.controls = true;
+        video.className = 'w-full h-40 rounded';
+        videosPreview.appendChild(video);
+      });
+    });
+  </script>
+
+</body>
+</html>

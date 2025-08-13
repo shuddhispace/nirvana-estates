@@ -1,0 +1,17 @@
+{
+  "name": "nirvana-estates",
+  "version": "1.0.0",
+  "description": "Nirvana Estates real estate website with admin property upload",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.5",
+    "uuid": "^11.1.0"
+  }
+}

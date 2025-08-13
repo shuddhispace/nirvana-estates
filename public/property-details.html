@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Property Details - Nirvana Estates</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .ratio-4-3 { aspect-ratio: 4 / 3; }
+    .ratio-16-9 { aspect-ratio: 16 / 9; }
+    .ratio-9-16 { aspect-ratio: 9 / 16; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .nav-btn {
+      position:absolute; top:50%; transform: translateY(-50%);
+      background: rgba(0,0,0,.35); color:#fff; padding:.45rem .6rem; border-radius:.5rem;
+    }
+    .nav-btn:hover{ background: rgba(0,0,0,.6);}
+    .nav-left{ left:.25rem;} .nav-right{ right:.25rem;}
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+
+<div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (toggleBtn && mobileMenu) {
+      toggleBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      const menuLinks = mobileMenu.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+  })
+  .catch(err => console.error('Failed to load header:', err));
+
+</script>
+
+<main class="max-w-6xl mx-auto px-4 py-6">
+  <div id="content" class="space-y-6">
+    <!-- injected -->
+  </div>
+</main>
+
+<a href="tel:+918652121984"
+   class="fixed bottom-4 right-4 z-50 bg-[#0f2b3d] text-white px-4 py-3 rounded-full shadow-lg font-semibold">
+  📞 Call Now
+</a>
+
+<script>
+const INR = n => {
+  const num = Number(n);
+  if (isNaN(num)) return `₹${n}`;
+  return num.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+};
+
+function createSlide(src, type) {
+  const wrap = document.createElement('div');
+  wrap.className = 'relative w-full flex-shrink-0 snap-center';
+  if (type === 'image') {
+    const img = new Image();
+    img.src = src;
+    img.alt = 'Property image';
+    img.className = 'w-full h-full object-cover';
+    wrap.classList.add('ratio-4-3');
+    img.onload = () => {
+      const ratio = img.naturalWidth / img.naturalHeight;
+      if (ratio >= 1.6) { wrap.classList.remove('ratio-4-3'); wrap.classList.add('ratio-16-9'); }
+    };
+    wrap.appendChild(img);
+  } else {
+    const vid = document.createElement('video');
+    vid.src = src;
+    vid.preload = 'metadata';
+    vid.muted = true;
+    vid.playsInline = true;
+    vid.controls = true;
+    vid.className = 'w-full h-full object-cover';
+    wrap.classList.add('ratio-16-9');
+    vid.addEventListener('loadedmetadata', () => {
+      if (vid.videoHeight > vid.videoWidth) { wrap.classList.remove('ratio-16-9'); wrap.classList.add('ratio-9-16'); }
+    });
+    vid.addEventListener('mouseenter', () => vid.play());
+    vid.addEventListener('mouseleave', () => vid.pause());
+    wrap.appendChild(vid);
+  }
+  return wrap;
+}
+
+async function loadDetails() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const content = document.getElementById('content');
+
+  try {
+    const res = await fetch('/data/properties.json');
+    const all = await res.json();
+    const p = all.find(x => String(x.id) === String(id));
+    if (!p) {
+      content.innerHTML = '<div class="text-red-600">Property not found.</div>';
+      return;
+    }
+
+    // Gallery
+    const galleryWrap = document.createElement('section');
+    galleryWrap.className = 'relative';
+    const track = document.createElement('div');
+    track.className = 'w-full overflow-x-auto no-scrollbar flex gap-3 snap-x snap-mandatory';
+    const inner = document.createElement('div');
+    inner.className = 'flex w-full gap-3';
+
+    const media = [
+      ...(Array.isArray(p.images) ? p.images.map(s => ({src:s, type:'image'})) : []),
+      ...(Array.isArray(p.videos) ? p.videos.map(s => ({src:s, type:'video'})) : [])
+    ];
+    if (media.length === 0) {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'ratio-4-3 w-full flex items-center justify-center text-gray-500 bg-gray-200 rounded';
+      placeholder.textContent = 'No media';
+      track.appendChild(placeholder);
+    } else {
+      media.forEach(m => inner.appendChild(createSlide(m.src, m.type)));
+      track.appendChild(inner);
+      // arrows
+      const left = document.createElement('button');
+      left.className = 'nav-btn nav-left hidden sm:block';
+      left.innerHTML = '&#10094;';
+      left.addEventListener('click', () => track.scrollBy({left: -track.clientWidth*0.8, behavior:'smooth'}));
+      const right = document.createElement('button');
+      right.className = 'nav-btn nav-right hidden sm:block';
+      right.innerHTML = '&#10095;';
+      right.addEventListener('click', () => track.scrollBy({left: track.clientWidth*0.8, behavior:'smooth'}));
+      galleryWrap.append(track, left, right);
+    }
+
+    // Title & Price
+    const head = document.createElement('div');
+    head.className = 'flex flex-col md:flex-row md:items-end md:justify-between gap-2';
+    const h2 = document.createElement('h2');
+    h2.className = 'text-2xl md:text-3xl font-bold text-gray-900';
+    h2.textContent = p.title || 'Property';
+    const price = document.createElement('div');
+    price.className = 'text-[#0f2b3d] font-extrabold text-xl';
+    price.textContent = INR(p.price);
+    head.append(h2, price);
+
+    // Badges
+    const badges = document.createElement('div');
+    if (p.negotiable) {
+      const b = document.createElement('span');
+      b.className = 'inline-block bg-green-600 text-white text-xs px-2 py-1 rounded';
+      b.textContent = 'Negotiable';
+      badges.appendChild(b);
+    }
+
+    // Info grid
+    const info = document.createElement('div');
+    info.className = 'grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-gray-700';
+    const cell = (label, value) => {
+      const d = document.createElement('div');
+      d.innerHTML = `<span class="font-semibold">${label}:</span> ${value}`;
+      return d;
+    };
+    info.append(
+      cell('Bedrooms', p.bedrooms),
+      cell('Bathrooms', p.bathrooms),
+      cell('Carpet Area', `${p.carpetArea} sq ft`),
+      cell('Built-up Area', `${p.builtupArea} sq ft`),
+      cell('Location', p.location),
+      cell('Category', (p.category || '').charAt(0).toUpperCase() + (p.category || '').slice(1))
+    );
+
+    // Description
+    const desc = document.createElement('div');
+    desc.className = 'prose prose-sm max-w-none text-gray-800';
+    desc.innerHTML = `<h3 class="text-lg font-semibold mb-1">Description</h3>
+                      <p>${p.description || ''}</p>`;
+
+    // CTAs
+    const ctas = document.createElement('div');
+    ctas.className = 'flex flex-wrap gap-3';
+    const call = document.createElement('a');
+    call.href = 'tel:+918652121984';
+    call.className = 'px-4 py-2 rounded bg-[#0f2b3d] text-white font-semibold hover:bg-[#15425c]';
+    call.textContent = 'Call Now';
+    const wa = document.createElement('a');
+    wa.href = 'https://wa.me/918652121984?text=I%20am%20interested%20in%20the%20property%20' + encodeURIComponent(String(p.id));
+    wa.target = '_blank';
+    wa.className = 'px-4 py-2 rounded bg-green-600 text-white font-semibold hover:bg-green-700';
+    wa.textContent = 'WhatsApp';
+    ctas.append(call, wa);
+
+    const wrapper = document.getElementById('content');
+    wrapper.innerHTML = '';
+    wrapper.append(galleryWrap, head, badges, info, desc, ctas);
+
+  } catch (e) {
+    console.error(e);
+    document.getElementById('content').innerHTML =
+      '<div class="text-red-600">Failed to load property.</div>';
+  }
+}
+
+loadDetails();
+</script>
+</body>
+</html>
