@@ -78,7 +78,7 @@ const INR = n => {
   if (isNaN(num)) return `₹${n}`;
   return num.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
 };
-
+/*
 // Build one media slide (image or video)
 function createMediaSlide(src, type) {
   const wrap = document.createElement('div');
@@ -88,7 +88,8 @@ function createMediaSlide(src, type) {
     const img = new Image();
     img.src = src;
     img.alt = 'Property image';
-    img.className = 'w-full h-full object-cover rounded-none';
+    // img.className = 'w-full h-full object-cover rounded-none';
+    img.className = 'w-full h-full object-contain rounded-none bg-black';
     // default 4:3, switch to 16:9 if wide
     wrap.classList.add('ratio-4-3');
     img.onload = () => {
@@ -125,6 +126,34 @@ function createMediaSlide(src, type) {
   }
   return wrap;
 }
+*/
+
+function createMediaSlide(src, type) {
+  const wrap = document.createElement('div');
+  wrap.className = 'relative w-full flex-shrink-0 snap-center bg-black h-80'; // black background + fixed height
+
+  if (type === 'image') {
+    const img = new Image();
+    img.src = src;
+    img.alt = 'Property image';
+    img.className = 'w-full h-full object-contain rounded-none';
+    wrap.appendChild(img);
+  } else {
+    const vid = document.createElement('video');
+    vid.src = src;
+    vid.preload = 'metadata';
+    vid.muted = true;
+    vid.playsInline = true;
+    vid.controls = true;
+    vid.className = 'w-full h-full object-contain rounded-none';
+    vid.addEventListener('mouseenter', () => vid.play());
+    vid.addEventListener('mouseleave', () => vid.pause());
+    wrap.appendChild(vid);
+  }
+
+  return wrap;
+}
+
 
 // Build a property card
 function propertyCard(p) {

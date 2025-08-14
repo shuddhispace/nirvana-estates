@@ -75,6 +75,46 @@ app.post('/admin/upload-property', upload.fields([
 });
 
 
+// Delete property by ID
+app.delete('/admin/delete-property/:id', (req, res) => {
+  const id = req.params.id;
+  const dataFile = 'data/properties.json';
+
+  if (!fs.existsSync(dataFile)) {
+    return res.status(404).json({ success: false, message: "No properties found" });
+  }
+
+  let properties = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
+  const propertyToDelete = properties.find(p => String(p.id) === id);
+
+  if (!propertyToDelete) {
+    return res.status(404).json({ success: false, message: "Property not found" });
+  }
+
+  // Remove uploaded images
+  if (propertyToDelete.images) {
+    propertyToDelete.images.forEach(imgPath => {
+      const fullPath = path.join(__dirname, 'public', imgPath.replace('/uploads/', 'uploads/'));
+      if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+    });
+  }
+
+  // Remove uploaded videos
+  if (propertyToDelete.videos) {
+    propertyToDelete.videos.forEach(videoPath => {
+      const fullPath = path.join(__dirname, 'public', videoPath.replace('/uploads/', 'uploads/'));
+      if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+    });
+  }
+
+  // Remove from JSON
+  properties = properties.filter(p => String(p.id) !== id);
+  fs.writeFileSync(dataFile, JSON.stringify(properties, null, 2));
+
+  res.json({ success: true, message: "Property deleted successfully" });
+});
+
+
 // 💌 Seller Form Route (Add Here)
 app.post("/submit-seller", async (req, res) => {
   const { name, phone, email, type, location, description } = req.body;

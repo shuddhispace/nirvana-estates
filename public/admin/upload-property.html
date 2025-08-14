@@ -86,6 +86,11 @@
 
       <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full text-lg font-semibold">Upload Property</button>
     </form>
+
+      <!-- Existing Properties -->
+    <h2 class="text-2xl font-bold mt-10 mb-4">Existing Properties</h2>
+    <div id="propertyList" class="grid gap-4"></div>
+
   </div>
 
   <script>
@@ -118,7 +123,53 @@
         videosPreview.appendChild(video);
       });
     });
+
+
+    // Fetch and display properties
+async function loadProperties() {
+  const res = await fetch('/data/properties.json');
+  const properties = await res.json();
+
+  const list = document.getElementById('propertyList');
+  list.innerHTML = '';
+
+  properties.forEach(p => {
+    const card = document.createElement('div');
+    card.className = "bg-white p-4 rounded shadow flex justify-between items-center";
+
+    const info = document.createElement('div');
+    info.innerHTML = `
+      <h3 class="font-bold">${p.title}</h3>
+      <p>${p.location} - ₹${p.price}</p>
+    `;
+
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete';
+    delBtn.className = 'bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700';
+    delBtn.onclick = async () => {
+      if (!confirm(`Delete property "${p.title}"?`)) return;
+      const res = await fetch(`/admin/delete-property/${p.id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        alert('Deleted successfully');
+        loadProperties();
+      } else {
+        alert('Error deleting property');
+      }
+    };
+
+    card.appendChild(info);
+    card.appendChild(delBtn);
+    list.appendChild(card);
+  });
+}
+
+// Load on page start
+loadProperties();
+
   </script>
+
+  
 
 </body>
 </html>

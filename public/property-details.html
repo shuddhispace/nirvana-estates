@@ -66,7 +66,7 @@ const INR = n => {
   if (isNaN(num)) return `₹${n}`;
   return num.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
 };
-
+/*
 function createSlide(src, type) {
   const wrap = document.createElement('div');
   wrap.className = 'relative w-full flex-shrink-0 snap-center';
@@ -98,7 +98,34 @@ function createSlide(src, type) {
     wrap.appendChild(vid);
   }
   return wrap;
+} */
+
+function createSlide(src, type) {
+  const wrap = document.createElement('div');
+  wrap.className = 'relative w-full flex-shrink-0 snap-center bg-black h-80'; // fixed height & black background
+
+  if (type === 'image') {
+    const img = new Image();
+    img.src = src;
+    img.alt = 'Property image';
+    img.className = 'w-full h-full object-contain';
+    wrap.appendChild(img);
+  } else {
+    const vid = document.createElement('video');
+    vid.src = src;
+    vid.preload = 'metadata';
+    vid.muted = true;
+    vid.playsInline = true;
+    vid.controls = true;
+    vid.className = 'w-full h-full object-contain';
+    vid.addEventListener('mouseenter', () => vid.play());
+    vid.addEventListener('mouseleave', () => vid.pause());
+    wrap.appendChild(vid);
+  }
+
+  return wrap;
 }
+
 
 async function loadDetails() {
   const params = new URLSearchParams(location.search);

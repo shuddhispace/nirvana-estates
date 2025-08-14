@@ -1,19 +1,35 @@
 [
   {
-    "id": 1755163171759,
+    "id": 1755166006070,
     "title": "2 bhk",
-    "price": "9000000",
+    "price": "9",
     "negotiable": true,
-    "location": "kand",
-    "bedrooms": 3,
-    "bathrooms": 2,
-    "description": "hfdhdh",
+    "location": "kan",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "description": "hdhd",
     "category": "buyers",
-    "carpetArea": "800",
-    "builtupArea": "1000",
+    "carpetArea": "8",
+    "builtupArea": "10",
     "images": [
-      "/uploads/images/1755163171671-2bhk.jpg",
-      "/uploads/images/1755163171720-WhatsApp.jpeg"
+      "/uploads/images/1755166006043-WhatsApp Image 2025-08-14 at 3.23.12 PM.jpeg"
+    ],
+    "videos": []
+  },
+  {
+    "id": 1755166322315,
+    "title": "2 bhk",
+    "price": "9",
+    "negotiable": true,
+    "location": "kan",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "description": "hdhd",
+    "category": "rentals",
+    "carpetArea": "8",
+    "builtupArea": "10",
+    "images": [
+      "/uploads/images/1755166322252-WhatsApp Image 2025-08-14 at 3.23.12 PM.jpeg"
     ],
     "videos": []
   }
