@@ -158,144 +158,101 @@
 <!-- FIRST HERO SECTION -->
 
 <!-- FIRST HERO SECTION -->
-
 <!-- FIRST HERO SECTION -->
-<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-  <!-- Background Image -->
-  <div class="absolute inset-0">
-    <img src="logo/hero-bg.png" alt="Mumbai Real Estate" class="w-full h-full object-cover" />
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-  </div>
+<section class="relative flex items-center justify-center text-center px-6 md:px-12 
+  min-h-[80vh] md:min-h-[88vh] pt-8 md:pt-12 pb-12 
+  bg-gradient-to-br from-[#0f2b3d] via-[#1a3b50] to-[#0f2b3d] overflow-hidden">
 
-  <!-- Content -->
-  <div class="relative z-10 max-w-3xl mx-auto px-6 md:px-12 py-16 space-y-8 text-white animate-fade-in">
-    
-    <!-- Headline -->
-    <h1 class="text-4xl md:text-6xl font-bold leading-tight text-yellow-300 drop-shadow-lg">
+  <!-- Subtle geometric overlay -->
+  <div class="absolute inset-0 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/geometry2.png')] opacity-10"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto space-y-5 animate-fade-in">
+    <!-- Main Title -->
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-md">
       NIRVANA ESTATES
     </h1>
 
     <!-- Subtitle -->
-    <p class="text-lg md:text-xl text-gray-200 italic">
+    <p class="text-base sm:text-lg md:text-xl text-yellow-400 font-medium italic drop-shadow">
       Trusted Real Estate Guidance Since 2007
     </p>
 
-    <!-- Glassmorphic Card -->
-    <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 md:p-8 rounded-2xl shadow-xl mt-6">
-      <p class="text-base md:text-lg text-gray-100 leading-relaxed">
-        Helping families buy, sell, and rent homes in <br class="hidden md:block">
-        Malad, Kandivali & Borivali (MaKaBo) with <br class="hidden md:block">
-        transparency and local expertise.
-      </p>
-    </div>
+    <!-- Description -->
+    <p class="text-sm sm:text-base md:text-lg text-gray-200 leading-relaxed max-w-2xl mx-auto px-2">
+      Helping families buy, sell, and rent homes in 
+      <span class="font-semibold text-yellow-300">Malad, Kandivali & Borivali (MaKaBo)</span> 
+      with transparency, integrity, and hyperlocal expertise.
+    </p>
 
-    <!-- CTA Buttons -->
-    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
-      <a href="tel:+917039199717"
-         class="w-full sm:w-auto bg-yellow-400 text-[#0f2b3d] px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-yellow-300 transition">
-         📞 Call Us: 7039199717
+    <!-- Buttons -->
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
+      <a href="tel:+91 7039199717"
+         class="w-full sm:w-auto bg-yellow-400 text-[#0f2b3d] font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-yellow-300 transition">
+         📞 Call Us
       </a>
       <a href="#listings"
-         class="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-blue-700 transition">
+         class="w-full sm:w-auto bg-white text-[#0f2b3d] font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-200 transition">
          🏡 View Listings
       </a>
     </div>
   </div>
 </section>
-
-
-<!-- Animations -->
-<style>
-  /* Background Zoom */
-  @keyframes slow-zoom {
-    from { transform: scale(1); }
-    to { transform: scale(1.15); }
-  }
-  .animate-slow-zoom {
-    animation: slow-zoom 20s ease-in-out infinite alternate;
-  }
-
-  /* Fade-up on scroll */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-
-<!-- Scroll Animation Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll(".fade-up");
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    elements.forEach(el => observer.observe(el));
-  });
-</script>
-
-
 <!-- SECOND HERO SECTION -->
-<!-- SECOND HERO SECTION -->
-<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-  <!-- Background Image -->
-  <div class="absolute inset-0">
-    <img src="logo/second-bg.png" alt="City Skyline" class="w-full h-full object-cover" />
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-  </div>
 
-  <!-- Content -->
-  <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-12 py-16 space-y-8 text-white animate-fade-in">
-    
-    <!-- Headline -->
-    <h2 class="text-3xl md:text-5xl font-bold leading-tight">
-      Investing in MaKaBo Isn’t Just Smart,<br class="hidden md:block"> 
-      It’s the Future of Mumbai Living
-    </h2>
+<section class="pt-24 min-h-screen bg-gradient-to-br from-white via-gray-100 to-blue-50 flex items-center justify-center px-6 md:px-16 text-center relative overflow-hidden">
+  <div class="w-full max-w-5xl mx-auto">
+    <!-- Swiper -->
+    <div class="swiper mySwiper w-full h-full">
+      <div class="swiper-wrapper">
 
-    <!-- Subtext -->
-    <p class="text-lg md:text-xl text-gray-200">
-      Malad, Kandivali & Borivali are not just suburbs—they’re Mumbai’s next growth belt.  
-      Metro connectivity, modern developments, and unmatched resale value make this the moment to invest.
-    </p>
-    
-    <!-- Feature Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-      <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 rounded-2xl shadow-xl hover:scale-105 transition">
-        <h3 class="text-xl font-semibold text-yellow-300 mb-3">🚇 Metro Advantage</h3>
-        <p class="text-gray-200 text-sm">Seamless connectivity linking MaKaBo with every corner of Mumbai.</p>
-      </div>
-      <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 rounded-2xl shadow-xl hover:scale-105 transition">
-        <h3 class="text-xl font-semibold text-yellow-300 mb-3">📈 High Resale Value</h3>
-        <p class="text-gray-200 text-sm">Properties here promise strong appreciation with time.</p>
-      </div>
-      <div class="bg-white bg-opacity-10 backdrop-blur-lg p-6 rounded-2xl shadow-xl hover:scale-105 transition">
-        <h3 class="text-xl font-semibold text-yellow-300 mb-3">🌆 Lifestyle Hub</h3>
-        <p class="text-gray-200 text-sm">Malls, schools, and entertainment spots just around the corner.</p>
-      </div>
-    </div>
+        <!-- Slide 1 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-[#0f2b3d] rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-white">LOOKING FOR YOUR DREAM HOME IN MaKaBo?</h2>
+            <p class="text-teal-300 italic mb-4">“WE GOT YOU”</p>
+            <p class="text-gray-200 mb-6">Discover verified listings, honest advice and local expertise with zero pressure. From site visits to keys-in-hand, we’re by your side.</p>
+            <a href="#properties" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">Explore Properties</a>
+          </div>
+        </div>
 
-    <!-- CTA Button -->
-    <div class="mt-12">
-      <a href="#contact" class="bg-yellow-400 text-[#0f2b3d] px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-yellow-300 transition">
-        📞 Book a Free Consultation
-      </a>
+        <!-- Slide 2 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-[#0f2b3d] rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-white">WHY MaKaBo?</h2>
+            <p class="text-teal-300 italic mb-4">“IT IS MUMBAI’s NEXT BIG GROWTH BELT”</p>
+            <p class="text-gray-200 mb-6">Connected by Metro, growing with infrastructure and rich in resale value, Malad, Kandivali, and Borivali are where smart investments live.</p>
+            <a href="#makabo" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">Know the Potential</a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-[#0f2b3d] rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-white">HOW NIRVANA ESTATES HELP YOU?</h2>
+            <p class="text-teal-300 italic mb-4">“NOT JUST AGENTS, WE’RE YOUR PROPERTY PARTNERS”</p>
+            <p class="text-gray-200 mb-6">We shortlist what fits you, handle the heavy lifting, and negotiate like it’s our own deal — cause finding the right home isn’t luck, it’s strategy.</p>
+            <a href="#how-we-work" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">How We Work</a>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide flex flex-col justify-center items-center min-h-screen px-4">
+          <div class="bg-[#0f2b3d] rounded-xl p-8 shadow-md max-w-2xl w-full animate-fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-white">LET’s TALK BEFORE YOU DECIDE</h2>
+            <p class="text-teal-300 italic mb-4">No spam, no pressure. Just real talk.</p>
+            <p class="text-gray-200 mb-6">Real estate advice tailored to your needs. Book a free one-on-one consultation today.</p>
+            <a href="#contact" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">Book Appointment</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination mt-4"></div>
     </div>
   </div>
 </section>
+
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
