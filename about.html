@@ -36,93 +36,92 @@
   </script>
 
   <!-- About Section -->
-<section class="pt-8 pb-12 bg-white" id="about">
+  
+<section class="relative pt-16 pb-20 bg-gradient-to-br from-white via-[#fdfcfb] to-[#f4f4f4]" id="about">
   <div class="max-w-6xl mx-auto px-4">
-    
-    <!-- Section Title -->
-    <div class="text-center">
-      <h3 class="text-2xl sm:text-3xl font-semibold mb-8 sm:mb-12 text-[#0f2b3d]">
+
+    <!-- Title -->
+    <div class="text-center mb-16 relative">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0f2b3d] tracking-tight">
         About Us
-      </h3>
+      </h2>
+      <p class="mt-3 text-base sm:text-lg md:text-xl text-[#0f2b3d]/70 italic">
+        Where Legacy Meets Local Expertise
+      </p>
+      <!-- Decorative underline -->
+      <div class="w-24 h-1 bg-yellow-400 mx-auto mt-4 rounded-full"></div>
     </div>
+<!-- Two Profiles (mobile-safe avatars) -->
+<div class="grid md:grid-cols-2 gap-y-14 md:gap-y-12 md:gap-x-10 mb-20">
+  <!-- Savitaben -->
+  <div class="relative bg-white/60 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl pt-16 p-8 text-center hover:shadow-yellow-400/30 transition overflow-visible">
+    <!-- Avatar pinned to top center (no negative margins) -->
+    <img
+      src="images/savitaben.webp"
+      alt="Savitaben Parmar"
+      class="absolute -top-12 left-1/2 -translate-x-1/2 w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full ring-4 ring-yellow-400 shadow-lg"
+      onerror="this.onerror=null;this.src='images/savitaben.jpg';"
+    />
+    <h3 class="mt-16 text-xl sm:text-2xl font-bold text-[#0f2b3d] mb-3">Savitaben Parmar</h3>
+    <p class="text-sm sm:text-base leading-relaxed text-[#0f2b3d]/80">
+      Since 2007, Savitaben has guided families with honesty and transparency. Her values of trust and
+      compassion remain the heart of Nirvana Estates.
+    </p>
+  </div>
 
-    <!-- Team Section -->
-    <div class="grid md:grid-cols-2 gap-8 sm:gap-12">
+  <!-- Nikunj -->
+  <div class="relative bg-white/60 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl pt-16 p-8 text-center hover:shadow-yellow-400/30 transition overflow-visible">
+    <!-- Avatar pinned to top center (no negative margins) -->
+    <img
+      src="images/nikunj.webp"
+      alt="Nikunj Parmar"
+      class="absolute -top-12 left-1/2 -translate-x-1/2 w-28 h-28 sm:w-36 sm:h-36 object-cover rounded-full ring-4 ring-yellow-400 shadow-lg"
+      onerror="this.onerror=null;this.src='images/nikunj.jpg';"
+    />
+    <h3 class="mt-16 text-xl sm:text-2xl font-bold text-[#0f2b3d] mb-3">Nikunj Parmar</h3>
+    <p class="text-sm sm:text-base leading-relaxed text-[#0f2b3d]/80">
+      Joining in 2014, Nikunj brought structure and a global vision. Modern strategies blend with tradition
+      to redefine real estate with integrity.
+    </p>
+  </div>
+</div>
 
-      <!-- Savitaben Parmar -->
-      <div class="bg-gradient-to-br from-[#0f2b3d] to-[#16384c] p-6 sm:p-8 rounded-2xl shadow-2xl hover:scale-105 transform transition duration-500 text-center">
-        <img src="images/savitaben.webp" alt="Savitaben Parmar" 
-             class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-yellow-400 shadow-xl mb-6 mx-auto hover:scale-110 transition duration-500">
-        <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 mb-4">Savitaben Parmar</h3>
-        <p class="text-sm sm:text-base leading-relaxed text-gray-200">
-          Since 2007, Savitaben has been guiding families in their real estate journeys with honesty
-          and transparency. Her values of trust and compassion continue to be the foundation of Nirvana Estates,
-          ensuring that every client feels understood and cared for throughout their journey.
-        </p>
-      </div>
+    <!-- Info Cards (3 equal) -->
+    <div class="grid lg:grid-cols-3 gap-10">
 
-      <!-- Nikunj Parmar -->
-      <div class="bg-gradient-to-br from-[#0f2b3d] to-[#16384c] p-6 sm:p-8 rounded-2xl shadow-2xl hover:scale-105 transform transition duration-500 text-center">
-        <img src="images/nikunj.webp" alt="Nikunj Parmar" 
-             class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-yellow-400 shadow-xl mb-6 mx-auto hover:scale-110 transition duration-500">
-        <h3 class="text-xl sm:text-2xl font-bold text-yellow-400 mb-4">Nikunj Parmar</h3>
-        <p class="text-sm sm:text-base leading-relaxed text-gray-200">
-          Joining in 2014, Nikunj has carried forward the same spirit of dedication while
-          bringing in a fresh perspective. His vision adds modern strategies and a global outlook,
-          making Nirvana Estates a bridge between tradition and progress, without ever losing sight
-          of the values that built its foundation.
-        </p>
-      </div>
-
-    </div>
-
-    <!-- Info Cards Section -->
-    <div class="mt-12 grid gap-8 sm:gap-12">
-      
       <!-- Our Story -->
-      <div class="bg-[#0f2b3d] p-6 sm:p-8 rounded-xl border border-white/10 shadow-lg text-center">
+      <div class="bg-gradient-to-br from-[#0f2b3d] to-[#132f45] rounded-2xl p-8 text-center shadow-xl hover:scale-105 hover:shadow-yellow-400/30 transition">
         <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-yellow-400">Our Story</h3>
-        <p class="mb-4 text-sm sm:text-base leading-relaxed text-gray-200 max-w-prose mx-auto">
-          Nirvana Estates isn’t just another real estate consultancy—it’s the evolution of a legacy that began in 2007, when Savitaben Parmar laid the foundation with a mission to help people find homes they truly belong in.
+        <p class="text-sm sm:text-base leading-relaxed text-gray-200 mb-4">
+          Nirvana Estates isn’t just another real estate consultancy—it’s a legacy since 2007, rooted in values and transparency.
         </p>
-        <p class="mb-4 text-sm sm:text-base leading-relaxed text-gray-200 max-w-prose mx-auto">
-          What started as a humble, trust-based venture has grown into a modern, full-spectrum real estate advisory rooted in values, transparency, and deep local insight—led today by her son, Nikunj Parmar.
-        </p>
-        <p class="mb-4 text-sm sm:text-base leading-relaxed text-gray-200 max-w-prose mx-auto">
-          While most realtors begin with sales, Nikunj began with structure. A Civil Engineer by education and a Canada-trained Project Manager, he has been immersed in real estate since 2014. His journey spans layout plans, building approvals, buyer psychology, market cycles, and international work with custom home builders and consultants.
-        </p>
-        <p class="italic text-sm sm:text-base text-gray-300 max-w-prose mx-auto">
-          “To bring structure, integrity, and professionalism to MaKaBo’s unorganised real estate market.”
-        </p>
+        <p class="italic text-sm text-gray-300">“Structure, integrity & professionalism for MaKaBo.”</p>
       </div>
 
       <!-- Why MaKaBo -->
-      <div class="bg-[#0f2b3d] p-6 sm:p-8 rounded-xl border border-white/10 shadow-lg text-center">
+      <div class="bg-gradient-to-br from-[#0f2b3d] to-[#132f45] rounded-2xl p-8 text-center shadow-xl hover:scale-105 hover:shadow-yellow-400/30 transition">
         <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-yellow-400">Why MaKaBo?</h3>
-        <p class="mb-4 text-sm sm:text-base leading-relaxed text-gray-200 max-w-prose mx-auto">
-          We specialize in Malad, Kandivali, and Borivali not just because we know every corner, but because this zone represents the true heart of Mumbai: livable, well-connected, and full of long-term value.
-        </p>
-        <p class="text-sm sm:text-base leading-relaxed text-gray-200 max-w-prose mx-auto">
-          Whether you’re buying your first house or selling a legacy flat, Nirvana Estates ensures you make the move with clarity and confidence.
+        <p class="text-sm sm:text-base leading-relaxed text-gray-200">
+          Malad, Kandivali & Borivali — not just known, but lived. The true heart of Mumbai, with lasting value and vibrant communities.
         </p>
       </div>
 
       <!-- What We Stand For -->
-      <div class="bg-[#0f2b3d] p-6 sm:p-8 rounded-xl border border-white/10 shadow-lg text-center">
-        <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-yellow-400">What We Stand For</h3>
-        <ul class="list-disc list-inside space-y-2 text-gray-200 inline-block text-left text-sm sm:text-base">
-          <li>Transparent Dealing, Always</li>
-          <li>No Pushy Sales, Just Honest Advice</li>
-          <li>Hyperlocal Expertise That Works for You</li>
-          <li>Personalized Service, Right to Your Doorstep</li>
-          <li>Guidance from Listing to Loan to Legal</li>
-        </ul>
-      </div>
+      <!-- What We Stand For -->
+<div class="bg-gradient-to-br from-[#0f2b3d] to-[#132f45] rounded-2xl p-8 text-center shadow-xl hover:scale-105 hover:shadow-yellow-400/30 transition">
+  <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-yellow-400">What We Stand For</h3>
+  <ul class="space-y-2 text-gray-200 text-sm sm:text-base text-left inline-block">
+    <li class="flex items-start gap-2"><span>✔</span> Transparent Dealing</li>
+    <li class="flex items-start gap-2"><span>✔</span> Honest Advice</li>
+    <li class="flex items-start gap-2"><span>✔</span> Hyperlocal Expertise</li>
+    <li class="flex items-start gap-2"><span>✔</span> Personalized Service</li>
+    <li class="flex items-start gap-2"><span>✔</span> End-to-End Guidance</li>
+  </ul>
+</div>
 
     </div>
   </div>
 </section>
-
 
 
 </body>
