@@ -1,0 +1,72 @@
+<!-- footer.html -->
+<footer class="bg-gradient-to-br from-[#0f2b3d] to-[#1a3b52] text-white py-12">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+
+    <!-- Top Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+      <!-- Brand -->
+      <div>
+        <h2 class="text-2xl font-extrabold tracking-wide text-yellow-400">NIRVANA ESTATES</h2>
+        <p class="mt-3 text-gray-300 text-sm leading-relaxed">
+          Redefining property decisions with ethics, expertise, and experience.  
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 text-yellow-400">Quick Links</h3>
+        <nav class="flex flex-col space-y-2 text-sm md:text-base text-gray-300">
+          <a href="/buyers.html" class="hover:text-yellow-400 relative group">
+            FOR BUYERS <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="/sellers.html" class="hover:text-yellow-400 relative group">
+            FOR SELLERS <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="/rentals.html" class="hover:text-yellow-400 relative group">
+            FOR RENTALS <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="/our-edge.html" class="hover:text-yellow-400 relative group">
+            OUR EDGE <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="/contact.html" class="hover:text-yellow-400 relative group">
+            CONTACT <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="/about.html" target="_blank" rel="noopener noreferrer" class="hover:text-yellow-400 relative group">
+            ABOUT US <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all group-hover:w-full"></span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Contact + Social -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 text-yellow-400">Connect</h3>
+        <p class="text-sm text-gray-300">nirvanaestates@gmail.com</p>
+        <div class="flex gap-4 mt-4">
+          <!-- WhatsApp -->
+          <a href="https://wa.me/917039199717" target="_blank" class="hover:scale-110 transition-transform">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="w-12 h-12 rounded-lg shadow-lg">
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/nirvanaestates.mumbai" target="_blank" class="hover:scale-110 transition-transform">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" class="w-12 h-12 rounded-lg shadow-lg">
+          </a>
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/share/1B7T6rgphd" target="_blank" class="hover:scale-110 transition-transform">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook" class="w-12 h-12 rounded-lg shadow-lg">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-400 text-sm">
+      © <span id="year"></span> Nirvana Estates. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Auto-update year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>

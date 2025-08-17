@@ -39,15 +39,14 @@
 
 
   <!-- Hero Section -->
-  <section class="relative pt-14 pb-12 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-center">
-    <div class="max-w-3xl mx-auto px-4">
-      <h1 class="text-3xl sm:text-5xl font-extrabold mb-4 text-[#0f2b3d] uppercase">Our Edge</h1>
-      <p class="text-base sm:text-lg md:text-xl text-gray-600 italic">
-        What sets Nirvana Estates apart in the MaKaBo property market
-      </p>
-      <div class="w-20 sm:w-24 h-1 bg-yellow-400 mx-auto mt-6 rounded-full"></div>
-    </div>
-  </section>
+<section class="relative pt-14 pb-12 bg-gradient-to-br from-white via-gray-50 to-gray-100 text-center">
+  <div class="max-w-3xl mx-auto px-4">
+    <h1 class="text-3xl sm:text-5xl font-extrabold text-[#0f2b3d] uppercase">
+      Our Edge
+    </h1>
+  </div>
+</section>
+
 
   <!-- SECTION 1: WHY MAKABO -->
   <section class="py-16 bg-gradient-to-br from-[#0f2b3d] to-[#16384c] text-white">
@@ -190,6 +189,16 @@
   </div>
 </section>
 
+<!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Footer Loader Script -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+      .catch(err => console.error('Failed to load footer:', err));
+  </script>
 
 </body>
 </html>

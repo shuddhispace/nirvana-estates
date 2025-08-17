@@ -113,12 +113,13 @@
         <p class="mb-4">We’re not building a brokerage firm. We’re building trust, one deal at a time.</p>
         <p class="mb-4">Whether you’re searching for your dream home or selling the one you’ve outgrown, Nirvana Estates is here to guide you—not just as consultants, but as people who’ve walked the journey from both sides.</p>
 
-        <div class="mt-6">
-          <p class="font-semibold flex items-center gap-2">👤 Nikunj Parmar</p>
-          <p class="text-sm text-white/80">Founder, Nirvana Estates</p>
-          <p class="text-sm text-white/80">Civil Engineer | Canada-trained Project Manager | Realtor since 2014</p>
-          <p class="mt-2 italic border-l-4 border-yellow-400 pl-4">“My goal is to make real estate feel less like a gamble and more like an informed decision backed by experience and ethics.”</p>
-        </div>
+<div class="mt-6">
+  <h4 class="font-bold text-yellow-400 uppercase mb-2">Mission</h4>
+  <p class="mt-2 italic border-l-4 border-yellow-400 pl-4">
+    “Our goal is to make real estate feel less like a gamble and more like an informed decision backed by experience and ethics.”
+  </p>
+</div>
+
 
         <!-- Profiles Section -->
         <div class="mt-12 space-y-8">
@@ -159,6 +160,17 @@
       </div>
     </div>
   </section>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Footer Loader Script -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+      .catch(err => console.error('Failed to load footer:', err));
+  </script>
 
 </body>
 </html>
