@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Properties - Nirvana Estates</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card { transition: transform .2s, box-shadow .2s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,.35); color:#fff; padding:.35rem .55rem; border-radius:.5rem;
+    }
+    .nav-btn:hover { background: rgba(0,0,0,.6); }
+    .nav-left { left: .25rem; }
+    .nav-right { right: .25rem; }
+    .card img, 
+    .card video {
+  border-radius: 0.75rem 0.75rem 0 0; /* rounded top corners */
+}
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header -->
+<div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+    .then(r => r.text())
+    .then(d => {
+      document.getElementById('header-placeholder').innerHTML = d;
+      const toggleBtn = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (toggleBtn && mobileMenu) {
+        toggleBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+      }
+    });
+</script>
+
+<main class="max-w-6xl mx-auto px-4 py-8">
+  <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-10 text-center">OUR PROPERTIES</h1>
+
+  <!-- Buyers Section -->
+  <section class="mb-14">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-l-4 border-[#0f2b3d] pl-3">For Buyers</h2>
+    <div id="buyers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- Rentals Section -->
+  <section>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-l-4 border-green-600 pl-3">For Rentals</h2>
+    <div id="rentals-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+</main>
+
+<!-- Floating Call button -->
+<a href="tel:+918652121984"
+   class="fixed bottom-4 right-4 z-50 bg-[#0f2b3d] text-white px-4 py-3 rounded-full shadow-lg font-semibold">
+  📞 Call Now
+</a>
+
+<script>
+const INR = n => {
+  const num = Number(n);
+  return isNaN(num) ? `₹${n}` : num.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+};
+function createMediaSlide(src, type) {
+  const wrap = document.createElement('div');
+  wrap.className = 'relative w-full flex-shrink-0 snap-center h-64 md:h-72 bg-gray-200 overflow-hidden rounded-t-xl';
+
+  if (type === 'image') {
+    const img = new Image();
+    img.src = src;
+    img.alt = 'Property image';
+    img.className = 'absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105';
+    wrap.appendChild(img);
+  } else {
+    const vid = document.createElement('video');
+    vid.src = src;
+    vid.muted = true;
+    vid.playsInline = true;
+    vid.controls = true;
+    vid.className = 'absolute inset-0 w-full h-full object-cover';
+    wrap.appendChild(vid);
+  }
+  return wrap;
+}
+
+function propertyCard(p) {
+  const card = document.createElement('article');
+  card.className = 'card bg-white rounded-xl overflow-hidden shadow';
+
+  const mediaTrack = document.createElement('div');
+  mediaTrack.className = 'relative w-full overflow-x-auto flex gap-2 no-scrollbar snap-x snap-mandatory';
+
+  const mediaInner = document.createElement('div');
+  mediaInner.className = 'flex gap-2';
+
+  const allMedia = [
+    ...(Array.isArray(p.images) ? p.images.map(s => ({src:s, type:'image'})) : []),
+    ...(Array.isArray(p.videos) ? p.videos.map(s => ({src:s, type:'video'})) : [])
+  ];
+
+  if (allMedia.length === 0) {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'h-72 flex items-center justify-center text-gray-500 bg-gray-200 w-full';
+    placeholder.textContent = 'No media';
+    mediaTrack.appendChild(placeholder);
+  } else {
+    allMedia.forEach(m => mediaInner.appendChild(createMediaSlide(m.src, m.type)));
+    mediaTrack.appendChild(mediaInner);
+  }
+  card.appendChild(mediaTrack);
+
+  const body = document.createElement('div');
+  body.className = 'p-4 flex flex-col gap-2';
+
+  const headerRow = document.createElement('div');
+  headerRow.className = 'flex justify-between';
+  const title = document.createElement('h3');
+  title.className = 'text-lg font-semibold';
+  title.textContent = p.title || 'Property';
+  const price = document.createElement('span');
+  price.className = 'text-[#0f2b3d] font-bold';
+  price.textContent = INR(p.price);
+  headerRow.append(title, price);
+
+  const sub = document.createElement('p');
+  sub.className = 'text-sm text-gray-600';
+  sub.textContent = `${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} | Built-up: ${p.builtupArea} | ${p.location}`;
+
+  const badgeRow = document.createElement('div');
+  if (p.negotiable) {
+    const badge = document.createElement('span');
+    badge.className = 'bg-green-600 text-white text-xs px-2 py-1 rounded';
+    badge.textContent = 'Negotiable';
+    badgeRow.appendChild(badge);
+  }
+
+  const ctaRow = document.createElement('div');
+  ctaRow.className = 'mt-2 flex gap-2';
+  const details = document.createElement('a');
+  details.href = `property-details.html?id=${p.id}`;
+  details.className = 'px-3 py-2 rounded bg-[#0f2b3d] text-white text-sm font-semibold hover:bg-[#15425c]';
+  details.textContent = 'View Details';
+  const call = document.createElement('a');
+  call.href = 'tel:+918652121984';
+  call.className = 'px-3 py-2 rounded bg-green-600 text-white text-sm font-semibold hover:bg-green-700';
+  call.textContent = 'Call';
+  ctaRow.append(details, call);
+
+  body.append(headerRow, sub, badgeRow, ctaRow);
+  card.appendChild(body);
+
+  return card;
+}
+
+async function load() {
+  try {
+    const res = await fetch('/data/properties.json');
+    const list = await res.json();
+    const buyersGrid = document.getElementById('buyers-grid');
+    const rentalsGrid = document.getElementById('rentals-grid');
+
+    buyersGrid.innerHTML = '';
+    rentalsGrid.innerHTML = '';
+
+    list.forEach(p => {
+      if ((p.category || '').toLowerCase() === 'buyers') {
+        buyersGrid.appendChild(propertyCard(p));
+      }
+      if ((p.category || '').toLowerCase() === 'rentals') {
+        rentalsGrid.appendChild(propertyCard(p));
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+load();
+</script>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch('footer.html')
+    .then(r => r.text())
+    .then(d => document.getElementById('footer-placeholder').innerHTML = d);
+</script>
+
+</body>
+</html>
