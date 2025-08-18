@@ -156,6 +156,7 @@
 
 </script>
 <!-- FIRST HERO SECTION -->
+
 <section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden px-4 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 lg:py-28">
   <!-- Background -->
   <div class="absolute inset-0 overflow-hidden">
@@ -182,7 +183,7 @@
     <!-- Logo -->
     <div class="flex justify-center">
       <img src="logo/logo.png" alt="Nirvana Estates Logo"
-           class="w-44 sm:w-56 md:w-64 lg:w-72 drop-shadow-2xl animate-float"/>
+           class="w-36 sm:w-44 md:w-52 lg:w-60 drop-shadow-2xl animate-float"/>
     </div>
 
     <!-- Subtitle -->
@@ -205,15 +206,39 @@
          class="w-full sm:w-auto bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 hover:shadow-purple-500/50 transition-transform">
          📞 Call Us: 7039199717
       </a>
-      <a href="#listings"
+      <button id="openModal"
          class="w-full sm:w-auto bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 hover:shadow-purple-500/50 transition-transform">
          🏡 View Listings
-      </a>
+      </button>
     </div>
   </div>
 </section>
 
-<!-- Animations + Aurora + Parallax + Starfield -->
+<!-- Modal -->
+<div id="listingsModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 backdrop-blur-sm z-50">
+  <div class="modal-box relative bg-white/10 backdrop-blur-2xl p-8 rounded-2xl shadow-2xl w-11/12 sm:w-96 animate-fade-in">
+    <!-- Close Button -->
+    <button id="closeModal" class="absolute top-3 right-3 text-white text-xl hover:text-red-400">✖</button>
+    
+    <h2 class="text-white text-xl font-semibold mb-6 text-center">✨ Choose Your Path ✨</h2>
+    
+    <div class="flex flex-col sm:flex-row gap-4">
+      <!-- Buy Button -->
+      <a href="buyers.html" 
+         class="neon-btn flex-1 bg-gradient-to-r from-green-400 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold text-lg text-center overflow-hidden relative">
+         🏠 Buy
+         <span class="shine"></span>
+      </a>
+      <!-- Rent Button -->
+      <a href="rental.html" 
+         class="neon-btn flex-1 bg-gradient-to-r from-blue-400 to-indigo-600 text-white px-6 py-3 rounded-xl font-bold text-lg text-center overflow-hidden relative">
+         🏘 Rent
+         <span class="shine"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <style>
   /* Floating Logo */
   @keyframes float {
@@ -255,10 +280,90 @@
     will-change: transform;
     transition: transform 0.2s ease-out;
   }
+
+  /* Neon Modal Glow */
+  .modal-box {
+    box-shadow: 0 0 25px rgba(0,255,200,0.3), 0 0 45px rgba(255,0,200,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .modal-box::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, #0ff, #f0f, #ff0, #0ff);
+    background-size: 300% 300%;
+    animation: glowMove 12s infinite linear;
+    filter: blur(16px);
+    opacity: 0.4;
+    z-index: -1;
+  }
+  @keyframes glowMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Neon Button */
+  .neon-btn {
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 0 10px rgba(255,255,255,0.1);
+    animation: pulse 3s infinite ease-in-out;
+  }
+  .neon-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg, #0ff, #f0f, #ff0, #0ff);
+    background-size: 400% 400%;
+    animation: neonGlow 6s infinite linear;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  @keyframes neonGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Pulse */
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+    50% { box-shadow: 0 0 35px rgba(0,255,255,0.5), 0 0 55px rgba(255,0,255,0.3); }
+  }
+
+  /* Hover Effects */
+  .neon-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 0 25px rgba(0,255,255,0.6), 0 0 45px rgba(255,0,255,0.4);
+  }
+
+  /* Shine Effect */
+  .shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+    transform: skewX(-20deg);
+    animation: shineMove 4s infinite;
+  }
+  @keyframes shineMove {
+    0% { left: -100%; }
+    50% { left: 120%; }
+    100% { left: 120%; }
+  }
 </style>
 
 <script>
-  // Parallax effect for background
+  // Parallax effect
   document.addEventListener("mousemove", (e) => {
     const bg = document.querySelector(".parallax-bg");
     if(bg){
@@ -268,7 +373,7 @@
     }
   });
 
-  // Starry Sky Canvas
+  // Starfield
   const canvas = document.getElementById("starfield");
   const ctx = canvas.getContext("2d");
   let stars = [];
@@ -292,7 +397,6 @@
       ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
       ctx.fill();
-
       star.y += star.speed;
       if (star.y > canvas.height) {
         star.y = 0;
@@ -305,167 +409,291 @@
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
   animateStars();
+
+  // Modal Logic
+  const openModal = document.getElementById("openModal");
+  const closeModal = document.getElementById("closeModal");
+  const listingsModal = document.getElementById("listingsModal");
+
+  openModal.addEventListener("click", () => {
+    listingsModal.classList.remove("hidden");
+    listingsModal.classList.add("flex");
+  });
+
+  closeModal.addEventListener("click", () => {
+    listingsModal.classList.add("hidden");
+    listingsModal.classList.remove("flex");
+  });
+
+  window.addEventListener("click", (e) => {
+    if(e.target === listingsModal){
+      listingsModal.classList.add("hidden");
+      listingsModal.classList.remove("flex");
+    }
+  });
 </script>
+
+
 <!-- SECOND HERO SECTION -->
 
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 <section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-  <!-- Background Image -->
-  <div class="absolute inset-0">
-    <img src="logo/second-bg.png" alt="City Skyline" class="w-full h-full object-cover animate-slow-zoom brightness-110 contrast-110" />
+  <!-- Background Image (won't block clicks) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <img src="logo/second-bg.png" alt="City Skyline"
+      class="w-full h-full object-cover animate-slow-zoom brightness-110 contrast-110" />
     <div class="absolute inset-0 bg-black/60"></div>
   </div>
 
   <!-- Swiper Container -->
-  <div class="relative z-10 w-full max-w-5xl mx-auto px-4 md:px-12 py-12 md:py-20">
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-12 py-12 md:py-20">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
 
         <!-- Slide 1 -->
-        <div class="swiper-slide flex justify-center items-center">
-          <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
-            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">LOOKING FOR YOUR DREAM HOME?</h2>
-            <p class="text-teal-300 italic mb-3 slide-up-delay">“WE GOT YOU”</p>
-            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
-              Discover verified listings, honest advice and local expertise with zero pressure. 
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">LOOKING FOR YOUR DREAM HOME?</h2>
+            <p class="text-teal-300 italic mb-3">“WE GOT YOU”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              Discover verified listings, honest advice and local expertise with zero pressure.
               From site visits to keys-in-hand, we’re by your side.
             </p>
 
-            <!-- Dropdown Button -->
-            <div class="relative inline-block text-left group">
-              <button 
-                onclick="toggleDropdown()" 
-                class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3 focus:outline-none w-full">
+            <!-- Explore Properties -->
+            <div class="relative inline-block">
+              <button id="exploreBtn"
+                class="bg-yellow-400 text-[#0f2b3d] px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
                 EXPLORE PROPERTIES
               </button>
 
-              <!-- Dropdown Menu -->
-              <div id="dropdownMenu" 
-                class="absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg opacity-0 invisible transition duration-300 z-20 group-hover:opacity-100 group-hover:visible">
-                <a href="buyers.html" class="block px-4 py-2 text-sm font-semibold text-[#0f2b3d] hover:bg-yellow-100 rounded-t-xl">Buy</a>
-                <a href="rentals.html" class="block px-4 py-2 text-sm font-semibold text-[#0f2b3d] hover:bg-yellow-100 rounded-b-xl">Rent</a>
+              <!-- Desktop Dropdown (animated) -->
+              <div id="dropdownMenu"
+                   class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50
+                          opacity-0 scale-95 pointer-events-none will-change-transform will-change-opacity">
+                <a href="buyers.html"
+                  class="block px-6 py-4 text-lg font-semibold text-[#0f2b3d] hover:bg-yellow-100">🏠 Buy</a>
+                <a href="rentals.html"
+                  class="block px-6 py-4 text-lg font-semibold text-[#0f2b3d] hover:bg-teal-100">🏢 Rent</a>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Slide 2 -->
-        <div class="swiper-slide flex justify-center items-center">
-          <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
-            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">WHY MaKaBo?</h2>
-            <p class="text-teal-300 italic mb-3 slide-up-delay">“MUMBAI’S NEXT BIG GROWTH BELT”</p>
-            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
-              Connected by Metro, rich infrastructure and excellent resale value — 
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">WHY MaKaBo?</h2>
+            <p class="text-teal-300 italic mb-3">“MUMBAI’S NEXT BIG GROWTH BELT”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              Connected by Metro, rich infrastructure and excellent resale value —
               Malad, Kandivali & Borivali are where smart investments thrive.
             </p>
-            <a href="our-edge.html#our-edge-section1" 
-              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3">
+            <a href="our-edge.html#our-edge-section1"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
               KNOW THE POTENTIAL
             </a>
           </div>
         </div>
 
         <!-- Slide 3 -->
-        <div class="swiper-slide flex justify-center items-center">
-          <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
-            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">HOW WE HELP YOU?</h2>
-            <p class="text-teal-300 italic mb-3 slide-up-delay">“NOT JUST AGENTS, PROPERTY PARTNERS”</p>
-            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
-              We shortlist what fits you, handle all heavy lifting, and negotiate like it’s our own deal. 
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">HOW WE HELP YOU?</h2>
+            <p class="text-teal-300 italic mb-3">“NOT JUST AGENTS, PROPERTY PARTNERS”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              We shortlist what fits you, handle all heavy lifting, and negotiate like it’s our own deal.
               Because finding the right home isn’t luck, it’s strategy.
             </p>
-            <a href="our-edge.html#our-edge-section2" class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3">HOW WE WORKS</a>
+            <a href="our-edge.html#our-edge-section2"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
+              HOW WE WORK
+            </a>
           </div>
         </div>
 
         <!-- Slide 4 -->
-        <div class="swiper-slide flex justify-center items-center">
-          <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
-            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">LET’S TALK BEFORE YOU DECIDE</h2>
-            <p class="text-teal-300 italic mb-3 slide-up-delay">“NO SPAM. NO PRESSURE.”</p>
-            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
-              Real estate advice tailored to your needs. 
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">LET’S TALK BEFORE YOU DECIDE</h2>
+            <p class="text-teal-300 italic mb-3">“NO SPAM, NO PRESSURE.”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              Real estate advice tailored to your needs.
               Book a free one-on-one consultation today.
             </p>
-            <a href="#contact" class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3">BOOK APPOINTMENT</a>
+            <a href="contact.html"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
+              BOOK APPOINTMENT
+            </a>
           </div>
         </div>
 
       </div>
 
-      <!-- Pagination -->
+      <!-- Pagination + Navigation -->
       <div class="swiper-pagination mt-6"></div>
-      <div class="swiper-button-next text-yellow-300"></div>
-      <div class="swiper-button-prev text-yellow-300"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </div>
 </section>
 
+<!-- Mobile Modal -->
+<div id="mobileModal"
+  class="fixed inset-0 bg-black/80 backdrop-blur-xl hidden z-50 flex items-center justify-center p-6">
+  <div class="bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center space-y-6 animate-fade-in">
+    <h3 class="text-yellow-300 text-2xl font-bold mb-4">Explore Properties</h3>
+
+    <a href="buyers.html"
+      class="block w-full py-4 rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-[#0f2b3d] font-bold text-xl shadow-lg hover:scale-105 transform transition">
+      🏠 Buy
+    </a>
+    <a href="rentals.html"
+      class="block w-full py-4 rounded-2xl bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold text-xl shadow-lg hover:scale-105 transform transition">
+      🏢 Rent
+    </a>
+
+    <button id="closeModal"
+      class="mt-6 px-6 py-2 rounded-full border border-gray-300 text-gray-200 hover:bg-white/20 transition">
+      ✖ Close
+    </button>
+  </div>
+</div>
+
 <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
 <script>
-  const swiper = new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: { delay: 6000, disableOnInteraction: false },
-    pagination: { el: ".swiper-pagination", clickable: true },
-    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-    grabCursor: true,
-    touchRatio: 1.2,
-    threshold: 10,
-  });
+  document.addEventListener("DOMContentLoaded", () => {
+    const exploreBtn   = document.getElementById("exploreBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const mobileModal  = document.getElementById("mobileModal");
+    const closeModal   = document.getElementById("closeModal");
 
-  function toggleDropdown() {
-    const menu = document.getElementById("dropdownMenu");
-    if (window.innerWidth <= 768) { // Mobile: toggle by click
-      menu.classList.toggle("opacity-100");
-      menu.classList.toggle("visible");
-      menu.classList.toggle("opacity-0");
-      menu.classList.toggle("invisible");
-    }
-  }
+    // Helpers for animated dropdown
+    const showDropdown = () => {
+      dropdownMenu.classList.remove("opacity-0","scale-95","pointer-events-none","dropdown-out");
+      dropdownMenu.classList.add("dropdown-in");
+    };
+    const hideDropdown = () => {
+      dropdownMenu.classList.remove("dropdown-in");
+      dropdownMenu.classList.add("dropdown-out");
+    };
 
-  // Close dropdown if clicked outside
-  document.addEventListener("click", function(e) {
-    const button = e.target.closest("button");
-    const menu = document.getElementById("dropdownMenu");
-    if (!e.target.closest("#dropdownMenu") && !button) {
-      menu.classList.remove("opacity-100", "visible");
-      menu.classList.add("opacity-0", "invisible");
-    }
+    // Toggle Explore Properties
+    exploreBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (window.innerWidth >= 768) {
+        // if hidden (opacity-0), show; else hide
+        if (dropdownMenu.classList.contains("opacity-0")) {
+          showDropdown();
+        } else {
+          hideDropdown();
+        }
+      } else {
+        mobileModal.classList.remove("hidden");
+      }
+      
+    });
+
+    // Close dropdown when clicking outside (desktop)
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth >= 768) {
+        if (!exploreBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+          if (!dropdownMenu.classList.contains("opacity-0")) hideDropdown();
+        }
+      }
+    });
+
+    // Close mobile modal
+    closeModal.addEventListener("click", () => {
+      mobileModal.classList.add("hidden");
+    });
+    mobileModal.addEventListener("click", (e) => {
+      if (e.target === mobileModal) mobileModal.classList.add("hidden");
+    });
+
+    // Hide dropdown after exit animation completes
+    dropdownMenu.addEventListener("animationend", (e) => {
+      if (e.animationName === "dropdownOut") {
+        dropdownMenu.classList.add("opacity-0","scale-95","pointer-events-none");
+      }
+    });
+
+    // Swiper Init
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      speed: 600,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    });
   });
 </script>
 
+<!-- Animations + Fixes -->
 <style>
-  @keyframes slow-zoom { from { transform: scale(1);} to { transform: scale(1.15);} }
-  .animate-slow-zoom { animation: slow-zoom 25s ease-in-out infinite alternate; }
+  /* Card fade-in */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+  .animate-fade-in { animation: fadeIn 0.4s ease-out; }
 
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
-  .animate-fade-in { animation: fadeIn 1.2s ease-in-out; }
+  /* ✅ Keep dropdown visible even inside Swiper */
+  .swiper, .swiper-wrapper, .swiper-slide { overflow: visible !important; }
 
-  @keyframes floating { 0% { transform: translateY(0);} 50% { transform: translateY(-8px);} 100% { transform: translateY(0);} }
-  .floating-card { animation: floating 6s ease-in-out infinite; }
-
-  @keyframes slideUp { from { opacity: 0; transform: translateY(40px);} to { opacity: 1; transform: translateY(0);} }
-  .slide-up { animation: slideUp 0.8s ease-out forwards; }
-  .slide-up-delay { animation: slideUp 1s ease-out forwards; animation-delay: 0.3s; opacity: 0; }
-  .slide-up-delay-2 { animation: slideUp 1.2s ease-out forwards; animation-delay: 0.6s; opacity: 0; }
-  .slide-up-delay-3 { animation: slideUp 1.4s ease-out forwards; animation-delay: 0.9s; opacity: 0; }
-
-  .swiper-button-next, .swiper-button-prev { color: #facc15; font-weight: bold; transition: transform 0.2s ease; }
-  .swiper-button-next:hover, .swiper-button-prev:hover { transform: scale(1.2); }
-
-  @media (max-width: 768px) {
-    .swiper-button-next, .swiper-button-prev { display: none !important; }
+  /* ✅ Perfect centering for every slide */
+  .mySwiper .swiper-slide {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 0.25rem; /* tiny padding to avoid arrow overlap */
   }
 
-  .swiper-slide { display: flex; justify-content: center; align-items: center; }
-  .swiper-slide > div { min-height: 420px; }
-  @media (max-width: 768px) { .swiper-slide > div { min-height: 320px; } }
-
-  #dropdownMenu a { transition: background 0.2s ease; }
-  @media (max-width: 768px) {
-    #dropdownMenu { width: 100%; left: 0; transform: none; }
+  /* ✅ Make arrows/pagination visible & clickable */
+  .mySwiper { 
+    --swiper-navigation-color: #fde047; /* yellow-300 */
+    --swiper-pagination-color: #fde047;
+    position: relative;
   }
+  .mySwiper .swiper-button-next,
+  .mySwiper .swiper-button-prev {
+    z-index: 30; /* above cards */
+  }
+
+  /* 🔥 Dropdown animations */
+  @keyframes dropdownIn {
+    0%   { opacity: 0; transform: translateY(-6px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+  @keyframes dropdownOut {
+    0%   { opacity: 1; transform: translateY(0)    scale(1); }
+    100% { opacity: 0; transform: translateY(-6px) scale(0.96); }
+  }
+  .dropdown-in  { animation: dropdownIn 160ms ease-out forwards; }
+  .dropdown-out { animation: dropdownOut 140ms ease-in  forwards; }
+/* ✅ Force all slider cards to same size */
+.mySwiper .swiper-slide > div {
+  height: 100%;
+  min-height: 420px;   /* same base height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* For larger screens, ensure equal alignment */
+@media (min-width: 768px) {
+  .mySwiper .swiper-slide > div {
+    min-height: 480px; /* taller but uniform on desktop */
+  }
+}
+
+
 </style>
 
 

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nirvana Estates - Trusted Real Estate in Malad, Kandivali & Borivali (MaKaBo). Buy, Sell, Rent with experts.">
+  <title>Nirvana Estates</title>
+
+  <!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Alpine.js for reactivity -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+  <style>
+    @keyframes fade-in {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 1s ease-out forwards;
+    }
+    [id] {
+        scroll-margin-top: 6rem; /* height of your header */
+    }
+    html {
+  scroll-behavior: smooth;
+}
+  </style>
+  <!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+
+    <!-- HEADER START -->
+     
+<!--     
+<header class="bg-[#0f2b3d] text-white shadow-md sticky top-0 z-50">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="h-16 md:h-20 flex items-center w-full">
+
+      
+      <div class="flex items-center justify-between w-full md:hidden px-4 py-2 bg-[#0f2b3d] shadow-md">
+        <div class="flex-shrink-0">
+          
+          <img src="images/logo.png" alt="Logo" class="h-10 w-auto" />
+        </div>
+        <div class="flex flex-col items-center justify-center text-center flex-1">
+          
+
+  <h1 class="text-[1.5rem] md:text-[1.6rem] font-extrabold bg-gradient-to-r from-green-700 to-yellow-300 text-transparent bg-clip-text font-[Cinzel] uppercase leading-none">
+  NIRVANA ESTATES
+</h1>
+
+
+          <p class="text-[10px] text-white leading-tight mt-1">MAHA RERA No: A51800046168</p>
+        </div>
+        <div class="flex-shrink-0">
+          <button id="menu-toggle" class="text-white focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      
+      <div class="hidden md:flex items-center justify-between w-full px-4 py-2">
+        <div class="flex items-center space-x-3">
+          
+          <img src="images/logo.png" alt="Logo" class="h-10 w-auto" />
+<h1 class="text-[1.5rem] md:text-[1.6rem] font-extrabold bg-gradient-to-r from-green-700 to-yellow-300 text-transparent bg-clip-text font-[Cinzel] uppercase leading-none">
+  NIRVANA ESTATES
+</h1>
+
+
+        </div>
+        <div class="text-xs text-white font-medium whitespace-nowrap">
+          MAHA RERA No: A51800046168
+        </div>
+        <div class="flex space-x-6 text-sm font-medium text-white">
+          <a href="#buye" class="hover:text-blue-300">For Buyers</a>
+          <a href="#sell" class="hover:text-blue-300">For Sellers</a>
+          <a href="#rent" class="hover:text-blue-300">For Rentals</a>
+          <a href="about.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300">About Us</a>
+          <a href="#contact" class="hover:text-blue-300">Contact</a>
+        </div>
+      </div>
+
+      
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#0f2b3d] text-white shadow-lg z-40">
+        <ul class="flex flex-col text-center py-2 space-y-2">
+          <a href="#buy" class="block py-2 text-sm text-white hover:text-blue-300">For Buyers</a>
+          <a href="#sell" class="block py-2 text-sm text-white hover:text-blue-300">For Sellers</a>
+          <a href="#rent" class="block py-2 text-sm text-white hover:text-blue-300">For Rentals</a>
+          <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-white hover:text-blue-300">About Us</a>
+          <a href="#contact" class="block py-2 text-sm text-white hover:text-blue-300">Contact</a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (toggleBtn && mobileMenu) {
+    
+    toggleBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+   
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  }
+</script> -->
+
+<div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('header-placeholder').innerHTML = data;
+
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (toggleBtn && mobileMenu) {
+      toggleBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      const menuLinks = mobileMenu.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+  })
+  .catch(err => console.error('Failed to load header:', err));
+
+</script>
+<!-- FIRST HERO SECTION -->
+<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden px-4 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 lg:py-28">
+  <!-- Background -->
+  <div class="absolute inset-0 overflow-hidden">
+    <img src="logo/hero-bg.png" alt="Mumbai Real Estate" 
+         class="parallax-bg w-full h-full object-cover brightness-90"/>
+
+    <!-- Starry Sky -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <canvas id="starfield" class="w-full h-full"></canvas>
+    </div>
+
+    <!-- Aurora Effect -->
+    <div class="absolute inset-0 mix-blend-screen opacity-50 pointer-events-none">
+      <div class="aurora"></div>
+    </div>
+    
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/35"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-4xl mx-auto space-y-8 text-white animate-fade-in">
+
+    <!-- Logo -->
+    <div class="flex justify-center">
+      <img src="logo/logo.png" alt="Nirvana Estates Logo"
+           class="w-44 sm:w-56 md:w-64 lg:w-72 drop-shadow-2xl animate-float"/>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="text-base sm:text-lg md:text-xl text-gray-200 italic">
+      Trusted Real Estate Guidance Since 2007
+    </p>
+
+    <!-- Glassmorphic Card -->
+    <div class="bg-white/10 backdrop-blur-xl px-6 sm:px-10 py-6 sm:py-8 rounded-2xl shadow-2xl mt-6">
+      <p class="text-sm sm:text-base md:text-lg text-gray-100 leading-relaxed">
+        Helping families buy, sell, and rent homes in <br class="hidden md:block">
+        Malad, Kandivali & Borivali (MaKaBo) with <br class="hidden md:block">
+        transparency and local expertise.
+      </p>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
+      <a href="tel:+917039199717"
+         class="w-full sm:w-auto bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 hover:shadow-purple-500/50 transition-transform">
+         📞 Call Us: 7039199717
+      </a>
+      <a href="#listings"
+         class="w-full sm:w-auto bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 hover:shadow-purple-500/50 transition-transform">
+         🏡 View Listings
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Animations + Aurora + Parallax + Starfield -->
+<style>
+  /* Floating Logo */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+
+  /* Fade In */
+  .animate-fade-in {
+    animation: fadeIn 1.5s ease-in-out forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Aurora Gradient */
+  .aurora {
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg,
+      rgba(0,255,224,0.25),
+      rgba(255,0,128,0.2),
+      rgba(255,230,0,0.2),
+      rgba(0,255,224,0.25));
+    filter: blur(160px);
+    animation: aurora 22s infinite linear;
+  }
+  @keyframes aurora {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  /* Parallax */
+  .parallax-bg {
+    transform: scale(1.1);
+    will-change: transform;
+    transition: transform 0.2s ease-out;
+  }
+</style>
+
+<script>
+  // Parallax effect for background
+  document.addEventListener("mousemove", (e) => {
+    const bg = document.querySelector(".parallax-bg");
+    if(bg){
+      let x = (e.clientX / window.innerWidth - 0.5) * 12;
+      let y = (e.clientY / window.innerHeight - 0.5) * 12;
+      bg.style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
+    }
+  });
+
+  // Starry Sky Canvas
+  const canvas = document.getElementById("starfield");
+  const ctx = canvas.getContext("2d");
+  let stars = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5,
+      speed: 0.2 + Math.random() * 0.3,
+      opacity: 0.5 + Math.random() * 0.5
+    }));
+  }
+
+  function animateStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+      ctx.fill();
+
+      star.y += star.speed;
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(animateStars);
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  animateStars();
+</script>
+<!-- SECOND HERO SECTION -->
+<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img src="logo/second-bg.png" alt="City Skyline"
+      class="w-full h-full object-cover animate-slow-zoom brightness-110 contrast-110" />
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Swiper Container -->
+  <div class="relative z-10 w-full max-w-5xl mx-auto px-4 md:px-12 py-12 md:py-20">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide flex justify-center items-center">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">LOOKING FOR YOUR DREAM HOME?</h2>
+            <p class="text-teal-300 italic mb-3 slide-up-delay">“WE GOT YOU”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
+              Discover verified listings, honest advice and local expertise with zero pressure. 
+              From site visits to keys-in-hand, we’re by your side.
+            </p>
+
+            <!-- Explore Properties with Dropdown -->
+            <div class="relative inline-block w-full text-center">
+              <button id="exploreBtn"
+                class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition w-full">
+                EXPLORE PROPERTIES
+              </button>
+
+              <div id="dropdownMenu"
+                class="absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-white rounded-xl shadow-lg opacity-0 scale-90 invisible transition-all duration-200 z-20">
+                <a href="buyers.html"
+                  class="block px-5 py-3 text-base font-semibold text-[#0f2b3d] hover:bg-yellow-200 rounded-t-xl">
+                  🏠 Buy
+                </a>
+                <a href="rentals.html"
+                  class="block px-5 py-3 text-base font-semibold text-[#0f2b3d] hover:bg-teal-200 rounded-b-xl">
+                  🏢 Rent
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide flex justify-center items-center">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">WHY MaKaBo?</h2>
+            <p class="text-teal-300 italic mb-3 slide-up-delay">“MUMBAI’S NEXT BIG GROWTH BELT”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
+              Connected by Metro, rich infrastructure and excellent resale value — 
+              Malad, Kandivali & Borivali are where smart investments thrive.
+            </p>
+            <a href="our-edge.html#our-edge-section1"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3">
+              KNOW THE POTENTIAL
+            </a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide flex justify-center items-center">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">HOW WE HELP YOU?</h2>
+            <p class="text-teal-300 italic mb-3 slide-up-delay">“NOT JUST AGENTS, PROPERTY PARTNERS”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
+              We shortlist what fits you, handle all heavy lifting, and negotiate like it’s our own deal. 
+              Because finding the right home isn’t luck, it’s strategy.
+            </p>
+            <a href="our-edge.html#our-edge-section2"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3">
+              HOW WE WORK
+            </a>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide flex justify-center items-center">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 max-w-xl w-full h-full flex flex-col justify-center animate-fade-in floating-card">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300 slide-up">LET’S TALK BEFORE YOU DECIDE</h2>
+            <p class="text-teal-300 italic mb-3 slide-up-delay">“NO SPAM, NO PRESSURE.”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base slide-up-delay-2">
+              Real estate advice tailored to your needs. 
+              Book a free one-on-one consultation today.
+            </p>
+            <a href="#contact"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition slide-up-delay-3">
+              BOOK APPOINTMENT
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination mt-6"></div>
+      <!-- Navigation Arrows -->
+      <div class="swiper-button-next text-yellow-300"></div>
+      <div class="swiper-button-prev text-yellow-300"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: { delay: 6000, disableOnInteraction: false },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    grabCursor: true,
+    touchRatio: 1.2,
+    threshold: 10,
+  });
+
+  // Dropdown Toggle Script
+  const btn = document.getElementById("exploreBtn");
+  const menu = document.getElementById("dropdownMenu");
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menu.classList.toggle("opacity-100");
+    menu.classList.toggle("visible");
+    menu.classList.toggle("scale-100");
+    menu.classList.toggle("scale-90");
+    menu.classList.toggle("opacity-0");
+    menu.classList.toggle("invisible");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#dropdownMenu") && e.target !== btn) {
+      menu.classList.add("opacity-0", "invisible", "scale-90");
+      menu.classList.remove("opacity-100", "visible", "scale-100");
+    }
+  });
+</script>
+
+<style>
+  /* Dropdown animations */
+  #dropdownMenu.scale-90 { transform: scale(0.9); }
+  #dropdownMenu.scale-100 { transform: scale(1); }
+
+  @media (max-width: 768px) {
+    #dropdownMenu {
+      width: 100%;
+      left: 0;
+      transform: none !important;
+    }
+  }
+</style>
+
+
+<!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Footer Loader Script -->
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+      .catch(err => console.error('Failed to load footer:', err));
+  </script>
+
+</body>
+</html>
