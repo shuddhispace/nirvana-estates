@@ -153,6 +153,8 @@ app.post("/submit-seller", async (req, res) => {
 });
 
 // Dynamic sitemap.xml route
+
+// Dynamic sitemap.xml
 app.get('/sitemap.xml', (req, res) => {
   const baseUrls = [
     'https://nirvanaestates.co.in/',
@@ -161,7 +163,7 @@ app.get('/sitemap.xml', (req, res) => {
     'https://nirvanaestates.co.in/properties.html'
   ];
 
-  const dataFile = 'data/properties.json';
+  const dataFile = path.join(__dirname, 'data/properties.json');
   let propertyUrls = [];
 
   if (fs.existsSync(dataFile)) {
