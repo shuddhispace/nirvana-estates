@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
-
   <div class="max-w-4xl mx-auto">
     <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Upload Property</h1>
 
@@ -70,82 +69,79 @@
         <label for="negotiable" class="font-medium">Negotiable</label>
       </div>
 
-      <!-- Images -->
+      <!-- ✅ Images -->
       <div>
         <label class="font-medium">Upload Images (multiple)</label>
         <input type="file" name="images" accept="image/*" multiple required class="w-full p-2 border rounded" id="imagesInput" />
         <div id="imagesPreview" class="grid grid-cols-3 gap-2 mt-2"></div>
       </div>
 
-      <!-- Videos -->
+      <!-- ✅ YouTube Shorts Links -->
       <div>
-        <label class="font-medium">Upload Videos (multiple)</label>
-        <input type="file" name="videos" accept="video/*" multiple class="w-full p-2 border rounded" id="videosInput" />
-        <div id="videosPreview" class="grid grid-cols-2 gap-2 mt-2"></div>
+        <label class="font-medium">YouTube Shorts Links</label>
+        <div id="videoLinksWrapper" class="space-y-2 mt-2">
+          <input type="url" name="videos" placeholder="https://youtube.com/shorts/abc123" class="w-full p-2 border rounded" />
+        </div>
+        <button type="button" id="addLinkBtn" class="bg-green-600 text-white px-3 py-1 mt-2 rounded hover:bg-green-700">
+          + Add Another Link
+        </button>
       </div>
 
-      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full text-lg font-semibold">Upload Property</button>
+      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full text-lg font-semibold">
+        Upload Property
+      </button>
     </form>
 
-      <!-- Existing Properties -->
+    <!-- Existing Properties -->
     <h2 class="text-2xl font-bold mt-10 mb-4">Existing Properties</h2>
     <div id="propertyList" class="grid gap-4"></div>
-
   </div>
 
-  <script>
-    const imagesInput = document.getElementById('imagesInput');
-    const imagesPreview = document.getElementById('imagesPreview');
-    imagesInput.addEventListener('change', () => {
-      imagesPreview.innerHTML = '';
-      Array.from(imagesInput.files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = e => {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.className = 'w-full h-32 object-cover rounded';
-          imagesPreview.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-      });
-    });
-
-    const videosInput = document.getElementById('videosInput');
-    const videosPreview = document.getElementById('videosPreview');
-    videosInput.addEventListener('change', () => {
-      videosPreview.innerHTML = '';
-      Array.from(videosInput.files).forEach(file => {
-        const url = URL.createObjectURL(file);
-        const video = document.createElement('video');
-        video.src = url;
-        video.controls = true;
-        video.className = 'w-full h-40 rounded';
-        videosPreview.appendChild(video);
-      });
-    });
-
-
-    // Fetch and display properties
+<script>
+ // Fetch and display properties
 async function loadProperties() {
   const res = await fetch('/data/properties.json');
   const properties = await res.json();
 
   const list = document.getElementById('propertyList');
+  list.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6";
   list.innerHTML = '';
 
   properties.forEach(p => {
     const card = document.createElement('div');
-    card.className = "bg-white p-4 rounded shadow flex justify-between items-center";
+    card.className = 'bg-white rounded-2xl shadow-md overflow-hidden transition-transform hover:scale-[1.01] duration-200';
 
-    const info = document.createElement('div');
-    info.innerHTML = `
-      <h3 class="font-bold">${p.title}</h3>
-      <p>${p.location} - ₹${p.price}</p>
+    // Image section
+    const imgSection = document.createElement('div');
+    imgSection.className = 'relative';
+    imgSection.innerHTML = `
+      <img src="${p.images && p.images[0] ? p.images[0] : '/images/default.jpg'}" class="w-full h-56 object-cover" alt="${p.title}">
+      <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
+        ${p.category || ''}
+      </span>
     `;
 
+    // Info section
+    const info = document.createElement('div');
+    info.className = 'p-4 flex flex-col gap-1';
+    info.innerHTML = `
+      <h3 class="text-lg font-semibold text-[#0f2b3d]">${p.title}</h3>
+      <h4 class="text-lg font-bold text-[#0f2b3d]">₹${Number(p.price).toLocaleString('en-IN')}</h4>
+      <p class="text-sm text-gray-700">
+        ${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft
+      </p>
+      <p class="text-sm text-gray-600 font-medium">${p.location}</p>
+      ${p.negotiable ? `<span class="mt-1 text-green-600 font-medium text-sm">Negotiable</span>` : ''}
+      <div class="flex justify-between items-center mt-3 gap-2">
+        <button class="w-1/2 bg-[#0f2b3d] text-white py-2 rounded-lg text-sm hover:bg-[#153a53] transition">View Details</button>
+        <a href="tel:+919876543210" class="w-1/2 text-center border border-[#0f2b3d] text-[#0f2b3d] py-2 rounded-lg text-sm hover:bg-[#0f2b3d] hover:text-white transition">Call</a>
+      </div>
+    `;
+
+    // 🗑️ Delete button
     const delBtn = document.createElement('button');
     delBtn.textContent = 'Delete';
-    delBtn.className = 'bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700';
+    delBtn.className = 'bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 mt-3 w-full';
     delBtn.onclick = async () => {
       if (!confirm(`Delete property "${p.title}"?`)) return;
       const res = await fetch(`/admin/delete-property/${p.id}`, { method: 'DELETE' });
@@ -158,18 +154,27 @@ async function loadProperties() {
       }
     };
 
+    info.appendChild(delBtn);
+    card.appendChild(imgSection);
     card.appendChild(info);
-    card.appendChild(delBtn);
     list.appendChild(card);
   });
 }
 
-// Load on page start
+// Initialize
 loadProperties();
 
-  </script>
-
-  
+// Add YouTube link functionality
+document.getElementById('addLinkBtn').addEventListener('click', () => {
+  const wrapper = document.getElementById('videoLinksWrapper');
+  const input = document.createElement('input');
+  input.type = 'url';
+  input.name = 'videos';
+  input.placeholder = 'https://youtube.com/shorts/abc123';
+  input.className = 'w-full p-2 border rounded';
+  wrapper.appendChild(input);
+});
+</script>
 
 </body>
 </html>

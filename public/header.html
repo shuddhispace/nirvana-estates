@@ -1,27 +1,22 @@
-
 <header class="bg-[#0f2b3d] text-white shadow-md sticky top-0 z-50">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="h-16 md:h-20 flex items-center w-full">
+    <div class="h-20 flex items-center w-full">
 
       <!-- Mobile View -->
-      <div class="flex items-center justify-between w-full md:hidden px-4 py-2 bg-[#0f2b3d] shadow-md">
-        <div class="flex-shrink-0">
-          <!-- <img src="images/logo.png" alt="Logo" class="h-10 w-10 rounded-full" /> -->
-          <a href="/"> <img src="logo/logo.png" alt="Logo" class="h-10 w-auto" /> </a>  
-          
+      <div class="flex items-center justify-between w-full md:hidden px-2 py-2">
+        <!-- Logo (larger) -->
+        <a href="/" class="flex-shrink-0">
+          <img src="logo/logo.png" alt="Logo" class="h-16 w-auto" />
+        </a>
+
+        <!-- Centered Name -->
+        <div class="flex-grow flex justify-center">
+          <a href="/">
+            <img src="logo/name.PNG" alt="Nirvana Estates" class="h-5 w-auto" />
+          </a>
         </div>
-        <div class="flex flex-col items-center justify-center text-center flex-1">
-<a href="/" class="no-underline">
-  <!-- <h1 class="text-[1.5rem] md:text-[1.6rem] font-extrabold bg-gradient-to-r from-green-700 to-yellow-300 text-transparent bg-clip-text font-[Cinzel] uppercase leading-none">
-  NIRVANA ESTATES
-</h1> -->
-<h1 class="text-[1.3rem] md:text-[1.6rem] font-extrabold bg-gradient-to-r from-green-700 to-yellow-300 text-transparent bg-clip-text font-[Cinzel] uppercase leading-none">
-  NIRVANA ESTATES
-</h1>
-</a>
-          <!-- <p class="text-[10px] text-white leading-tight mt-1">MAHA RERA No: A51800046168</p> -->
-          <p class="text-[8px] text-white leading-tight mt-0.5">MAHA RERA No: A51800046168</p>
-        </div>
+
+        <!-- Hamburger Menu -->
         <div class="flex-shrink-0">
           <button id="menu-toggle" class="text-white focus:outline-none">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
@@ -34,73 +29,47 @@
 
       <!-- Desktop View -->
       <div class="hidden md:flex items-center justify-between w-full px-4 py-2">
-        <div class="flex items-center space-x-3">
-          <!-- <img src="images/logo.png" alt="Logo" class="h-10 w-10 rounded-full" /> -->
-          <a href="/"> 
-          <img src="logo/logo.png" alt="Logo" class="h-10 w-auto" />
-           </a>
-          <!-- <img src="images/name.jpeg" alt="Nirvana Estates" class="h-10 object-contain" /> -->
-
-    <a href="/" class="no-underline">
-          <h1 class="text-[1.5rem] md:text-[1.6rem] font-extrabold bg-gradient-to-r from-green-700 to-yellow-300 text-transparent bg-clip-text font-[Cinzel] uppercase leading-none">
-  NIRVANA ESTATES
-</h1>
-</a>
-
+        <!-- Logo + Name -->
+        <div class="flex items-center space-x-4">
+          <a href="/">
+            <img src="logo/logo.png" alt="Logo" class="h-20 w-auto" />
+          </a>
+          <a href="/">
+            <img src="logo/name.PNG" alt="Nirvana Estates" class="h-8 w-auto" />
+          </a>
         </div>
-        <div class="text-xs text-white font-medium whitespace-nowrap">
-          MAHA RERA No: A51800046168
-        </div>
+
+        <!-- Navigation Links -->
         <div class="flex space-x-6 text-sm font-medium text-white">
           <a href="/buyers.html" class="hover:text-blue-300">FOR BUYERS</a>
-  <a href="/sellers.html" class="hover:text-blue-300">FOR SELLERS</a>
-  <a href="/rentals.html" class="hover:text-blue-300">FOR RENTALS</a>
-  <a href="/our-edge.html" class="hover:text-blue-300">OUR EDGE</a> <!-- NEW -->
-  <a href="/contact.html" class="hover:text-yellow-400">CONTACT</a>
-  <a href="about.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300">ABOUT US</a>
+          <a href="/sellers.html" class="hover:text-blue-300">FOR SELLERS</a>
+          <a href="/rentals.html" class="hover:text-blue-300">FOR RENTALS</a>
+          <a href="/our-edge.html" class="hover:text-blue-300">OUR EDGE</a>
+          <a href="/contact.html" class="hover:text-yellow-400">CONTACT</a>
+          <a href="about.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300">ABOUT US</a>
         </div>
       </div>
 
-      <!-- Mobile Dropdown -->
+      <!-- Mobile Dropdown Menu -->
       <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#0f2b3d] text-white shadow-lg z-40">
-        <!-- <ul class="flex flex-col text-center py-2 space-y-2">
-          <a href="/buyers.html" class="block py-2 text-sm text-white hover:text-blue-300">For Buyers</a>
-          <a href="/sellers.html" class="block py-2 text-sm text-white hover:text-blue-300">For Sellers</a>
-          <a href="/rentals.html" class="block py-2 text-sm text-white hover:text-blue-300">For Rentals</a>
-          <a href="/contact.html" class="hover:text-yellow-400">Contact</a>
-          <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-white hover:text-blue-300">About Us</a>
-        </ul> -->
-          <ul class="flex flex-col text-center py-2 space-y-2">
-    <a href="/buyers.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR BUYERS</a>
-    <a href="/sellers.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR SELLERS</a>
-    <a href="/rentals.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR RENTALS</a>
-    <a href="/our-edge.html" class="block py-2 text-sm text-white hover:text-blue-300">OUR EDGE</a> <!-- NEW -->
-    <a href="/contact.html" class="hover:text-yellow-400">CONTACT</a>
-    <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-white hover:text-blue-300">ABOUT US</a>
-  </ul>
+        <ul class="flex flex-col text-center py-2 space-y-2">
+          <a href="/buyers.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR BUYERS</a>
+          <a href="/sellers.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR SELLERS</a>
+          <a href="/rentals.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR RENTALS</a>
+          <a href="/our-edge.html" class="block py-2 text-sm text-white hover:text-blue-300">OUR EDGE</a>
+          <a href="/contact.html" class="hover:text-yellow-400 block py-2 text-sm">CONTACT</a>
+          <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-white hover:text-blue-300">ABOUT US</a>
+        </ul>
       </div>
+
     </div>
   </div>
 </header>
-<!-- HEADER END -->
 
-
-<!-- <script>
-  const toggleBtn = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  if (toggleBtn && mobileMenu) { -->
-    <!-- // Toggle menu open/close on button click -->
-    <!-- toggleBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    }); -->
-
-    <!-- // Close menu on any link click inside the mobile menu -->
-    <!-- const menuLinks = mobileMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-  }
-</script> -->
+<!-- JS: Toggle for Mobile Menu -->
+<script>
+  document.getElementById('menu-toggle').addEventListener('click', function () {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+  });
+</script>

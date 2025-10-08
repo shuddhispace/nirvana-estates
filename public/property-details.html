@@ -1,259 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Property Details - Nirvana Estates</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .ratio-4-3 { aspect-ratio: 4 / 3; }
-    .ratio-16-9 { aspect-ratio: 16 / 9; }
-    .ratio-9-16 { aspect-ratio: 9 / 16; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .nav-btn {
-      position:absolute; top:50%; transform: translateY(-50%);
-      background: rgba(0,0,0,.35); color:#fff; padding:.45rem .6rem; border-radius:.5rem;
-    }
-    .nav-btn:hover{ background: rgba(0,0,0,.6);}
-    .nav-left{ left:.25rem;} .nav-right{ right:.25rem;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Details - Nirvana Estates</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background-color: #f9fafb; }
+
+  /* Shorts-style gallery */
+  .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 1rem; padding: 0.5rem 0; }
+  .carousel::-webkit-scrollbar { display: none; }
+  .carousel-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    position: relative;
+    width: 250px;
+    height: 450px; /* YouTube shorts aspect ratio look */
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel-item img,
+  .carousel-item video,
+  .carousel-item iframe { width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem; }
+
+  /* Buttons */
+  .cta-btn { padding: .5rem 1rem; border-radius: .5rem; font-weight: 600; transition: all 0.2s; }
+  .cta-call { background-color: #0f2b3d; color: #fff; }
+  .cta-call:hover { background-color: #15425c; }
+  .cta-wa { background-color: #22c55e; color: #fff; }
+  .cta-wa:hover { background-color: #16a34a; }
+
+  .floating-call {
+    position: fixed; bottom: 1rem; right: 1rem;
+    background-color: #0f2b3d; color: #fff; padding: .75rem 1rem;
+    border-radius: 9999px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,.2); z-index: 50;
+    transition: background 0.2s;
+  }
+  .floating-call:hover { background-color: #15425c; }
+
+  /* Info grid */
+  .info-card { background: #fff; border-radius: 1rem; padding: 1rem; box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+  .info-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  @media(min-width:1024px){ .info-grid { grid-template-columns: repeat(3,1fr); } }
+  .badge { background-color: #22c55e; color: #fff; padding: .25rem .5rem; border-radius: .375rem; font-size: 0.75rem; font-weight: 600; }
+</style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-gray-800">
 
-
+<!-- Header -->
 <div id="header-placeholder"></div>
 <script>
-  fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
-
-    const toggleBtn = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (toggleBtn && mobileMenu) {
-      toggleBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-
-      const menuLinks = mobileMenu.querySelectorAll('a');
-      menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-    }
-  })
-  .catch(err => console.error('Failed to load header:', err));
-
+fetch('header.html').then(r=>r.text()).then(html=>document.getElementById('header-placeholder').innerHTML=html);
 </script>
 
-<main class="max-w-6xl mx-auto px-4 py-6">
-  <div id="content" class="space-y-6">
-    <!-- injected -->
-  </div>
+<main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+
+  <!-- Shorts-style Gallery -->
+  <section id="gallery"></section>
+
+  <!-- Title & Price -->
+  <section class="space-y-3">
+    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-2">
+      <h2 id="property-title" class="text-2xl md:text-3xl font-bold">Property Title</h2>
+      <span id="property-price" class="text-[#0f2b3d] font-extrabold text-xl md:text-2xl"></span>
+    </div>
+    <div id="badges" class="flex gap-2"></div>
+  </section>
+
+  <!-- Info Grid -->
+  <section class="info-card">
+    <div class="info-grid" id="info-grid"></div>
+  </section>
+
+  <!-- Description -->
+  <section class="prose prose-sm max-w-none text-gray-800">
+    <h3 class="text-lg font-semibold mb-2">Description</h3>
+    <p id="property-desc"></p>
+  </section>
+
+  <!-- CTA Buttons -->
+  <section class="flex flex-wrap gap-4">
+    <a id="call-btn" class="cta-btn cta-call" href="#">Call Now</a>
+    <a id="wa-btn" class="cta-btn cta-wa" href="#" target="_blank">WhatsApp</a>
+  </section>
+
 </main>
 
-<a href="tel:+918652121984"
-   class="fixed bottom-4 right-4 z-50 bg-[#0f2b3d] text-white px-4 py-3 rounded-full shadow-lg font-semibold">
-  📞 Call Now
-</a>
+<!-- Floating Call Button -->
+<a href="tel:+917039199717" class="floating-call">📞 Call Now</a>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+<script>
+fetch('footer.html').then(r=>r.text()).then(html=>document.getElementById('footer-placeholder').innerHTML=html);
+</script>
 
 <script>
-const INR = n => {
-  const num = Number(n);
-  if (isNaN(num)) return `₹${n}`;
-  return num.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
-};
-/*
-function createSlide(src, type) {
-  const wrap = document.createElement('div');
-  wrap.className = 'relative w-full flex-shrink-0 snap-center';
-  if (type === 'image') {
-    const img = new Image();
-    img.src = src;
-    img.alt = 'Property image';
-    img.className = 'w-full h-full object-cover';
-    wrap.classList.add('ratio-4-3');
-    img.onload = () => {
-      const ratio = img.naturalWidth / img.naturalHeight;
-      if (ratio >= 1.6) { wrap.classList.remove('ratio-4-3'); wrap.classList.add('ratio-16-9'); }
-    };
-    wrap.appendChild(img);
-  } else {
-    const vid = document.createElement('video');
-    vid.src = src;
-    vid.preload = 'metadata';
-    vid.muted = true;
-    vid.playsInline = true;
-    vid.controls = true;
-    vid.className = 'w-full h-full object-cover';
-    wrap.classList.add('ratio-16-9');
-    vid.addEventListener('loadedmetadata', () => {
-      if (vid.videoHeight > vid.videoWidth) { wrap.classList.remove('ratio-16-9'); wrap.classList.add('ratio-9-16'); }
-    });
-    vid.addEventListener('mouseenter', () => vid.play());
-    vid.addEventListener('mouseleave', () => vid.pause());
-    wrap.appendChild(vid);
+const INR = n=>Number(n).toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});
+
+// Create Shorts-style slide
+function createSlide(src,type){
+  const wrap=document.createElement('div'); wrap.className='carousel-item';
+  if(type==='image'){ const img=new Image(); img.src=src; img.alt='Property Image'; wrap.appendChild(img); }
+  else{
+    if(src.includes('youtube.com') || src.includes('youtu.be')){
+      let videoId='';
+      if(src.includes('shorts/')) videoId=src.split('shorts/')[1].split('?')[0];
+      else if(src.includes('youtu.be/')) videoId=src.split('youtu.be/')[1].split('?')[0];
+      else if(src.includes('watch?v=')) videoId=src.split('watch?v=')[1].split('&')[0];
+      const iframe=document.createElement('iframe');
+      iframe.src=`https://www.youtube.com/embed/${videoId}?rel=0&autoplay=0`;
+      iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen=true;
+      wrap.appendChild(iframe);
+    } else {
+      const vid=document.createElement('video'); vid.src=src; vid.preload='metadata'; vid.muted=true; vid.playsInline=true; vid.controls=true;
+      wrap.appendChild(vid);
+    }
   }
-  return wrap;
-} */
-
-function createSlide(src, type) {
-  const wrap = document.createElement('div');
-  wrap.className = 'relative w-full flex-shrink-0 snap-center bg-black h-80'; // fixed height & black background
-
-  if (type === 'image') {
-    const img = new Image();
-    img.src = src;
-    img.alt = 'Property image';
-    img.className = 'w-full h-full object-contain';
-    wrap.appendChild(img);
-  } else {
-    const vid = document.createElement('video');
-    vid.src = src;
-    vid.preload = 'metadata';
-    vid.muted = true;
-    vid.playsInline = true;
-    vid.controls = true;
-    vid.className = 'w-full h-full object-contain';
-    vid.addEventListener('mouseenter', () => vid.play());
-    vid.addEventListener('mouseleave', () => vid.pause());
-    wrap.appendChild(vid);
-  }
-
   return wrap;
 }
 
-
-async function loadDetails() {
-  const params = new URLSearchParams(location.search);
-  const id = params.get('id');
-  const content = document.getElementById('content');
-
-  try {
-    const res = await fetch('/data/properties.json');
-    const all = await res.json();
-    const p = all.find(x => String(x.id) === String(id));
-    if (!p) {
-      content.innerHTML = '<div class="text-red-600">Property not found.</div>';
-      return;
-    }
+// Load property details
+async function loadDetails(){
+  const params=new URLSearchParams(location.search); const id=params.get('id');
+  try{
+    const res=await fetch('/data/properties.json'); const all=await res.json();
+    const p=all.find(x=>String(x.id)===String(id));
+    if(!p){ document.getElementById('gallery').innerHTML='<p class="text-red-600">Property not found.</p>'; return; }
 
     // Gallery
-    const galleryWrap = document.createElement('section');
-    galleryWrap.className = 'relative';
-    const track = document.createElement('div');
-    track.className = 'w-full overflow-x-auto no-scrollbar flex gap-3 snap-x snap-mandatory';
-    const inner = document.createElement('div');
-    inner.className = 'flex w-full gap-3';
+    const gallery=document.getElementById('gallery'); gallery.innerHTML='';
+    const track=document.createElement('div'); track.className='carousel';
+    const media=[...(Array.isArray(p.images)?p.images.map(s=>({src:s,type:'image'})):[]),
+                 ...(Array.isArray(p.videos)?p.videos.map(s=>({src:s,type:'video'})):[])];
 
-    const media = [
-      ...(Array.isArray(p.images) ? p.images.map(s => ({src:s, type:'image'})) : []),
-      ...(Array.isArray(p.videos) ? p.videos.map(s => ({src:s, type:'video'})) : [])
-    ];
-    if (media.length === 0) {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'ratio-4-3 w-full flex items-center justify-center text-gray-500 bg-gray-200 rounded';
-      placeholder.textContent = 'No media';
-      track.appendChild(placeholder);
-    } else {
-      media.forEach(m => inner.appendChild(createSlide(m.src, m.type)));
-      track.appendChild(inner);
-      // arrows
-      const left = document.createElement('button');
-      left.className = 'nav-btn nav-left hidden sm:block';
-      left.innerHTML = '&#10094;';
-      left.addEventListener('click', () => track.scrollBy({left: -track.clientWidth*0.8, behavior:'smooth'}));
-      const right = document.createElement('button');
-      right.className = 'nav-btn nav-right hidden sm:block';
-      right.innerHTML = '&#10095;';
-      right.addEventListener('click', () => track.scrollBy({left: track.clientWidth*0.8, behavior:'smooth'}));
-      galleryWrap.append(track, left, right);
-    }
+    if(media.length===0){
+      const ph=document.createElement('div'); ph.className='w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500 rounded'; ph.textContent='No media';
+      track.appendChild(ph);
+    } else { media.forEach(m=>track.appendChild(createSlide(m.src,m.type))); }
+
+    gallery.appendChild(track);
 
     // Title & Price
-    const head = document.createElement('div');
-    head.className = 'flex flex-col md:flex-row md:items-end md:justify-between gap-2';
-    const h2 = document.createElement('h2');
-    h2.className = 'text-2xl md:text-3xl font-bold text-gray-900';
-    h2.textContent = p.title || 'Property';
-    const price = document.createElement('div');
-    price.className = 'text-[#0f2b3d] font-extrabold text-xl';
-    price.textContent = INR(p.price);
-    head.append(h2, price);
+    document.getElementById('property-title').textContent=p.title||'Property';
+    document.getElementById('property-price').textContent=INR(p.price);
 
     // Badges
-    const badges = document.createElement('div');
-    if (p.negotiable) {
-      const b = document.createElement('span');
-      b.className = 'inline-block bg-green-600 text-white text-xs px-2 py-1 rounded';
-      b.textContent = 'Negotiable';
-      badges.appendChild(b);
-    }
+    const badges=document.getElementById('badges'); badges.innerHTML='';
+    if(p.negotiable){ const b=document.createElement('span'); b.className='badge'; b.textContent='Negotiable'; badges.appendChild(b); }
 
-    // Info grid
-    const info = document.createElement('div');
-    info.className = 'grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-gray-700';
-    const cell = (label, value) => {
-      const d = document.createElement('div');
-      d.innerHTML = `<span class="font-semibold">${label}:</span> ${value}`;
-      return d;
-    };
-    info.append(
-      cell('Bedrooms', p.bedrooms),
-      cell('Bathrooms', p.bathrooms),
-      cell('Carpet Area', `${p.carpetArea} sq ft`),
-      cell('Built-up Area', `${p.builtupArea} sq ft`),
-      cell('Location', p.location),
-      cell('Category', (p.category || '').charAt(0).toUpperCase() + (p.category || '').slice(1))
-    );
+    // Info Grid
+    const infoGrid=document.getElementById('info-grid'); infoGrid.innerHTML='';
+    const cell=(label,value)=>{ const d=document.createElement('div'); d.innerHTML=`<span class="font-semibold">${label}:</span> ${value}`; return d; };
+    infoGrid.append(cell('Bedrooms',p.bedrooms), cell('Bathrooms',p.bathrooms), cell('Carpet Area',`${p.carpetArea} sq ft`), cell('Built-up Area',`${p.builtupArea} sq ft`), cell('Location',p.location), cell('Category',p.category || '-'));
 
     // Description
-    const desc = document.createElement('div');
-    desc.className = 'prose prose-sm max-w-none text-gray-800';
-    desc.innerHTML = `<h3 class="text-lg font-semibold mb-1">Description</h3>
-                      <p>${p.description || ''}</p>`;
+    document.getElementById('property-desc').textContent=p.description||'-';
 
-    // CTAs
-    const ctas = document.createElement('div');
-    ctas.className = 'flex flex-wrap gap-3';
-    const call = document.createElement('a');
-    call.href = 'tel:+918652121984';
-    call.className = 'px-4 py-2 rounded bg-[#0f2b3d] text-white font-semibold hover:bg-[#15425c]';
-    call.textContent = 'Call Now';
-    const wa = document.createElement('a');
-    wa.href = 'https://wa.me/918652121984?text=I%20am%20interested%20in%20the%20property%20' + encodeURIComponent(String(p.id));
-    wa.target = '_blank';
-    wa.className = 'px-4 py-2 rounded bg-green-600 text-white font-semibold hover:bg-green-700';
-    wa.textContent = 'WhatsApp';
-    ctas.append(call, wa);
+    // CTA Buttons
+    document.getElementById('call-btn').href='tel:+917039199717';
+    document.getElementById('wa-btn').href='https://wa.me/917039199717?text=' + encodeURIComponent(`I am interested in property ID: ${p.id}`);
 
-    const wrapper = document.getElementById('content');
-    wrapper.innerHTML = '';
-    wrapper.append(galleryWrap, head, badges, info, desc, ctas);
-
-  } catch (e) {
-    console.error(e);
-    document.getElementById('content').innerHTML =
-      '<div class="text-red-600">Failed to load property.</div>';
-  }
+  } catch(e){ console.error(e); document.getElementById('gallery').innerHTML='<p class="text-red-600">Failed to load property.</p>'; }
 }
 
 loadDetails();
 </script>
-
-<!-- Footer Placeholder -->
-  <div id="footer-placeholder"></div>
-
-  <!-- Footer Loader Script -->
-  <script>
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-      .catch(err => console.error('Failed to load footer:', err));
-  </script>
 
 </body>
 </html>

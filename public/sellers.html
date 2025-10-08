@@ -1,15 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sell or Rent Your Property | Nirvana Estates</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell or Rent Your Property | Nirvana Estates</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Header -->
-  
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: #0f2b3d;
+  overflow-x: hidden;
+  color: #e0f7fa;
+  position: relative;
+}
+
+/* Canvas for animated futuristic background */
+#background-canvas {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Form container */
+.form-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Heading */
+h2 {
+  font-size: 2.3rem;
+  font-weight: 800;
+  text-align: center;
+  color: #00f0ff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 12px #00f0ff, 0 0 20px #25D366;
+}
+
+p.description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #b0e0e6;
+}
+
+/* Floating Field Cards */
+.field-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,255,255,0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+.field-card:hover,
+.field-card:focus-within {
+  box-shadow: 0 0 18px #00f0ff;
+  border: 1px solid #00f0ff;
+}
+
+input, select, textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #e0f7fa;
+  font-weight: 500;
+  font-size: 1rem;
+  outline: none;
+}
+
+select option {
+  background: #0f2b3d;
+  color: #e0f7fa;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(224,247,250,0.6);
+}
+
+/* Submit Button */
+button {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(270deg, #25D366, #00f0ff, #ff6f91);
+  background-size: 600% 600%;
+  animation: gradientMove 8s ease infinite;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(0,255,255,0.5);
+}
+button:hover,
+button:focus,
+button:active,
+button.active-glow {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(0,255,255,0.8);
+}
+
+@keyframes gradientMove {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* Success Message */
+#successMessage {
+  text-align:center;
+  margin-top:1rem;
+  color:#00f0ff;
+  background: rgba(0,255,255,0.1);
+  border:1px solid #00f0ff;
+  padding:1rem;
+  border-radius:1.5rem;
+  font-weight:600;
+  box-shadow:0 0 12px rgba(0,255,255,0.3);
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  h2 { font-size: 2rem; }
+  p.description { font-size: 0.95rem; }
+  button { font-size: 1rem; padding: 0.9rem; }
+  .field-card { padding: 0.8rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background Canvas -->
+<canvas id="background-canvas"></canvas>
+
+<!-- Header -->
 <div id="header-placeholder"></div>
 <script>
   fetch('header.html')
@@ -34,125 +173,112 @@
     }
   })
   .catch(err => console.error('Failed to load header:', err));
-
 </script>
-<!-- Form Section -->
- 
-<!-- Form Section -->
-<section class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-10 mt-12 mb-16 border border-gray-100">
-  
-  <!-- Attractive Heading -->
-  <div class="text-center mb-8">
-    <h2 class="text-4xl font-extrabold text-[#0f2b3d] tracking-tight">
-       Sell or Rent Your Property
-    </h2>
-    <p class="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
-      Share your property details below and let <span class="text-green-600 font-semibold">NIRVANA ESTATES</span> 
-      help you connect with the right buyer or tenant quickly.
-    </p>
-  </div>
 
-  <form id="sellerForm" class="space-y-5">
-    <!-- Full Name -->
-    <input 
-      type="text" 
-      name="name" 
-      placeholder="Full Name *" 
-      required 
-      class="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-600 outline-none shadow-sm transition"
-    />
+<div class="form-container">
+  <h2>Sell or Rent Your Property</h2>
+  <p class="description">Share your property details below and let <span style="color:#25D366;font-weight:600;">NIRVANA ESTATES</span> help you connect with the right buyer or tenant quickly.</p>
 
-    <!-- Phone Number -->
-    <input 
-      type="tel" 
-      name="phone" 
-      placeholder="Phone Number *" 
-      required 
-      class="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-600 outline-none shadow-sm transition"
-    />
+  <form id="sellerForm" class="flex flex-col">
+    <div class="field-card"><input type="text" name="name" placeholder="Full Name *" required></div>
+    <div class="field-card"><input type="tel" name="phone" placeholder="Phone Number *" required></div>
+    <div class="field-card"><input type="email" name="email" placeholder="Email Address (Optional)"></div>
+    <div class="field-card">
+      <select name="type" required>
+        <option value="">Select Property Type *</option>
+        <option value="Sell">Sell</option>
+        <option value="Rent">Rent</option>
+      </select>
+    </div>
+    <div class="field-card"><input type="text" name="location" placeholder="Property Location *" required></div>
+    <div class="field-card"><textarea name="description" rows="4" placeholder="Describe your property (e.g., 2BHK flat, sea-facing, semi-furnished, near Malad station) *" required></textarea></div>
 
-    <!-- Email Address (optional) -->
-    <input 
-      type="email" 
-      name="email" 
-      placeholder="Email Address (Optional)" 
-      class="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-600 outline-none shadow-sm transition"
-    />
-
-    <!-- Property Type -->
-    <select 
-      name="type" 
-      required 
-      class="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-600 outline-none shadow-sm transition"
-    >
-      <option value="">Select Property Type *</option>
-      <option value="Sell">Sell</option>
-      <option value="Rent">Rent</option>
-    </select>
-
-    <!-- Property Location -->
-    <input 
-      type="text" 
-      name="location" 
-      placeholder="Property Location *" 
-      required 
-      class="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-600 outline-none shadow-sm transition"
-    />
-
-    <!-- Property Description -->
-    <textarea 
-      name="description" 
-      rows="5" 
-      placeholder="Describe your property (e.g., 2BHK flat, sea-facing, semi-furnished, near Malad station) *" 
-      required 
-      class="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-600 outline-none shadow-sm transition"
-    ></textarea>
-
-    <!-- Submit Button -->
-    <button 
-      type="submit" 
-      class="w-full bg-gradient-to-r from-green-700 via-green-600 to-yellow-500 text-white py-3 rounded-xl hover:shadow-lg hover:scale-[1.02] transition font-semibold"
-    >
-      🚀 Submit Property
-    </button>
+    <button type="submit">Submit Property</button>
   </form>
 
-  <!-- Success Message -->
-  <div id="successMessage" class="hidden mt-6 text-green-700 font-semibold text-center bg-green-50 border border-green-200 p-3 rounded-xl shadow-sm">
+  <div id="successMessage" class="hidden">
     ✅ Your property details have been submitted successfully. Our team will contact you soon.
   </div>
-</section>
+</div>
 
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch('footer.html')
+  .then(response => response.text())
+  .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+  .catch(err => console.error('Failed to load footer:', err));
+</script>
 
-  <script>
-    document.getElementById("sellerForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
+<script>
+// Form submit
+const form = document.getElementById("sellerForm");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
 
-      const res = await fetch("/submit-seller", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+  const res = await fetch("/submit-seller", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
 
-      if (res.ok) {
-        document.getElementById("sellerForm").classList.add("hidden");
-        document.getElementById("successMessage").classList.remove("hidden");
-      }
-    });
-  </script>
+  if(res.ok){
+    form.classList.add("hidden");
+    document.getElementById("successMessage").classList.remove("hidden");
+  }
+});
 
-<!-- Footer Placeholder -->
-  <div id="footer-placeholder"></div>
+// Mobile touch effect for button
+const submitBtn = document.querySelector("button");
+submitBtn.addEventListener("touchstart", () => submitBtn.classList.add("active-glow"));
+submitBtn.addEventListener("touchend", () => setTimeout(() => submitBtn.classList.remove("active-glow"), 200));
 
-  <!-- Footer Loader Script -->
-  <script>
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-      .catch(err => console.error('Failed to load footer:', err));
-  </script>
+// Futuristic real estate background animation
+const canvas = document.getElementById("background-canvas");
+const ctx = canvas.getContext("2d");
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+
+class BuildingLine {
+  constructor() {
+    this.x = Math.random() * width;
+    this.y = height;
+    this.width = Math.random()*2 + 1;
+    this.height = Math.random()*50 + 50;
+    this.speed = Math.random()*0.3 + 0.1;
+  }
+  draw() {
+    ctx.fillStyle = "rgba(0,255,255,0.05)";
+    ctx.fillRect(this.x, this.y - this.height, this.width, this.height);
+  }
+  update() {
+    this.y -= this.speed;
+    if(this.y - this.height < 0) {
+      this.y = height;
+      this.height = Math.random()*50 + 50;
+      this.width = Math.random()*2 + 1;
+    }
+  }
+}
+
+const buildings = [];
+for(let i=0;i<120;i++) buildings.push(new BuildingLine());
+
+function animate() {
+  ctx.clearRect(0,0,width,height);
+  buildings.forEach(b=>{b.update();b.draw();});
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", ()=>{
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+});
+</script>
 
 </body>
 </html>

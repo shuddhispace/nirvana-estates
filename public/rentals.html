@@ -1,237 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rentals - Nirvana Estates</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .ratio-4-3 { aspect-ratio: 4 / 3; }
-    .ratio-16-9 { aspect-ratio: 16 / 9; }
-    .ratio-9-16 { aspect-ratio: 9 / 16; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .card { transition: transform .2s, box-shadow .2s; }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
-    .nav-btn { position:absolute; top:50%; transform: translateY(-50%); background: rgba(0,0,0,.35); color:#fff; padding:.35rem .55rem; border-radius:.5rem;}
-    .nav-btn:hover{ background: rgba(0,0,0,.6);}
-    .nav-left{ left:.25rem;} .nav-right{ right:.25rem;}
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rentals - Nirvana Estates</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background-color: #f9fafb; }
 
-  
+  .card { transition: transform .3s, box-shadow .3s; }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,.15); }
+
+  .carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+
+  .carousel-item {
+    flex: 0 0 100%; /* One media per frame on mobile */
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .short-media {
+    width: auto;
+    max-width: 280px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: transform .3s;
+  }
+  .short-media:hover { transform: scale(1.02); }
+
+  @media(min-width:1024px){
+    /* Desktop: grid with 3 cards per row */
+    #grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .short-media { max-width: 100%; height: 350px; }
+    .card-body { display: flex; flex-direction: column; gap:0.5rem; }
+  }
+</style>
+</head>
+<body class="text-gray-800">
+
 <div id="header-placeholder"></div>
 <script>
-  fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
-
-    const toggleBtn = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (toggleBtn && mobileMenu) {
-      toggleBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-
-      const menuLinks = mobileMenu.querySelectorAll('a');
-      menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-    }
-  })
-  .catch(err => console.error('Failed to load header:', err));
-
+fetch('header.html').then(r=>r.text()).then(html=>document.getElementById('header-placeholder').innerHTML=html);
 </script>
 
-  <main class="max-w-6xl mx-auto px-4 py-6">
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-5">Properties for Rentals</h2>
+<main class="max-w-7xl mx-auto px-4 py-6">
+  <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Properties for Rentals</h2>
+  <div id="grid" class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6"></div>
+</main>
 
-    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Cards -->
-    </div>
-  </main>
-
-  <a href="tel:+918652121984"
-     class="fixed bottom-4 right-4 z-50 bg-[#0f2b3d] text-white px-4 py-3 rounded-full shadow-lg font-semibold">
-    📞 Call Now
-  </a>
+<a href="tel:+917039199717" class="fixed bottom-4 right-4 z-50 bg-[#0f2b3d] text-white px-4 py-3 rounded-full shadow-lg font-semibold">
+  📞 Call Now
+</a>
 
 <script>
-const INR = n => {
-  const num = Number(n);
-  if (isNaN(num)) return `₹${n}`;
-  return num.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
-};
-/*
-function createMediaSlide(src, type) {
-  const wrap = document.createElement('div');
-  wrap.className = 'relative w-full flex-shrink-0 snap-center';
-  if (type === 'image') {
-    const img = new Image();
-    img.src = src;
-    img.alt = 'Property image';
-    img.className = 'w-full h-full object-cover';
-    wrap.classList.add('ratio-4-3');
-    img.onload = () => {
-      const ratio = img.naturalWidth / img.naturalHeight;
-      if (ratio >= 1.6) { wrap.classList.remove('ratio-4-3'); wrap.classList.add('ratio-16-9'); }
-    };
-    wrap.appendChild(img);
-  } else {
-    const vid = document.createElement('video');
-    vid.src = src;
-    vid.preload = 'metadata';
-    vid.muted = true;
-    vid.playsInline = true;
-    vid.controls = true;
-    vid.className = 'w-full h-full object-cover';
-    wrap.classList.add('ratio-16-9');
-    vid.addEventListener('loadedmetadata', () => {
-      if (vid.videoHeight > vid.videoWidth) { wrap.classList.remove('ratio-16-9'); wrap.classList.add('ratio-9-16'); }
-    });
-    vid.addEventListener('mouseenter', () => vid.play());
-    vid.addEventListener('mouseleave', () => vid.pause());
-    wrap.appendChild(vid);
+const INR = n => Number(n).toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+
+function createMediaSlide(src,type){
+  const div=document.createElement('div');
+  div.className='carousel-item';
+
+  if(type==='image'){
+    const img=document.createElement('img');
+    img.src=src; img.alt='Property Image';
+    img.className='short-media';
+    div.appendChild(img);
+  } else if(type==='video' || src.includes('youtube.com') || src.includes('youtu.be')){
+    let videoId='';
+    if(src.includes('shorts/')) videoId=src.split('shorts/')[1].split('?')[0];
+    else if(src.includes('youtu.be/')) videoId=src.split('youtu.be/')[1].split('?')[0];
+    else if(src.includes('watch?v=')) videoId=src.split('watch?v=')[1].split('&')[0];
+
+    const iframe=document.createElement('iframe');
+    iframe.src=`https://www.youtube.com/embed/${videoId}?rel=0&autoplay=0`;
+    iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen=true;
+    iframe.className='short-media';
+    div.appendChild(iframe);
   }
-  return wrap;
-}*/
-
-function createMediaSlide(src, type) {
-  const wrap = document.createElement('div');
-  wrap.className = 'relative w-full flex-shrink-0 snap-center bg-black h-80'; // fixed height & black background
-
-  if (type === 'image') {
-    const img = new Image();
-    img.src = src;
-    img.alt = 'Property image';
-    img.className = 'w-full h-full object-contain';
-    wrap.appendChild(img);
-  } else {
-    const vid = document.createElement('video');
-    vid.src = src;
-    vid.preload = 'metadata';
-    vid.muted = true;
-    vid.playsInline = true;
-    vid.controls = true;
-    vid.className = 'w-full h-full object-contain';
-    vid.addEventListener('mouseenter', () => vid.play());
-    vid.addEventListener('mouseleave', () => vid.pause());
-    wrap.appendChild(vid);
-  }
-
-  return wrap;
+  return div;
 }
 
+function propertyCard(p){
+  const card=document.createElement('article');
+  card.className='card bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow flex flex-col';
 
-function propertyCard(p) {
-  const card = document.createElement('article');
-  card.className = 'card bg-white rounded-xl overflow-hidden shadow';
+  // Carousel container
+  const carouselContainer=document.createElement('div');
+  carouselContainer.className='carousel-container';
+  const carousel=document.createElement('div');
+  carousel.className='carousel';
 
-  const mediaTrack = document.createElement('div');
-  mediaTrack.className = 'relative w-full bg-gray-200 overflow-x-auto flex gap-2 no-scrollbar snap-x snap-mandatory';
-  const mediaInner = document.createElement('div');
-  mediaInner.className = 'flex w-full gap-2';
+  const allMedia=[...(Array.isArray(p.images)? p.images.map(s=>({src:s,type:'image'})):[]),
+                  ...(Array.isArray(p.videos)? p.videos.map(s=>({src:s,type:'video'})):[])];
 
-  const allMedia = [
-    ...(Array.isArray(p.images) ? p.images.map(s => ({src:s, type:'image'})) : []),
-    ...(Array.isArray(p.videos) ? p.videos.map(s => ({src:s, type:'video'})) : [])
-  ];
+  if(allMedia.length===0){
+    const placeholder=document.createElement('div');
+    placeholder.className='w-full h-48 flex items-center justify-center text-gray-400 bg-gray-200 rounded-xl';
+    placeholder.textContent='No media';
+    carousel.appendChild(placeholder);
+  } else { allMedia.forEach(m=>carousel.appendChild(createMediaSlide(m.src,m.type))); }
 
-  if (allMedia.length === 0) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'ratio-4-3 w-full flex items-center justify-center text-gray-500';
-    placeholder.textContent = 'No media';
-    mediaTrack.appendChild(placeholder);
-  } else {
-    allMedia.forEach(m => mediaInner.appendChild(createMediaSlide(m.src, m.type)));
-    mediaTrack.appendChild(mediaInner);
+  carouselContainer.appendChild(carousel);
+  card.appendChild(carouselContainer);
 
-    const left = document.createElement('button');
-    left.className = 'nav-btn nav-left hidden sm:block';
-    left.innerHTML = '&#10094;';
-    left.addEventListener('click', () => mediaTrack.scrollBy({ left: -mediaTrack.clientWidth * 0.8, behavior: 'smooth' }));
-    const right = document.createElement('button');
-    right.className = 'nav-btn nav-right hidden sm:block';
-    right.innerHTML = '&#10095;';
-    right.addEventListener('click', () => mediaTrack.scrollBy({ left: mediaTrack.clientWidth * 0.8, behavior: 'smooth' }));
-    card.appendChild(mediaTrack); card.appendChild(left); card.appendChild(right);
-  }
+  // Card body
+  const body=document.createElement('div');
+  body.className='card-body p-4 flex flex-col gap-3';
 
-  const body = document.createElement('div');
-  body.className = 'p-4 flex flex-col gap-2';
-  const headerRow = document.createElement('div');
-  headerRow.className = 'flex items-start justify-between gap-3';
-  const title = document.createElement('h3');
-  title.className = 'text-lg font-semibold text-gray-900';
-  title.textContent = p.title || 'Property';
-  const price = document.createElement('span');
-  price.className = 'text-[#0f2b3d] font-bold';
-  price.textContent = INR(p.price);
-  headerRow.append(title, price);
+  const title=document.createElement('h3');
+  title.className='text-lg font-semibold text-gray-900';
+  title.textContent=p.title||'Property';
 
-  const sub = document.createElement('p');
-  sub.className = 'text-gray-600 text-sm';
-  sub.textContent = `${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft | ${p.location}`;
+  const price=document.createElement('span');
+  price.className='text-[#0f2b3d] font-bold';
+  price.textContent=INR(p.price);
 
-  const badgeRow = document.createElement('div');
-  if (p.negotiable) {
-    const badge = document.createElement('span');
-    badge.className = 'inline-block bg-green-600 text-white text-xs px-2 py-1 rounded';
-    badge.textContent = 'Negotiable';
+  const sub=document.createElement('p');
+  sub.className='text-gray-600 text-sm';
+  sub.textContent=`${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft | ${p.location}`;
+
+  const badgeRow=document.createElement('div');
+  if(p.negotiable){
+    const badge=document.createElement('span');
+    badge.className='inline-block bg-green-600 text-white text-xs px-2 py-1 rounded';
+    badge.textContent='Negotiable';
     badgeRow.appendChild(badge);
   }
 
-  const ctas = document.createElement('div');
-  ctas.className = 'mt-2 flex flex-wrap gap-2';
-  const details = document.createElement('a');
-  details.href = `property-details.html?id=${p.id}`;
-  details.target = '_blank';
-  details.className = 'px-3 py-2 rounded bg-[#0f2b3d] text-white text-sm font-semibold hover:bg-[#15425c]';
-  details.textContent = 'View Details';
-  const call = document.createElement('a');
-  call.href = 'tel:+918652121984';
-  call.className = 'px-3 py-2 rounded bg-green-600 text-white text-sm font-semibold hover:bg-green-700';
-  call.textContent = 'Call';
-  ctas.append(details, call);
+  const ctaRow=document.createElement('div');
+  ctaRow.className='mt-2 flex flex-wrap gap-2';
+  const details=document.createElement('a');
+  details.href=`property-details.html?id=${p.id}`;
+  details.target='_blank';
+  details.className='px-3 py-2 rounded bg-[#0f2b3d] text-white text-sm font-semibold hover:bg-[#15425c]';
+  details.textContent='View Details';
+  const call=document.createElement('a');
+  call.href='tel:+917039199717';
+  call.className='px-3 py-2 rounded bg-green-600 text-white text-sm font-semibold hover:bg-green-700';
+  call.textContent='Call';
+  ctaRow.append(details,call);
 
-  body.append(headerRow, sub, badgeRow, ctas);
+  body.append(title,price,sub,badgeRow,ctaRow);
   card.appendChild(body);
+
   return card;
 }
 
-async function load() {
-  try {
-    const res = await fetch('/data/properties.json');
-    const list = await res.json();
-    const grid = document.getElementById('grid');
-    grid.innerHTML = '';
-    list.filter(p => (p.category || '').toLowerCase() === 'rentals')
-        .forEach(p => grid.appendChild(propertyCard(p)));
-  } catch (e) {
+async function load(){
+  try{
+    const res=await fetch('/data/properties.json');
+    const list=await res.json();
+    const grid=document.getElementById('grid');
+    grid.innerHTML='';
+    list.filter(p=> (p.category||'').toLowerCase()==='rentals').forEach(p=> grid.appendChild(propertyCard(p)));
+  } catch(e){
     console.error(e);
-    document.getElementById('grid').innerHTML =
-      '<div class="text-red-600">Failed to load properties.</div>';
+    document.getElementById('grid').innerHTML='<div class="text-red-600">Failed to load properties.</div>';
   }
 }
 
 load();
 </script>
-
-<!-- Footer Placeholder -->
-  <div id="footer-placeholder"></div>
-
-  <!-- Footer Loader Script -->
-  <script>
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-      .catch(err => console.error('Failed to load footer:', err));
-  </script>
-  
 </body>
 </html>
