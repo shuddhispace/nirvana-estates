@@ -1,75 +1,56 @@
-<header class="bg-[#0f2b3d] text-white shadow-md sticky top-0 z-50">
+<header id="header" class="bg-[#0f2b3d] text-white shadow-md sticky top-0 z-50 transition-all duration-300">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="h-20 flex items-center w-full">
+    <div class="flex items-center justify-between h-20 md:h-24 w-full transition-all duration-300" id="header-content">
 
-      <!-- Mobile View -->
-      <div class="flex items-center justify-between w-full md:hidden px-2 py-2">
-        <!-- Logo (larger) -->
-        <a href="/" class="flex-shrink-0">
-          <img src="logo/logo.png" alt="Logo" class="h-16 w-auto" />
+      <!-- Left: Logo + Name -->
+      <div class="flex items-center space-x-2 md:space-x-4">
+        <a href="/">
+          <img src="logo/logo.png" alt="Logo" class="h-14 md:h-20 w-auto object-contain transition-all duration-300" id="logo" />
         </a>
 
-        <!-- Centered Name -->
-        <div class="flex-grow flex justify-center">
-          <a href="/">
-            <img src="logo/name.PNG" alt="Nirvana Estates" class="h-5 w-auto" />
-          </a>
-        </div>
-
-        <!-- Hamburger Menu -->
-        <div class="flex-shrink-0">
-          <button id="menu-toggle" class="text-white focus:outline-none">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-        </div>
+        <a href="/" class="hidden md:block" id="name-desktop">
+          <img src="logo/name.PNG" alt="Nirvana Estates" class="h-8 w-auto object-contain transition-all duration-300" />
+        </a>
       </div>
 
-      <!-- Desktop View -->
-      <div class="hidden md:flex items-center justify-between w-full px-4 py-2">
-        <!-- Logo + Name -->
-        <div class="flex items-center space-x-4">
-          <a href="/">
-            <img src="logo/logo.png" alt="Logo" class="h-20 w-auto" />
-          </a>
-          <a href="/">
-            <img src="logo/name.PNG" alt="Nirvana Estates" class="h-8 w-auto" />
-          </a>
-        </div>
+      <!-- Mobile centered name -->
+      <div class="md:hidden absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300" id="name-mobile">
+        <a href="/">
+          <img src="logo/name.PNG" alt="Nirvana Estates" class="h-5 w-auto object-contain" />
+        </a>
+      </div>
 
-        <!-- Navigation Links -->
-        <div class="flex space-x-6 text-sm font-medium text-white">
+      <!-- Right: Hamburger / Nav -->
+      <div class="flex items-center">
+        <!-- Mobile Hamburger -->
+        <button id="menu-toggle" aria-label="Toggle menu" class="md:hidden relative w-8 h-8 focus:outline-none">
+          <span class="block absolute h-0.5 w-6 bg-white rounded transform transition duration-300 ease-in-out top-2.5 left-1.5" id="line1"></span>
+          <span class="block absolute h-0.5 w-6 bg-white rounded transform transition duration-300 ease-in-out top-4 left-1.5" id="line2"></span>
+          <span class="block absolute h-0.5 w-6 bg-white rounded transform transition duration-300 ease-in-out top-5.5 left-1.5" id="line3"></span>
+        </button>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-white">
           <a href="/buyers.html" class="hover:text-blue-300">FOR BUYERS</a>
           <a href="/sellers.html" class="hover:text-blue-300">FOR SELLERS</a>
           <a href="/rentals.html" class="hover:text-blue-300">FOR RENTALS</a>
           <a href="/our-edge.html" class="hover:text-blue-300">OUR EDGE</a>
           <a href="/contact.html" class="hover:text-yellow-400">CONTACT</a>
           <a href="about.html" target="_blank" rel="noopener noreferrer" class="hover:text-blue-300">ABOUT US</a>
-        </div>
+        </nav>
       </div>
+    </div>
 
-      <!-- Mobile Dropdown Menu -->
-      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#0f2b3d] text-white shadow-lg z-40">
-        <ul class="flex flex-col text-center py-2 space-y-2">
-          <a href="/buyers.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR BUYERS</a>
-          <a href="/sellers.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR SELLERS</a>
-          <a href="/rentals.html" class="block py-2 text-sm text-white hover:text-blue-300">FOR RENTALS</a>
-          <a href="/our-edge.html" class="block py-2 text-sm text-white hover:text-blue-300">OUR EDGE</a>
-          <a href="/contact.html" class="hover:text-yellow-400 block py-2 text-sm">CONTACT</a>
-          <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-white hover:text-blue-300">ABOUT US</a>
-        </ul>
-      </div>
-
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#0f2b3d] text-white shadow-lg z-40">
+      <ul class="flex flex-col text-center py-2 space-y-2">
+        <a href="/buyers.html" class="block py-2 text-sm hover:text-blue-300">FOR BUYERS</a>
+        <a href="/sellers.html" class="block py-2 text-sm hover:text-blue-300">FOR SELLERS</a>
+        <a href="/rentals.html" class="block py-2 text-sm hover:text-blue-300">FOR RENTALS</a>
+        <a href="/our-edge.html" class="block py-2 text-sm hover:text-blue-300">OUR EDGE</a>
+        <a href="/contact.html" class="block py-2 text-sm text-yellow-400">CONTACT</a>
+        <a href="about.html" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm hover:text-blue-300">ABOUT US</a>
+      </ul>
     </div>
   </div>
 </header>
-
-<!-- JS: Toggle for Mobile Menu -->
-<script>
-  document.getElementById('menu-toggle').addEventListener('click', function () {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
-  });
-</script>
