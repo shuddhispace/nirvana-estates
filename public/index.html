@@ -60,77 +60,67 @@
   <!-- header placeholder -->
   <div id="header-placeholder"></div>
 
-  <script>
-    // Load header.html and then initialize the header behavior
-fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
+ <script>
+  // Load header.html and then initialize behavior
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
 
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const line1 = document.getElementById('line1');
-    const line2 = document.getElementById('line2');
-    const line3 = document.getElementById('line3');
-    const header = document.getElementById('header');
-    const headerContent = document.getElementById('header-content');
-    const logo = document.getElementById('logo');
-    const nameDesktop = document.getElementById('name-desktop');
-    const nameMobile = document.getElementById('name-mobile');
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const line1 = document.getElementById('line1');
+      const line2 = document.getElementById('line2');
+      const header = document.getElementById('header');
+      const headerContent = document.getElementById('header-content');
+      const logo = document.getElementById('logo');
+      const nameImg = document.getElementById('name-img');
 
-    // Hamburger toggle and animation
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      const isOpen = !mobileMenu.classList.contains('hidden');
+      // Toggle hamburger icon and menu
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const isOpen = !mobileMenu.classList.contains('hidden');
 
-      if (isOpen) {
-        line1.style.transform = 'rotate(45deg) translate(5px, 5px)';
-        line2.style.opacity = '0';
-        line3.style.transform = 'rotate(-45deg) translate(5px, -5px)';
-      } else {
-        line1.style.transform = 'rotate(0) translate(0, 0)';
-        line2.style.opacity = '1';
-        line3.style.transform = 'rotate(0) translate(0, 0)';
-      }
-    });
-
-    // Close mobile menu when any link clicked
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        // Reset hamburger icon
-        line1.style.transform = 'rotate(0) translate(0, 0)';
-        line2.style.opacity = '1';
-        line3.style.transform = 'rotate(0) translate(0, 0)';
+        if (isOpen) {
+          line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+          line2.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+        } else {
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        }
       });
-    });
 
-    // Shrink header on scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('bg-opacity-95', 'shadow-lg');
-        headerContent.classList.add('h-16', 'md:h-20');
-        logo.classList.add('h-10', 'md:h-16');
-        logo.classList.remove('h-14', 'md:h-20');
-        nameDesktop.classList.add('h-6');
-        nameDesktop.classList.remove('h-8');
-        nameMobile.querySelector('img').classList.add('h-4');
-        nameMobile.querySelector('img').classList.remove('h-5');
-      } else {
-        header.classList.remove('bg-opacity-95', 'shadow-lg');
-        headerContent.classList.remove('h-16', 'md:h-20');
-        logo.classList.remove('h-10', 'md:h-16');
-        logo.classList.add('h-14', 'md:h-20');
-        nameDesktop.classList.remove('h-6');
-        nameDesktop.classList.add('h-8');
-        nameMobile.querySelector('img').classList.remove('h-4');
-        nameMobile.querySelector('img').classList.add('h-5');
-      }
-    });
-  })
-  .catch(err => console.error('Failed to load header:', err));
+      // Close mobile menu on link click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        });
+      });
 
-  </script>
+      // Shrink header on scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('bg-opacity-95', 'shadow-lg');
+          headerContent.classList.add('h-16', 'md:h-20');
+          logo.classList.add('h-10', 'md:h-14');
+          logo.classList.remove('h-12', 'md:h-16');
+          nameImg.classList.add('h-5', 'md:h-6');
+          nameImg.classList.remove('h-6', 'md:h-8');
+        } else {
+          header.classList.remove('bg-opacity-95', 'shadow-lg');
+          headerContent.classList.remove('h-16', 'md:h-20');
+          logo.classList.remove('h-10', 'md:h-14');
+          logo.classList.add('h-12', 'md:h-16');
+          nameImg.classList.remove('h-5', 'md:h-6');
+          nameImg.classList.add('h-6', 'md:h-8');
+        }
+      });
+    })
+    .catch(err => console.error('Failed to load header:', err));
+</script>
+
 
   <!-- HERO SECTION --><!-- HERO SECTION -->
 
@@ -157,7 +147,7 @@ fetch('header.html')
     </h1> -->
 
         <p class="text-base sm:text-lg md:text-xl text-gray-200 italic">
-      Trusted Real Estate Guidance Since 2007
+      Turning every Move into a Milestone
     </p>
 
 
@@ -165,8 +155,8 @@ fetch('header.html')
     <div class="bg-white/10 backdrop-blur-xl px-6 sm:px-10 py-6 sm:py-8 rounded-2xl shadow-2xl mt-6 inline-block">
   <!-- <p class="text-base sm:text-lg md:text-xl text-gray-100 font-medium leading-snug"> -->
     <p class="text-sm sm:text-base md:text-lg text-gray-100 leading-relaxed"></p>
-    Helping families buy, sell, and rent homes in<br>
-    <span class="font-semibold text-yellow-300">
+    Buy, sell, and rent proerties in<br>
+    <!-- <span class="font-semibold text-yellow-300"> -->
       Malad, Kandivali & Borivali (MaKaBo)
     </span> with transparency and local expertise.
   </p>
@@ -177,10 +167,29 @@ fetch('header.html')
 
     <!-- buttons with glow and scale hover -->
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-4 bg-white/10 backdrop-blur-xl px-6 sm:px-10 py-6 sm:py-8 rounded-2xl shadow-2xl">
-  <a href="tel:+917039199717"
+  <!-- <a href="tel:+917039199717"
      class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
      Call Us: 7039199717
-  </a>
+  </a> -->
+
+  <!-- <button id="revealPhoneBtn"
+  class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
+  Call Us
+</button> -->
+
+<a href="tel:+917039199717"
+   class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
+   Call Us
+</a>
+
+
+<!-- Hidden phone number display -->
+<div id="phoneNumber"
+     class="text-yellow-300 mt-2 text-center font-semibold hidden">
+  +91 7039199717
+</div>
+
+
   <button id="openModal"
           class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
      View Listings
@@ -560,5 +569,20 @@ fetch('header.html')
       .then(data => document.getElementById('footer-placeholder').innerHTML = data)
       .catch(err => console.error('Failed to load footer:', err));
   </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const revealBtn = document.getElementById("revealPhoneBtn");
+    const phoneNumber = document.getElementById("phoneNumber");
+
+    if (revealBtn && phoneNumber) {
+      revealBtn.addEventListener("click", () => {
+        phoneNumber.classList.toggle("hidden");
+      });
+    }
+  });
+</script>
+
+
 </body>
 </html>

@@ -51,76 +51,68 @@
 <body class="text-gray-800">
 
 <div id="header-placeholder"></div>
-<script>
-   // Load header.html and then initialize the header behavior
-fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header-placeholder').innerHTML = data;
 
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const line1 = document.getElementById('line1');
-    const line2 = document.getElementById('line2');
-    const line3 = document.getElementById('line3');
-    const header = document.getElementById('header');
-    const headerContent = document.getElementById('header-content');
-    const logo = document.getElementById('logo');
-    const nameDesktop = document.getElementById('name-desktop');
-    const nameMobile = document.getElementById('name-mobile');
 
-    // Hamburger toggle and animation
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      const isOpen = !mobileMenu.classList.contains('hidden');
+ <script>
+  // Load header.html and then initialize behavior
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
 
-      if (isOpen) {
-        line1.style.transform = 'rotate(45deg) translate(5px, 5px)';
-        line2.style.opacity = '0';
-        line3.style.transform = 'rotate(-45deg) translate(5px, -5px)';
-      } else {
-        line1.style.transform = 'rotate(0) translate(0, 0)';
-        line2.style.opacity = '1';
-        line3.style.transform = 'rotate(0) translate(0, 0)';
-      }
-    });
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const line1 = document.getElementById('line1');
+      const line2 = document.getElementById('line2');
+      const header = document.getElementById('header');
+      const headerContent = document.getElementById('header-content');
+      const logo = document.getElementById('logo');
+      const nameImg = document.getElementById('name-img');
 
-    // Close mobile menu when any link clicked
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        // Reset hamburger icon
-        line1.style.transform = 'rotate(0) translate(0, 0)';
-        line2.style.opacity = '1';
-        line3.style.transform = 'rotate(0) translate(0, 0)';
+      // Toggle hamburger icon and menu
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const isOpen = !mobileMenu.classList.contains('hidden');
+
+        if (isOpen) {
+          line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+          line2.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+        } else {
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        }
       });
-    });
 
-    // Shrink header on scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('bg-opacity-95', 'shadow-lg');
-        headerContent.classList.add('h-16', 'md:h-20');
-        logo.classList.add('h-10', 'md:h-16');
-        logo.classList.remove('h-14', 'md:h-20');
-        nameDesktop.classList.add('h-6');
-        nameDesktop.classList.remove('h-8');
-        nameMobile.querySelector('img').classList.add('h-4');
-        nameMobile.querySelector('img').classList.remove('h-5');
-      } else {
-        header.classList.remove('bg-opacity-95', 'shadow-lg');
-        headerContent.classList.remove('h-16', 'md:h-20');
-        logo.classList.remove('h-10', 'md:h-16');
-        logo.classList.add('h-14', 'md:h-20');
-        nameDesktop.classList.remove('h-6');
-        nameDesktop.classList.add('h-8');
-        nameMobile.querySelector('img').classList.remove('h-4');
-        nameMobile.querySelector('img').classList.add('h-5');
-      }
-    });
-  })
-  .catch(err => console.error('Failed to load header:', err));
-  </script>
+      // Close mobile menu on link click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        });
+      });
+
+      // Shrink header on scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('bg-opacity-95', 'shadow-lg');
+          headerContent.classList.add('h-16', 'md:h-20');
+          logo.classList.add('h-10', 'md:h-14');
+          logo.classList.remove('h-12', 'md:h-16');
+          nameImg.classList.add('h-5', 'md:h-6');
+          nameImg.classList.remove('h-6', 'md:h-8');
+        } else {
+          header.classList.remove('bg-opacity-95', 'shadow-lg');
+          headerContent.classList.remove('h-16', 'md:h-20');
+          logo.classList.remove('h-10', 'md:h-14');
+          logo.classList.add('h-12', 'md:h-16');
+          nameImg.classList.remove('h-5', 'md:h-6');
+          nameImg.classList.add('h-6', 'md:h-8');
+        }
+      });
+    })
+    .catch(err => console.error('Failed to load header:', err));
+</script>
   
 <main class="max-w-7xl mx-auto px-4 py-6">
   <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Properties for Buyers</h2>
@@ -240,5 +232,23 @@ async function load(){
 
 load();
 </script>
+
+
+  <!-- FOOTER PLACEHOLDER -->
+  <div id="footer-placeholder"></div>
+<!-- footer.html -->
+<footer class="relative text-white">
+
+  <!-- Copyright Bar -->
+  <div class="bg-[#0f2b3d] text-gray-300 text-center text-sm py-4">
+    © <span id="year"></span> Nirvana Estates. All rights reserved.
+  </div>
+
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
