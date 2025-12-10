@@ -368,14 +368,7 @@
               </button>
 
               <!-- Desktop Dropdown (animated) -->
-              <div id="dropdownMenu"
-                   class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50
-                          opacity-0 scale-95 pointer-events-none will-change-transform will-change-opacity">
-                <a href="buyers.html"
-                  class="block px-6 py-4 text-lg font-semibold text-[#0f2b3d] hover:bg-yellow-100"> Buy</a>
-                <a href="rentals.html"
-                  class="block px-6 py-4 text-lg font-semibold text-[#0f2b3d] hover:bg-teal-100"> Rent</a>
-              </div>
+             
             </div>
           </div>
         </div>
@@ -449,14 +442,14 @@
 
     <a href="buyers.html"
       class="block w-full py-4 rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-[#0f2b3d] font-bold text-xl shadow-lg hover:scale-105 transform transition">
-      🏠 Buy
+       Buy
     </a>
     <a href="rentals.html"
       class="block w-full py-4 rounded-2xl bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold text-xl shadow-lg hover:scale-105 transform transition">
-      🏢 Rent
+       Rent
     </a>
 
-    <button id="closeModal"
+    <button id="closeMobileModal"
       class="mt-6 px-6 py-2 rounded-full border border-gray-300 text-gray-200 hover:bg-white/20 transition">
       ✖ Close
     </button>
@@ -465,74 +458,74 @@
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const exploreBtn   = document.getElementById("exploreBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
     const mobileModal  = document.getElementById("mobileModal");
-    const closeModal   = document.getElementById("closeModal");
+    const closeMobileModal = document.getElementById("closeMobileModal");
 
-    // Helpers for animated dropdown
+    /* ------------------------------
+       DROPDOWN HELPERS (desktop)
+    ------------------------------ */
     const showDropdown = () => {
       dropdownMenu.classList.remove("opacity-0","scale-95","pointer-events-none","dropdown-out");
       dropdownMenu.classList.add("dropdown-in");
     };
+
     const hideDropdown = () => {
       dropdownMenu.classList.remove("dropdown-in");
       dropdownMenu.classList.add("dropdown-out");
     };
 
-    // Toggle Explore Properties
+    /* ----------------------------------------
+       EXPLORE BUTTON — Always opens MOBILE MODAL
+    ----------------------------------------- */
     exploreBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (window.innerWidth >= 768) {
-        // if hidden (opacity-0), show; else hide
-        if (dropdownMenu.classList.contains("opacity-0")) {
-          showDropdown();
-        } else {
-          hideDropdown();
-        }
-      } else {
-        mobileModal.classList.remove("hidden");
-      }
-      
+      mobileModal.classList.remove("hidden");
     });
 
-    // Close dropdown when clicking outside (desktop)
+    /* ------------------------------
+       CLOSE MOBILE MODAL
+    ------------------------------ */
+    if (closeMobileModal) {
+      closeMobileModal.addEventListener("click", () => {
+        mobileModal.classList.add("hidden");
+      });
+    }
+
+    mobileModal.addEventListener("click", (e) => {
+      if (e.target === mobileModal) {
+        mobileModal.classList.add("hidden");
+      }
+    });
+
+    /* ----------------------------------------
+       DESKTOP — close dropdown on outside click
+    ----------------------------------------- */
     document.addEventListener("click", (e) => {
       if (window.innerWidth >= 768) {
-        if (!exploreBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-          if (!dropdownMenu.classList.contains("opacity-0")) hideDropdown();
+        if (dropdownMenu && !exploreBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+          hideDropdown();
         }
       }
     });
 
-    // Close mobile modal
-    closeModal.addEventListener("click", () => {
-      mobileModal.classList.add("hidden");
-    });
-    mobileModal.addEventListener("click", (e) => {
-      if (e.target === mobileModal) mobileModal.classList.add("hidden");
-    });
+    /* ----------------------------------------
+       Dropdown animation cleanup
+    ----------------------------------------- */
+    if (dropdownMenu) {
+      dropdownMenu.addEventListener("animationend", (e) => {
+        if (e.animationName === "dropdownOut") {
+          dropdownMenu.classList.add("opacity-0","scale-95","pointer-events-none");
+        }
+      });
+    }
 
-    // Hide dropdown after exit animation completes
-    dropdownMenu.addEventListener("animationend", (e) => {
-      if (e.animationName === "dropdownOut") {
-        dropdownMenu.classList.add("opacity-0","scale-95","pointer-events-none");
-      }
-    });
-
-    // Swiper Init
-    const swiper = new Swiper(".mySwiper", {
-      loop: true,
-      speed: 600,
-      autoplay: { delay: 4000, disableOnInteraction: false },
-      pagination: { el: ".swiper-pagination", clickable: true },
-      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-    });
   });
 </script>
+
 
 <!-- Animations + Fixes -->
 <style>
