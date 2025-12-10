@@ -216,13 +216,9 @@ function propertyCard(p){
   sub.className='text-gray-600 text-sm';
   sub.textContent=`${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft | ${p.location}`;
 
-  const badgeRow=document.createElement('div');
-  if(p.negotiable){
-    const badge=document.createElement('span');
-    badge.className='inline-block bg-green-600 text-white text-xs px-2 py-1 rounded';
-    badge.textContent='Negotiable';
-    badgeRow.appendChild(badge);
-  }
+const badgeRow = document.createElement('div');
+// Negotiable removed
+
 
   const ctaRow=document.createElement('div');
   ctaRow.className='mt-2 flex flex-wrap gap-2';

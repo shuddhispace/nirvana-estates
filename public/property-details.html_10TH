@@ -220,11 +220,6 @@ function createSlide(src,type){
   return wrap;
 }
 
-const INR = new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR'
-});
-
 // Load property details
 async function loadDetails(){
   const params=new URLSearchParams(location.search); const id=params.get('id');
@@ -248,12 +243,11 @@ async function loadDetails(){
 
     // Title & Price
     document.getElementById('property-title').textContent=p.title||'Property';
-    document.getElementById('property-price').textContent = INR.format(p.price);
+    document.getElementById('property-price').textContent=INR(p.price);
 
- // Badges (Removed Negotiable Tag)
-const badges = document.getElementById('badges'); 
-badges.innerHTML = '';
-
+    // Badges
+    const badges=document.getElementById('badges'); badges.innerHTML='';
+    if(p.negotiable){ const b=document.createElement('span'); b.className='badge'; b.textContent='Negotiable'; badges.appendChild(b); }
 
     // Info Grid
     const infoGrid=document.getElementById('info-grid'); infoGrid.innerHTML='';

@@ -6,69 +6,71 @@
   <title>Contact Us - Nirvana Estates</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
       min-height: 100vh;
       background: url('logo/contact.png') center/cover no-repeat fixed;
-      color: #e0f7fa;
+      position: relative;
+      color: #fff;
+      overflow-x: hidden;
     }
 
+    /* Overlay with blur + subtle gradient */
     body::before {
       content: '';
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(15, 43, 61, 0.7);
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      backdrop-filter: blur(15px);
       z-index: 0;
+    }
+
+    /* Floating Bokeh Particles */
+    .bokeh {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .bokeh span {
+      position: absolute;
+      display: block;
+      width: 10px; height: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float 20s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) translateX(0) scale(0.5); }
+      50% { transform: translateY(50vh) translateX(50px) scale(1); }
+      100% { transform: translateY(-10vh) translateX(-50px) scale(0.5); }
     }
 
     .contact-card {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 1.5rem;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 2rem;
       padding: 3rem 2rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
       text-align: center;
+      max-width: 450px;
+      margin: 0 auto;
     }
 
     h2 {
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      color: #e0f7fa;
-      text-decoration: none;
+      color: #ffffff;
     }
 
-    /* Handshake icon */
-    .handshake-box {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      width: 3rem; height: 3rem;
-      border-radius: 0.75rem;
-      background: rgba(255, 215, 0, 0.15);
-      backdrop-filter: blur(8px);
-      color: #ffd700;
-      margin-top: 0.5rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 12px rgba(255,215,0,0.4);
-      cursor: pointer;
-    }
-    .handshake-box:hover,
-    .handshake-box:focus,
-    .handshake-box:active,
-    .handshake-box.active-glow {
-      transform: scale(1.2);
-      box-shadow: 0 0 24px rgba(255,215,0,0.6);
-    }
-
-    /* Buttons */
     .contact-btn {
       display: flex;
       align-items: center;
@@ -79,37 +81,17 @@
       border-radius: 9999px;
       padding: 0.75rem 1.5rem;
       margin: 0.5rem 0;
-      transition: all 0.3s ease;
       text-decoration: none;
-      box-shadow: 0 0 12px rgba(255,255,255,0.3);
-      cursor: pointer;
-      background-size: 200% 200%;
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(255,255,255,0.25);
+      transition: all 0.3s ease;
     }
-
-    /* Neon gradient colors */
-    .contact-btn.call {
-      background: linear-gradient(45deg, #00f0ff, #00c8ff);
-      color: #0f2b3d;
-    }
-    .contact-btn.email {
-      background: linear-gradient(45deg, #ff6f91, #ff3f70);
-      color: #0f2b3d;
-    }
-    .contact-btn.whatsapp {
-      background: linear-gradient(45deg, #25D366, #1ebc55);
-      color: #fff;
-    }
-
-    /* Hover & active (desktop + mobile) */
-    .contact-btn:hover,
-    .contact-btn:focus,
-    .contact-btn:active,
-    .contact-btn.active-glow {
+    .contact-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+      box-shadow: 0 0 25px rgba(255,255,255,0.45);
     }
 
-    /* Social icons */
     .social-icon {
       display: inline-flex;
       align-items: center;
@@ -120,20 +102,17 @@
       text-decoration: none;
       color: #fff;
       font-weight: 700;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 12px rgba(255,255,255,0.3);
       transition: all 0.3s ease;
-      box-shadow: 0 0 8px rgba(255,255,255,0.3);
-      cursor: pointer;
     }
-    .social-icon:hover,
-    .social-icon:focus,
-    .social-icon:active,
-    .social-icon.active-glow {
+    .social-icon:hover {
       transform: scale(1.2);
-      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+      box-shadow: 0 0 25px rgba(255,255,255,0.45);
     }
 
     p {
-      color: #b0e0e6;
+      color: rgba(255,255,255,0.7);
       margin-top: 1.5rem;
     }
 
@@ -142,155 +121,69 @@
       h2 { font-size: 2rem; }
       .contact-btn { padding: 0.6rem 1.2rem; font-size: 0.95rem; }
       .social-icon { width: 45px; height: 45px; font-size: 0.9rem; }
-      .handshake-box { width: 2.5rem; height: 2.5rem; font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Bokeh Particles -->
+  <div class="bokeh" id="bokeh"></div>
+
   <!-- Header -->
   <div id="header-placeholder"></div>
   <script>
-  fetch('header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
-
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const line1 = document.getElementById('line1');
-      const line2 = document.getElementById('line2');
-      const header = document.getElementById('header');
-      const headerContent = document.getElementById('header-content');
-      const logo = document.getElementById('logo');
-      const nameImg = document.getElementById('name-img');
-
-      // Apply slide animation classes
-      mobileMenu.style.transition = "max-height 0.35s ease, opacity 0.35s ease";
-      mobileMenu.style.overflow = "hidden";
-      mobileMenu.style.maxHeight = "0";
-      mobileMenu.style.opacity = "0";
-
-      const toggleMenu = () => {
-        const isOpening = mobileMenu.style.maxHeight === "0px" || mobileMenu.style.maxHeight === "0";
-        
-        if (isOpening) {
-          mobileMenu.classList.remove('hidden');
-          mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
-          mobileMenu.style.opacity = "1";
-          line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
-          line2.style.transform = 'rotate(-45deg) translate(4px, -4px)';
-        } else {
-          mobileMenu.style.maxHeight = "0";
-          mobileMenu.style.opacity = "0";
-          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
-          line1.style.transform = 'rotate(0deg) translate(0, 0)';
-          line2.style.transform = 'rotate(0deg) translate(0, 0)';
-        }
-      };
-
-      menuToggle.addEventListener('click', toggleMenu);
-
-      // Close on menu link click
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.style.maxHeight = "0";
-          mobileMenu.style.opacity = "0";
-          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
-          line1.style.transform = 'rotate(0deg) translate(0, 0)';
-          line2.style.transform = 'rotate(0deg) translate(0, 0)';
-        });
-      });
-
-      // Close on click outside
-      document.addEventListener('click', (e) => {
-        const isClickInside = mobileMenu.contains(e.target) || menuToggle.contains(e.target);
-        const isOpen = mobileMenu.style.maxHeight !== "0" && !mobileMenu.classList.contains('hidden');
-
-        if (!isClickInside && isOpen) {
-          mobileMenu.style.maxHeight = "0";
-          mobileMenu.style.opacity = "0";
-          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
-          line1.style.transform = 'rotate(0deg) translate(0, 0)';
-          line2.style.transform = 'rotate(0deg) translate(0, 0)';
-        }
-      });
-
-      // Shrink header on scroll
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          header.classList.add('shadow-lg');
-          headerContent.classList.add('h-16', 'md:h-20');
-          logo.classList.add('h-10', 'md:h-14');
-          logo.classList.remove('h-12', 'md:h-16');
-          nameImg.classList.add('h-5', 'md:h-6');
-          nameImg.classList.remove('h-6', 'md:h-8');
-        } else {
-          header.classList.remove('shadow-lg');
-          headerContent.classList.remove('h-16', 'md:h-20');
-          logo.classList.remove('h-10', 'md:h-14');
-          logo.classList.add('h-12', 'md:h-16');
-          nameImg.classList.remove('h-5', 'md:h-6');
-          nameImg.classList.add('h-6', 'md:h-8');
-        }
-      });
-    })
-    .catch(err => console.error('Failed to load header:', err));
-</script>
-
+    fetch('header.html')
+      .then(r => r.text())
+      .then(d => document.getElementById('header-placeholder').innerHTML = d);
+  </script>
 
   <!-- Contact Section -->
-  <section class="pt-24 pb-24 max-w-4xl mx-auto px-6 relative z-10">
+  <section class="pt-24 pb-24 relative z-10">
     <div class="contact-card">
-
       <h2>Contact Us</h2>
-      <div class="handshake-box">🤝</div>
 
       <div class="flex flex-col items-center gap-4 mt-6">
-        <a href="tel:7039199717" class="contact-btn call">Call: 7039199717</a>
-        <a href="mailto:nirvanaestates@gmail.com" class="contact-btn email">Email: nirvanaestates@gmail.com</a>
-        <a href="https://wa.me/917039199717" target="_blank" class="contact-btn whatsapp">WhatsApp Appointment</a>
+        <a href="tel:7039199717" class="contact-btn">Call: 7039199717</a>
+        <a href="mailto:nirvanaestates@gmail.com" class="contact-btn">Email: nirvanaestates@gmail.com</a>
+        <a href="https://wa.me/917039199717" target="_blank" class="contact-btn">WhatsApp Appointment</a>
       </div>
 
       <div class="flex justify-center flex-wrap mt-6">
-        <a href="https://wa.me/917039199717" target="_blank" class="social-icon bg-green-500">WA</a>
-        <a href="https://www.instagram.com/nirvanaestates.mumbai" target="_blank" class="social-icon bg-pink-500">IG</a>
-        <a href="https://www.facebook.com/share/1B7T6rgphd/?mibextid=wwXIfr" target="_blank" class="social-icon bg-blue-600">FB</a>
+        <a href="https://wa.me/917039199717" target="_blank" class="social-icon">WA</a>
+        <a href="https://www.instagram.com/nirvanaestates.mumbai" target="_blank" class="social-icon">IG</a>
+        <a href="https://www.facebook.com/share/1B7T6rgphd/" target="_blank" class="social-icon">FB</a>
       </div>
 
       <p>
         Contact us for more information or to book an appointment.<br>
         Follow us on WhatsApp, Instagram, and Facebook for the latest property updates.
       </p>
-
     </div>
   </section>
 
   <!-- Footer -->
-  
-  <!-- FOOTER PLACEHOLDER -->
   <div id="footer-placeholder"></div>
-<!-- footer.html -->
-<footer class="relative text-white">
-
-  <!-- Copyright Bar -->
-  <div class="bg-[#0f2b3d] text-gray-300 text-center text-sm py-4">
-    © <span id="year"></span> Nirvana Estates. All rights reserved.
-  </div>
-
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-
-  <!-- Mobile touch hover effect -->
   <script>
-    const touchElements = document.querySelectorAll('.contact-btn, .handshake-box, .social-icon');
-    touchElements.forEach(el => {
-      el.addEventListener('touchstart', () => el.classList.add('active-glow'));
-      el.addEventListener('touchend', () => setTimeout(() => el.classList.remove('active-glow'), 200));
-    });
+    document.getElementById('footer-placeholder').innerHTML = `
+      <footer class="relative text-white">
+        <div class="bg-[#0f2b3d] text-gray-300 text-center text-sm py-4">
+          © ${new Date().getFullYear()} Nirvana Estates. All rights reserved.
+        </div>
+      </footer>
+    `;
+  </script>
+
+  <!-- Generate Bokeh Particles -->
+  <script>
+    const bokehContainer = document.getElementById('bokeh');
+    for (let i = 0; i < 30; i++) {
+      const span = document.createElement('span');
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.width = span.style.height = Math.random() * 15 + 5 + 'px';
+      span.style.animationDuration = 15 + Math.random() * 20 + 's';
+      span.style.opacity = Math.random() * 0.3 + 0.1;
+      bokehContainer.appendChild(span);
+    }
   </script>
 
 </body>
