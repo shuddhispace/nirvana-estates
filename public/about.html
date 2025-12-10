@@ -7,12 +7,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white">
-
-  <!-- Header -->
+  <!-- header placeholder -->
   <div id="header-placeholder"></div>
- 
 <script>
-  fetch('header.html')
+  fetch('header_main.html')
     .then(response => response.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
@@ -98,6 +96,8 @@
     })
     .catch(err => console.error('Failed to load header:', err));
 </script>
+
+
 
 
   <!-- About Section -->
