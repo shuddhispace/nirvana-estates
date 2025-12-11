@@ -214,7 +214,19 @@ function propertyCard(p){
 
   const sub=document.createElement('p');
   sub.className='text-gray-600 text-sm';
-  sub.textContent=`${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft | ${p.location}`;
+  // sub.textContent=`${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft | ${p.location}`;
+
+let builtupText =
+  p.builtupArea && p.builtupArea.trim() !== ""
+    ? ` | Built-up: ${p.builtupArea} sq ft`
+    : "";
+
+sub.textContent =
+  `${p.bedrooms} Bed | ${p.bathrooms} Bath | ` +
+  `Carpet: ${p.carpetArea} sq ft` +
+  `${builtupText} | ${p.location}`;
+
+
 
 const badgeRow=document.createElement('div');
 // Removed negotiable badge completely

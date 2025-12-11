@@ -258,7 +258,28 @@ badges.innerHTML = '';
     // Info Grid
     const infoGrid=document.getElementById('info-grid'); infoGrid.innerHTML='';
     const cell=(label,value)=>{ const d=document.createElement('div'); d.innerHTML=`<span class="font-semibold">${label}:</span> ${value}`; return d; };
-    infoGrid.append(cell('Bedrooms',p.bedrooms), cell('Bathrooms',p.bathrooms), cell('Carpet Area',`${p.carpetArea} sq ft`), cell('Built-up Area',`${p.builtupArea} sq ft`), cell('Location',p.location), cell('Category',p.category || '-'));
+    // infoGrid.append(cell('Bedrooms',p.bedrooms), cell('Bathrooms',p.bathrooms), cell('Carpet Area',`${p.carpetArea} sq ft`), cell('Built-up Area',`${p.builtupArea} sq ft`), cell('Location',p.location), cell('Category',p.category || '-'));
+
+infoGrid.innerHTML = "";
+
+infoGrid.append(
+  cell('Bedrooms', p.bedrooms),
+  cell('Bathrooms', p.bathrooms),
+  cell('Carpet Area', `${p.carpetArea} sq ft`)
+);
+
+// Add Built-up only if not empty
+if (p.builtupArea && p.builtupArea.trim() !== "") {
+  infoGrid.append(
+    cell('Built-up Area', `${p.builtupArea} sq ft`)
+  );
+}
+
+infoGrid.append(
+  cell('Location', p.location),
+  cell('Category', p.category || '-')
+);
+
 
     // Description
     document.getElementById('property-desc').textContent=p.description||'-';
