@@ -33,7 +33,7 @@ app.post('/admin/upload-property', upload.array('images', 10), (req, res) => {
     const negotiable = req.body.negotiable === 'on';
 
     // Handle image uploads
-    const BASE_URL = process.env.BASE_URL || 'https://nirvana-estatess.onrender.com';
+    const BASE_URL = process.env.BASE_URL || 'https://nirvana-estates-backend.onrender.com';
 
 const images = req.files
   ? req.files.map(f => `${BASE_URL}/uploads/images/${f.filename}`)
