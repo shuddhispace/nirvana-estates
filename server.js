@@ -19,9 +19,6 @@ app.use(express.static('public'));
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 
 const uploadDir = path.join(__dirname, "public/uploads/images");
 fs.mkdirSync(uploadDir, { recursive: true });
