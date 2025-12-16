@@ -242,7 +242,20 @@ button.active-glow {
   <h2>Sell or Rent Your Property</h2>
   <p class="description">Share your property details below and let <span style="color:#25D366;font-weight:600;">NIRVANA ESTATES</span> help you connect with the right buyer or tenant quickly.</p>
 
-  <form id="sellerForm" class="flex flex-col">
+  <form
+  id="sellerForm"
+  name="sellerForm"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="flex flex-col"
+>
+  <!-- Required hidden fields for Netlify -->
+  <input type="hidden" name="form-name" value="sellerForm">
+  <p class="hidden">
+    <label>Don’t fill this out: <input name="bot-field"></label>
+  </p>
+
     <div class="field-card"><input type="text" name="name" placeholder="Full Name *" required></div>
     <div class="field-card"><input type="tel" name="phone" placeholder="Phone Number *" required></div>
     <div class="field-card"><input type="email" name="email" placeholder="Email Address (Optional)"></div>
@@ -284,47 +297,7 @@ button.active-glow {
 
 <script>
 // ===== Form submit =====
-const form = document.getElementById("sellerForm");
-const successMessage = document.getElementById("successMessage");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  const submitBtn = form.querySelector("button[type='submit']");
-  
-  submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting...";
-
-  try {
-    // ✅ Try actual backend call
-    const res = await fetch("/submit-seller", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-
-    // ✅ If backend exists and works
-    if (res.ok) {
-      form.classList.add("hidden");
-      successMessage.classList.remove("hidden");
-    } else {
-      // ✅ For testing without backend, show success anyway
-      form.classList.add("hidden");
-      successMessage.classList.remove("hidden");
-      console.warn("Backend not found — showing success for demo.");
-    }
-
-  } catch (err) {
-    // ✅ If fetch fails (local test)
-    form.classList.add("hidden");
-    successMessage.classList.remove("hidden");
-    console.warn("Fetch failed, likely running locally:", err);
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit Property";
-  }
-});
 
 // ===== Mobile touch effect for button =====
 const submitBtn = document.querySelector("button[type='submit']");
@@ -374,6 +347,19 @@ window.addEventListener("resize", () => {
   width = canvas.width = window.innerWidth;
   height = canvas.height = window.innerHeight;
 });
+</script>
+
+
+<script>
+  const form = document.getElementById("sellerForm");
+  const successMessage = document.getElementById("successMessage");
+
+  form.addEventListener("submit", () => {
+    setTimeout(() => {
+      form.classList.add("hidden");
+      successMessage.classList.remove("hidden");
+    }, 500);
+  });
 </script>
 
 

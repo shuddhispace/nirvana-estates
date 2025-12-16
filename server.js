@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -13,14 +14,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use(express.static('public'));
 
-// Multer storage for images/videos
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    if (file.fieldname === 'images') cb(null, 'public/uploads/images');
-    else if (file.fieldname === 'videos') cb(null, 'public/uploads/videos');
-  },
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+
+['public/uploads/images', 'data'].forEach(dir => {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
+
 
 const upload = multer({ storage: storage });
 
@@ -35,7 +33,12 @@ app.post('/admin/upload-property', upload.array('images', 10), (req, res) => {
     const negotiable = req.body.negotiable === 'on';
 
     // Handle image uploads
-    const images = req.files ? req.files.map(f => `/uploads/images/${f.filename}`) : [];
+    const BASE_URL = process.env.BASE_URL || 'https://nirvana-estatess.onrender.com';
+
+const images = req.files
+  ? req.files.map(f => `${BASE_URL}/uploads/images/${f.filename}`)
+  : [];
+
 
     // ✅ Handle YouTube video URLs
     let videoLinks = [];
@@ -59,7 +62,7 @@ app.post('/admin/upload-property', upload.array('images', 10), (req, res) => {
       videos: videoLinks, // YouTube links only
     };
 
-    const dataFile = 'data/properties.json';
+    const dataFile = path.join(__dirname, 'data/properties.json');
     let properties = [];
 
     if (fs.existsSync(dataFile)) {
@@ -81,7 +84,7 @@ app.post('/admin/upload-property', upload.array('images', 10), (req, res) => {
 // Delete property by ID
 app.delete('/admin/delete-property/:id', (req, res) => {
   const id = req.params.id;
-  const dataFile = 'data/properties.json';
+  const dataFile = path.join(__dirname, 'data/properties.json');
 
   if (!fs.existsSync(dataFile)) {
     return res.status(404).json({ success: false, message: "No properties found" });
@@ -96,19 +99,14 @@ app.delete('/admin/delete-property/:id', (req, res) => {
 
   // Remove uploaded images
   if (propertyToDelete.images) {
-    propertyToDelete.images.forEach(imgPath => {
-      const fullPath = path.join(__dirname, 'public', imgPath.replace('/uploads/', 'uploads/'));
-      if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
-    });
-  }
+  propertyToDelete.images.forEach(imgUrl => {
+    const filename = imgUrl.split('/uploads/images/')[1];
+    if (!filename) return;
 
-  // Remove uploaded videos
-  if (propertyToDelete.videos) {
-    propertyToDelete.videos.forEach(videoPath => {
-      const fullPath = path.join(__dirname, 'public', videoPath.replace('/uploads/', 'uploads/'));
-      if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
-    });
-  }
+    const fullPath = path.join(__dirname, 'public/uploads/images', filename);
+    if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+  });
+}
 
   // Remove from JSON
   properties = properties.filter(p => String(p.id) !== id);
@@ -195,4 +193,6 @@ ${urls.map(url => `
 
 
 // Start server
-app.listen(3000, () => console.log("Server running on port 3000"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running on port", PORT));
+
