@@ -56,7 +56,7 @@
 <div id="header-placeholder"></div>
 
 <script>
-  fetch('header.html')
+  fetch('header_main.html')
     .then(response => response.text())
     .then(data => {
       document.getElementById('header-placeholder').innerHTML = data;
@@ -220,6 +220,11 @@ function createSlide(src,type){
   return wrap;
 }
 
+const INR = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR'
+});
+
 // Load property details
 async function loadDetails(){
   const params=new URLSearchParams(location.search); const id=params.get('id');
@@ -243,16 +248,38 @@ async function loadDetails(){
 
     // Title & Price
     document.getElementById('property-title').textContent=p.title||'Property';
-    document.getElementById('property-price').textContent=INR(p.price);
+    document.getElementById('property-price').textContent = INR.format(p.price);
 
-    // Badges
-    const badges=document.getElementById('badges'); badges.innerHTML='';
-    if(p.negotiable){ const b=document.createElement('span'); b.className='badge'; b.textContent='Negotiable'; badges.appendChild(b); }
+ // Badges (Removed Negotiable Tag)
+const badges = document.getElementById('badges'); 
+badges.innerHTML = '';
+
 
     // Info Grid
     const infoGrid=document.getElementById('info-grid'); infoGrid.innerHTML='';
     const cell=(label,value)=>{ const d=document.createElement('div'); d.innerHTML=`<span class="font-semibold">${label}:</span> ${value}`; return d; };
-    infoGrid.append(cell('Bedrooms',p.bedrooms), cell('Bathrooms',p.bathrooms), cell('Carpet Area',`${p.carpetArea} sq ft`), cell('Built-up Area',`${p.builtupArea} sq ft`), cell('Location',p.location), cell('Category',p.category || '-'));
+    // infoGrid.append(cell('Bedrooms',p.bedrooms), cell('Bathrooms',p.bathrooms), cell('Carpet Area',`${p.carpetArea} sq ft`), cell('Built-up Area',`${p.builtupArea} sq ft`), cell('Location',p.location), cell('Category',p.category || '-'));
+
+infoGrid.innerHTML = "";
+
+infoGrid.append(
+  cell('Bedrooms', p.bedrooms),
+  cell('Bathrooms', p.bathrooms),
+  cell('Carpet Area', `${p.carpetArea} sq ft`)
+);
+
+// Add Built-up only if not empty
+if (p.builtupArea && p.builtupArea.trim() !== "") {
+  infoGrid.append(
+    cell('Built-up Area', `${p.builtupArea} sq ft`)
+  );
+}
+
+infoGrid.append(
+  cell('Location', p.location),
+  cell('Category', p.category || '-')
+);
+
 
     // Description
     document.getElementById('property-desc').textContent=p.description||'-';

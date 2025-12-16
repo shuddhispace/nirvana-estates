@@ -229,7 +229,7 @@ const INR = new Intl.NumberFormat('en-IN', {
 async function loadDetails(){
   const params=new URLSearchParams(location.search); const id=params.get('id');
   try{
-    const res=await fetch('/data/properties.json'); const all=await res.json();
+    const res=await fetch('https://nirvana-estates-backend.onrender.com/data/properties.json');
     const p=all.find(x=>String(x.id)===String(id));
     if(!p){ document.getElementById('gallery').innerHTML='<p class="text-red-600">Property not found.</p>'; return; }
 

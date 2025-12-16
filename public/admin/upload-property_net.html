@@ -10,12 +10,7 @@
   <div class="max-w-4xl mx-auto">
     <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Upload Property</h1>
 
-    <!-- <form id="uploadForm" action="/admin/upload-property" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow-lg"> -->
-<form
-  id="uploadForm"
-  action="https://nirvana-estates-backend.onrender.com/admin/upload-property"
-  method="POST"
-  enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow-lg">
+    <form id="uploadForm" action="/admin/upload-property" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow-lg">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -105,10 +100,7 @@
 <script>
  // Fetch and display properties
 async function loadProperties() {
-  const BACKEND = "https://nirvana-estates-backend.onrender.com";
-
-const res = await fetch(`${BACKEND}/data/properties.json`);
-
+  const res = await fetch('/data/properties.json');
   const properties = await res.json();
 
   const list = document.getElementById('propertyList');
@@ -152,7 +144,7 @@ const res = await fetch(`${BACKEND}/data/properties.json`);
     delBtn.className = 'bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 mt-3 w-full';
     delBtn.onclick = async () => {
       if (!confirm(`Delete property "${p.title}"?`)) return;
-      const res = await fetch(`${BACKEND}/admin/delete-property/${p.id}`, { method: 'DELETE' });
+      const res = await fetch(`/admin/delete-property/${p.id}`, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         alert('Deleted successfully');

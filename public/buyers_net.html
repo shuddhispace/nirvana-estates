@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rentals - Nirvana Estates</title>
+<title>Buyers - Nirvana Estates</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { background-color: #f9fafb; }
@@ -141,7 +141,7 @@
 
 
 <main class="max-w-7xl mx-auto px-4 py-6">
-  <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Properties for Rentals</h2>
+  <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Properties for Buyers</h2>
   <div id="grid" class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6"></div>
 </main>
 
@@ -216,7 +216,7 @@ function propertyCard(p){
   sub.className='text-gray-600 text-sm';
   // sub.textContent=`${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft | ${p.location}`;
 
-  let builtupText =
+let builtupText =
   p.builtupArea && p.builtupArea.trim() !== ""
     ? ` | Built-up: ${p.builtupArea} sq ft`
     : "";
@@ -227,9 +227,18 @@ sub.textContent =
   `${builtupText} | ${p.location}`;
 
 
-const badgeRow = document.createElement('div');
-// Negotiable removed
 
+const badgeRow=document.createElement('div');
+// Removed negotiable badge completely
+
+
+  // const badgeRow=document.createElement('div');
+  // if(p.negotiable){
+  //   const badge=document.createElement('span');
+  //   badge.className='inline-block bg-green-600 text-white text-xs px-2 py-1 rounded';
+  //   badge.textContent='Negotiable';
+  //   badgeRow.appendChild(badge);
+  // }
 
   const ctaRow=document.createElement('div');
   ctaRow.className='mt-2 flex flex-wrap gap-2';
@@ -252,14 +261,11 @@ const badgeRow = document.createElement('div');
 
 async function load(){
   try{
-    const BACKEND = "https://nirvana-estates-backend.onrender.com";
-
-const res = await fetch(`${BACKEND}/data/properties.json`);
-
+    const res=await fetch('/data/properties.json');
     const list=await res.json();
     const grid=document.getElementById('grid');
     grid.innerHTML='';
-    list.filter(p=> (p.category||'').toLowerCase()==='rentals').forEach(p=> grid.appendChild(propertyCard(p)));
+    list.filter(p=> (p.category||'').toLowerCase()==='buyers').forEach(p=> grid.appendChild(propertyCard(p)));
   } catch(e){
     console.error(e);
     document.getElementById('grid').innerHTML='<div class="text-red-600">Failed to load properties.</div>';
@@ -285,5 +291,6 @@ load();
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>

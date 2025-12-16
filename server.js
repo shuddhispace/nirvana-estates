@@ -11,13 +11,24 @@ app.use(express.json());
 
 // Serve static folders
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-app.use('/data', express.static(path.join(__dirname, 'data')));
+// app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use(express.static('public'));
 
 
 ['public/uploads/images', 'data'].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
+
+
+const cors = require("cors");
+
+app.use(cors({
+  origin: [
+    "https://elegant-nougat-883fc3.netlify.app",
+    "https://nirvanaestates.co.in"
+  ],
+  methods: ["GET", "POST", "DELETE"],
+}));
 
 
 const uploadDir = path.join(__dirname, "public/uploads/images");
