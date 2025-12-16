@@ -215,6 +215,16 @@ ${urls.map(url => `
   res.send(sitemap);
 });
 
+app.get("/api/properties", (req, res) => {
+  const dataFile = path.join(__dirname, "data/properties.json");
+
+  if (!fs.existsSync(dataFile)) {
+    return res.json([]);
+  }
+
+  const data = JSON.parse(fs.readFileSync(dataFile, "utf-8"));
+  res.json(data);
+});
 
 // Start server
 const PORT = process.env.PORT || 3000;
