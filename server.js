@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Serve static folders
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-// app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use(express.static('public'));
 
 
