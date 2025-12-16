@@ -226,70 +226,89 @@ const INR = new Intl.NumberFormat('en-IN', {
 });
 
 // Load property details
-async function loadDetails(){
-  const params=new URLSearchParams(location.search); const id=params.get('id');
-  try{
-    const res=await fetch('https://nirvana-estates-backend.onrender.com/data/properties.json');
-    const p=all.find(x=>String(x.id)===String(id));
-    if(!p){ document.getElementById('gallery').innerHTML='<p class="text-red-600">Property not found.</p>'; return; }
+async function loadDetails() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+
+  try {
+    const res = await fetch('https://nirvana-estates-backend.onrender.com/api/properties');
+    const all = await res.json();
+
+    const p = all.find(x => String(x.id) === String(id));
+
+    if (!p) {
+      document.getElementById('gallery').innerHTML =
+        '<p class="text-red-600">Property not found.</p>';
+      return;
+    }
 
     // Gallery
-    const gallery=document.getElementById('gallery'); gallery.innerHTML='';
-    const track=document.createElement('div'); track.className='carousel';
-    const media=[...(Array.isArray(p.images)?p.images.map(s=>({src:s,type:'image'})):[]),
-                 ...(Array.isArray(p.videos)?p.videos.map(s=>({src:s,type:'video'})):[])];
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
+    const track = document.createElement('div');
+    track.className = 'carousel';
 
-    if(media.length===0){
-      const ph=document.createElement('div'); ph.className='w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500 rounded'; ph.textContent='No media';
+    const media = [
+      ...(Array.isArray(p.images) ? p.images.map(s => ({ src: s, type: 'image' })) : []),
+      ...(Array.isArray(p.videos) ? p.videos.map(s => ({ src: s, type: 'video' })) : [])
+    ];
+
+    if (media.length === 0) {
+      const ph = document.createElement('div');
+      ph.className = 'w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500 rounded';
+      ph.textContent = 'No media';
       track.appendChild(ph);
-    } else { media.forEach(m=>track.appendChild(createSlide(m.src,m.type))); }
+    } else {
+      media.forEach(m => track.appendChild(createSlide(m.src, m.type)));
+    }
 
     gallery.appendChild(track);
 
     // Title & Price
-    document.getElementById('property-title').textContent=p.title||'Property';
+    document.getElementById('property-title').textContent = p.title || 'Property';
     document.getElementById('property-price').textContent = INR.format(p.price);
 
- // Badges (Removed Negotiable Tag)
-const badges = document.getElementById('badges'); 
-badges.innerHTML = '';
-
-
     // Info Grid
-    const infoGrid=document.getElementById('info-grid'); infoGrid.innerHTML='';
-    const cell=(label,value)=>{ const d=document.createElement('div'); d.innerHTML=`<span class="font-semibold">${label}:</span> ${value}`; return d; };
-    // infoGrid.append(cell('Bedrooms',p.bedrooms), cell('Bathrooms',p.bathrooms), cell('Carpet Area',`${p.carpetArea} sq ft`), cell('Built-up Area',`${p.builtupArea} sq ft`), cell('Location',p.location), cell('Category',p.category || '-'));
+    const infoGrid = document.getElementById('info-grid');
+    infoGrid.innerHTML = '';
 
-infoGrid.innerHTML = "";
+    const cell = (label, value) => {
+      const d = document.createElement('div');
+      d.innerHTML = `<span class="font-semibold">${label}:</span> ${value}`;
+      return d;
+    };
 
-infoGrid.append(
-  cell('Bedrooms', p.bedrooms),
-  cell('Bathrooms', p.bathrooms),
-  cell('Carpet Area', `${p.carpetArea} sq ft`)
-);
+    infoGrid.append(
+      cell('Bedrooms', p.bedrooms),
+      cell('Bathrooms', p.bathrooms),
+      cell('Carpet Area', `${p.carpetArea} sq ft`)
+    );
 
-// Add Built-up only if not empty
-if (p.builtupArea && p.builtupArea.trim() !== "") {
-  infoGrid.append(
-    cell('Built-up Area', `${p.builtupArea} sq ft`)
-  );
-}
+    if (p.builtupArea && p.builtupArea.trim() !== '') {
+      infoGrid.append(cell('Built-up Area', `${p.builtupArea} sq ft`));
+    }
 
-infoGrid.append(
-  cell('Location', p.location),
-  cell('Category', p.category || '-')
-);
-
+    infoGrid.append(
+      cell('Location', p.location),
+      cell('Category', p.category || '-')
+    );
 
     // Description
-    document.getElementById('property-desc').textContent=p.description||'-';
+    document.getElementById('property-desc').textContent = p.description || '-';
 
-    // CTA Buttons
-    document.getElementById('call-btn').href='tel:+917039199717';
-    document.getElementById('wa-btn').href='https://wa.me/917039199717?text=' + encodeURIComponent(`I am interested in property ID: ${p.id}`);
+    // CTA
+    document.getElementById('call-btn').href = 'tel:+917039199717';
+    document.getElementById('wa-btn').href =
+      'https://wa.me/917039199717?text=' +
+      encodeURIComponent(`I am interested in property ID: ${p.id}`);
 
-  } catch(e){ console.error(e); document.getElementById('gallery').innerHTML='<p class="text-red-600">Failed to load property.</p>'; }
+  } catch (e) {
+    console.error(e);
+    document.getElementById('gallery').innerHTML =
+      '<p class="text-red-600">Failed to load property.</p>';
+  }
 }
+
 
 loadDetails();
 </script>
