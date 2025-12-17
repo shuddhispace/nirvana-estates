@@ -242,19 +242,7 @@ button.active-glow {
   <h2>Sell or Rent Your Property</h2>
   <p class="description">Share your property details below and let <span style="color:#25D366;font-weight:600;">NIRVANA ESTATES</span> help you connect with the right buyer or tenant quickly.</p>
 
-  <form
-  id="sellerForm"
-  name="sellerForm"
-  method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  class="flex flex-col"
->
-  <!-- Required hidden fields for Netlify -->
-  <input type="hidden" name="form-name" value="sellerForm">
-  <p class="hidden">
-    <label>Don’t fill this out: <input name="bot-field"></label>
-  </p>
+  <form id="sellerForm" class="flex flex-col">
 
     <div class="field-card"><input type="text" name="name" placeholder="Full Name *" required></div>
     <div class="field-card"><input type="tel" name="phone" placeholder="Phone Number *" required></div>
@@ -360,6 +348,38 @@ window.addEventListener("resize", () => {
       successMessage.classList.remove("hidden");
     }, 500);
   });
+</script>
+
+<script>
+const form = document.getElementById("sellerForm");
+const successMessage = document.getElementById("successMessage");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const res = await fetch(
+      "https://nirvana-estates-backend.onrender.com/submit-seller",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }
+    );
+
+    if (res.ok) {
+      form.classList.add("hidden");
+      successMessage.classList.remove("hidden");
+    } else {
+      alert("Submission failed. Please try again.");
+    }
+  } catch (err) {
+    alert("Server error. Please try later.");
+  }
+});
 </script>
 
 
