@@ -27,9 +27,10 @@ body {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-}
+}  
 
-/* Form container */
+
+/* Form container 
 .form-container {
   position: relative;
   z-index: 10;
@@ -37,6 +38,10 @@ body {
   max-width: 480px;
   margin: 0 auto;
   padding: 2rem;
+}  */
+.form-container,
+.form-container * {
+  pointer-events: auto;
 }
 
 /* Heading */
@@ -342,7 +347,11 @@ const sellerForm = document.getElementById("sellerForm");
 const successMessage = document.getElementById("successMessage");
 
 sellerForm.addEventListener("submit", async (e) => {
-  e.preventDefault(); // ⛔ STOP page reload
+  e.preventDefault();
+
+  const submitBtn = sellerForm.querySelector("button[type='submit']");
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Submitted.";
 
   const formData = new FormData(sellerForm);
   const data = Object.fromEntries(formData.entries());
@@ -360,16 +369,24 @@ sellerForm.addEventListener("submit", async (e) => {
     if (res.ok) {
       sellerForm.classList.add("hidden");
       successMessage.classList.remove("hidden");
-      successMessage.innerHTML = "✅ Your property was submitted successfully.";
+      successMessage.innerHTML =
+        "✅ Your property was submitted successfully.";
     } else {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit Property";
       successMessage.classList.remove("hidden");
-      successMessage.innerHTML = "❌ Submission failed. Please try again.";
+      successMessage.innerHTML =
+        "❌ Submission failed. Please try again.";
     }
   } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Property";
     successMessage.classList.remove("hidden");
-    successMessage.innerHTML = "❌ Server error. Please try later.";
+    successMessage.innerHTML =
+      "❌ Server error. Please try later.";
   }
 });
+
 </script>
 
 
