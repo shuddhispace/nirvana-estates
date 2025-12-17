@@ -337,27 +337,14 @@ window.addEventListener("resize", () => {
 });
 </script>
 
-
 <script>
-  const form = document.getElementById("sellerForm");
-  const successMessage = document.getElementById("successMessage");
-
-  form.addEventListener("submit", () => {
-    setTimeout(() => {
-      form.classList.add("hidden");
-      successMessage.classList.remove("hidden");
-    }, 500);
-  });
-</script>
-
-<script>
-const form = document.getElementById("sellerForm");
+const sellerForm = document.getElementById("sellerForm");
 const successMessage = document.getElementById("successMessage");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+sellerForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); // ⛔ STOP page reload
 
-  const formData = new FormData(form);
+  const formData = new FormData(sellerForm);
   const data = Object.fromEntries(formData.entries());
 
   try {
@@ -371,16 +358,20 @@ form.addEventListener("submit", async (e) => {
     );
 
     if (res.ok) {
-      form.classList.add("hidden");
+      sellerForm.classList.add("hidden");
       successMessage.classList.remove("hidden");
+      successMessage.innerHTML = "✅ Your property was submitted successfully.";
     } else {
-      alert("Submission failed. Please try again.");
+      successMessage.classList.remove("hidden");
+      successMessage.innerHTML = "❌ Submission failed. Please try again.";
     }
   } catch (err) {
-    alert("Server error. Please try later.");
+    successMessage.classList.remove("hidden");
+    successMessage.innerHTML = "❌ Server error. Please try later.";
   }
 });
 </script>
+
 
 
 </body>
