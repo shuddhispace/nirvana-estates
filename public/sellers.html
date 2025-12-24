@@ -155,7 +155,7 @@ button.active-glow {
 
 <!-- Header -->
 <div id="header-placeholder"></div>
-<script>
+<!-- <script>
   fetch('header_main.html')
     .then(response => response.text())
     .then(data => {
@@ -241,7 +241,7 @@ button.active-glow {
       });
     })
     .catch(err => console.error('Failed to load header:', err));
-</script>
+</script> -->
 
 <div class="form-container">
   <h2>Sell or Rent Your Property</h2>
@@ -289,60 +289,6 @@ button.active-glow {
 </script>
 
 <script>
-// ===== Form submit =====
-
-
-// ===== Mobile touch effect for button =====
-const submitBtn = document.querySelector("button[type='submit']");
-submitBtn.addEventListener("touchstart", () => submitBtn.classList.add("active-glow"));
-submitBtn.addEventListener("touchend", () => setTimeout(() => submitBtn.classList.remove("active-glow"), 200));
-
-// ===== Futuristic real estate background animation =====
-const canvas = document.getElementById("background-canvas");
-const ctx = canvas.getContext("2d");
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
-
-class BuildingLine {
-  constructor() {
-    this.x = Math.random() * width;
-    this.y = height;
-    this.width = Math.random() * 2 + 1;
-    this.height = Math.random() * 50 + 50;
-    this.speed = Math.random() * 0.3 + 0.1;
-  }
-  draw() {
-    ctx.fillStyle = "rgba(0,255,255,0.05)";
-    ctx.fillRect(this.x, this.y - this.height, this.width, this.height);
-  }
-  update() {
-    this.y -= this.speed;
-    if (this.y - this.height < 0) {
-      this.y = height;
-      this.height = Math.random() * 50 + 50;
-      this.width = Math.random() * 2 + 1;
-    }
-  }
-}
-
-const buildings = [];
-for (let i = 0; i < 120; i++) buildings.push(new BuildingLine());
-
-function animate() {
-  ctx.clearRect(0, 0, width, height);
-  buildings.forEach(b => { b.update(); b.draw(); });
-  requestAnimationFrame(animate);
-}
-
-animate();
-
-window.addEventListener("resize", () => {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-});
-</script>
-
-<script>
 const sellerForm = document.getElementById("sellerForm");
 const successMessage = document.getElementById("successMessage");
 
@@ -351,7 +297,7 @@ sellerForm.addEventListener("submit", async (e) => {
 
   const submitBtn = sellerForm.querySelector("button[type='submit']");
   submitBtn.disabled = true;
-  submitBtn.innerText = "Submitted.";
+  submitBtn.innerText = "Submitting...";
 
   const formData = new FormData(sellerForm);
   const data = Object.fromEntries(formData.entries());
@@ -362,34 +308,31 @@ sellerForm.addEventListener("submit", async (e) => {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       }
     );
 
-    if (res.ok) {
-      sellerForm.classList.add("hidden");
-      successMessage.classList.remove("hidden");
+    const result = await res.json();
+
+    sellerForm.classList.add("hidden");
+    successMessage.classList.remove("hidden");
+
+    if (res.ok && result.success) {
       successMessage.innerHTML =
-        "✅ Your property was submitted successfully.";
+        "✅ Your property details have been submitted successfully.<br>Our team will contact you shortly.";
     } else {
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit Property";
-      successMessage.classList.remove("hidden");
       successMessage.innerHTML =
-        "❌ Submission failed. Please try again.";
+        "❌ Submission failed. Please try again later.";
     }
+
   } catch (err) {
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit Property";
+    sellerForm.classList.add("hidden");
     successMessage.classList.remove("hidden");
     successMessage.innerHTML =
-      "❌ Server error. Please try later.";
+      "❌ Server error. Please try again later.";
   }
 });
-
 </script>
-
-
 
 </body>
 </html>
