@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell or Rent Your Property | Nirvana Estates</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   min-height: 100vh;
   background: #0f2b3d;
-  overflow-x: hidden;
   color: #e0f7fa;
+  overflow-x: hidden;
   position: relative;
 }
 
@@ -24,10 +26,7 @@ body {
   pointer-events: none;
 }
 
-.form-container,
-.form-container * {
-  pointer-events: auto;
-}
+.form-container, .form-container * { pointer-events: auto; }
 
 h2 {
   font-size: 2.3rem;
@@ -54,17 +53,15 @@ p.description {
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   transition: 0.3s;
 }
-
-.field-card:hover,
-.field-card:focus-within {
+.field-card:hover, .field-card:focus-within {
   box-shadow: 0 0 18px #00f0ff;
   border-color: #00f0ff;
 }
 
 input, select, textarea {
   width: 100%;
-  background: transparent;
   border: none;
+  background: transparent;
   color: #e0f7fa;
   outline: none;
 }
@@ -75,16 +72,15 @@ button {
   border-radius: 2rem;
   font-weight: 700;
   color: #fff;
+  cursor: pointer;
   background: linear-gradient(270deg, #25D366, #00f0ff, #ff6f91);
   background-size: 600% 600%;
   animation: gradientMove 8s ease infinite;
   transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(0,255,255,0.5);
 }
 
-button:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 24px rgba(0,255,255,0.8);
-}
+button:hover { transform: scale(1.03); box-shadow: 0 0 24px rgba(0,255,255,0.8); }
 
 @keyframes gradientMove {
   0% { background-position:0% 50%; }
@@ -92,35 +88,38 @@ button:hover {
   100% { background-position:0% 50%; }
 }
 
-/* Status Boxes */
-#formStatus {
+/* Success/Error Box */
+#formStatus { text-align:center; margin-top:1.5rem; }
+#successBox, #errorBox {
   display: none;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.status-box {
   padding: 1.5rem;
   border-radius: 2rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  backdrop-filter: blur(12px);
   max-width: 480px;
-  margin: 0 auto;
+  margin: 1rem auto 0 auto;
 }
-
-.status-success {
+#successBox {
   background: rgba(16,185,129,0.1);
   border: 1px solid #10b981;
   color: #10b981;
 }
-
-.status-error {
+#successBox h3 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
+#errorBox {
   background: rgba(239,68,68,0.1);
   border: 1px solid #ef4444;
   color: #ef4444;
 }
+#errorBox h3 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+@media (max-width:640px) {
+  h2 { font-size: 2rem; }
+  button { font-size: 1rem; padding: 0.9rem; }
+  .field-card { padding: 0.8rem 1rem; }
+}
 </style>
 </head>
+
 <body>
 
 <canvas id="background-canvas"></canvas>
@@ -138,7 +137,7 @@ help you connect with the right buyer or tenant.
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
-  action="/thank-you.html"
+  class="flex flex-col"
 >
   <input type="hidden" name="form-name" value="seller-property">
   <input type="hidden" name="bot-field">
@@ -161,14 +160,14 @@ help you connect with the right buyer or tenant.
   <button type="submit">Submit Property</button>
 </form>
 
-<!-- Status Box -->
+<!-- Inline Status Box -->
 <div id="formStatus">
-  <div id="successBox" class="status-box status-success hidden">
-    <h3 class="text-2xl font-extrabold mb-2">🎉 Submitted Successfully!</h3>
-    <p>Thank you! Our team will contact you shortly.</p>
+  <div id="successBox">
+    <h3>🎉 Submitted Successfully</h3>
+    <p>Our Nirvana Estates team will contact you shortly.</p>
   </div>
-  <div id="errorBox" class="status-box status-error hidden">
-    <h3 class="text-2xl font-extrabold mb-2">⚠️ Submission Failed</h3>
+  <div id="errorBox">
+    <h3>⚠️ Submission Failed</h3>
     <p>Please refresh the page and try again.</p>
   </div>
 </div>
@@ -176,28 +175,32 @@ help you connect with the right buyer or tenant.
 </div>
 
 <script>
-// Show success box if ?success=true
-const params = new URLSearchParams(window.location.search);
 const form = document.querySelector("form[name='seller-property']");
-const formStatus = document.getElementById("formStatus");
+const statusBox = document.getElementById("formStatus");
 const successBox = document.getElementById("successBox");
 const errorBox = document.getElementById("errorBox");
 
-if (params.get("success") === "true") {
-  form.style.display = "none";
-  formStatus.style.display = "block";
-  successBox.classList.remove("hidden");
-}
+// Listen for Netlify success/failure
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
 
-// Optional: show error if page loaded without success param
-form.addEventListener("submit", () => {
-  setTimeout(() => {
-    if (!window.location.search.includes("success")) {
-      form.style.display = "none";
-      formStatus.style.display = "block";
-      errorBox.classList.remove("hidden");
-    }
-  }, 2000);
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString()
+  })
+  .then(() => {
+    form.reset();
+    form.style.display = "none";
+    statusBox.style.display = "block";
+    successBox.style.display = "block";
+  })
+  .catch(() => {
+    form.style.display = "none";
+    statusBox.style.display = "block";
+    errorBox.style.display = "block";
+  });
 });
 </script>
 
