@@ -140,42 +140,42 @@ app.delete('/admin/delete-property/:id', (req, res) => {
 });
 
 
-// 💌 Seller Form Route (Add Here)
-app.post("/submit-seller", async (req, res) => {
-  const { name, phone, email, type, location, description } = req.body;
-  const nodemailer = require("nodemailer");
+// // 💌 Seller Form Route (Add Here)
+// app.post("/submit-seller", async (req, res) => {
+//   const { name, phone, email, type, location, description } = req.body;
+//   const nodemailer = require("nodemailer");
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+//   const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: process.env.EMAIL_USER,
+//       pass: process.env.EMAIL_PASS,
+//     },
+//   });
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: "nirvanaestatess@gmail.com",
-    subject: `New Seller/Rental Property Submission - ${type}`,
-    html: `
-      <h2>New Property Submission</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Type:</strong> ${type}</p>
-      <p><strong>Location:</strong> ${location}</p>
-      <p><strong>Description:</strong> ${description}</p>
-    `,
-  };
+//   const mailOptions = {
+//     from: process.env.EMAIL_USER,
+//     to: "nirvanaestatess@gmail.com",
+//     subject: `New Seller/Rental Property Submission - ${type}`,
+//     html: `
+//       <h2>New Property Submission</h2>
+//       <p><strong>Name:</strong> ${name}</p>
+//       <p><strong>Phone:</strong> ${phone}</p>
+//       <p><strong>Email:</strong> ${email}</p>
+//       <p><strong>Type:</strong> ${type}</p>
+//       <p><strong>Location:</strong> ${location}</p>
+//       <p><strong>Description:</strong> ${description}</p>
+//     `,
+//   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false });
-  }
-});
+//   try {
+//     await transporter.sendMail(mailOptions);
+//     res.status(200).json({ success: true });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false });
+//   }
+// });
 
 // Dynamic sitemap.xml route
 
