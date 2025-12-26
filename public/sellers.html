@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell or Rent Your Property | Nirvana Estates</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
@@ -18,33 +19,18 @@ body {
   position: relative;
 }
 
-/* Canvas for animated futuristic background */
 #background-canvas {
   position: fixed;
-  top:0;
-  left:0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-}  
+}
 
-
-/* Form container 
-.form-container {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem;
-}  */
 .form-container,
 .form-container * {
   pointer-events: auto;
 }
 
-/* Heading */
 h2 {
   font-size: 2.3rem;
   font-weight: 800;
@@ -60,7 +46,6 @@ p.description {
   color: #b0e0e6;
 }
 
-/* Floating Field Cards */
 .field-card {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(0,255,255,0.2);
@@ -69,55 +54,32 @@ p.description {
   padding: 1rem 1.5rem;
   margin-bottom: 1rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
+
 .field-card:hover,
 .field-card:focus-within {
   box-shadow: 0 0 18px #00f0ff;
-  border: 1px solid #00f0ff;
+  border-color: #00f0ff;
 }
 
 input, select, textarea {
   width: 100%;
-  border: none;
   background: transparent;
+  border: none;
   color: #e0f7fa;
-  font-weight: 500;
-  font-size: 1rem;
   outline: none;
 }
 
-select option {
-  background: #0f2b3d;
-  color: #e0f7fa;
-}
-
-input::placeholder, textarea::placeholder {
-  color: rgba(224,247,250,0.6);
-}
-
-/* Submit Button */
 button {
   width: 100%;
   padding: 1rem;
   border-radius: 2rem;
-  border: none;
   font-weight: 700;
-  font-size: 1.1rem;
   color: #fff;
-  cursor: pointer;
   background: linear-gradient(270deg, #25D366, #00f0ff, #ff6f91);
   background-size: 600% 600%;
   animation: gradientMove 8s ease infinite;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 12px rgba(0,255,255,0.5);
-}
-button:hover,
-button:focus,
-button:active,
-button.active-glow {
-  transform: scale(1.03);
-  box-shadow: 0 0 24px rgba(0,255,255,0.8);
 }
 
 @keyframes gradientMove {
@@ -125,254 +87,67 @@ button.active-glow {
   50% { background-position:100% 50%; }
   100% { background-position:0% 50%; }
 }
-
-/* Success Message */
-#successMessage {
-  text-align:center;
-  margin-top:1rem;
-  color:#00f0ff;
-  background: rgba(0,255,255,0.1);
-  border:1px solid #00f0ff;
-  padding:1rem;
-  border-radius:1.5rem;
-  font-weight:600;
-  box-shadow:0 0 12px rgba(0,255,255,0.3);
-}
-
-/* Mobile responsive */
-@media (max-width: 640px) {
-  h2 { font-size: 2rem; }
-  p.description { font-size: 0.95rem; }
-  button { font-size: 1rem; padding: 0.9rem; }
-  .field-card { padding: 0.8rem 1rem; }
-}
 </style>
 </head>
+
 <body>
 
-<!-- Background Canvas -->
 <canvas id="background-canvas"></canvas>
 
-<!-- Header -->
-<div id="header-placeholder"></div>
- <script>
-  fetch('header_main.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header-placeholder').innerHTML = data;
+<div class="form-container max-w-xl mx-auto px-4 py-16 relative z-10">
 
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const line1 = document.getElementById('line1');
-      const line2 = document.getElementById('line2');
-      const header = document.getElementById('header');
-      const headerContent = document.getElementById('header-content');
-      const logo = document.getElementById('logo');
-      const nameImg = document.getElementById('name-img');
+<h2>Sell or Rent Your Property</h2>
+<p class="description">
+Share your property details below and let
+<span class="text-green-400 font-semibold">NIRVANA ESTATES</span>
+help you connect with the right buyer or tenant.
+</p>
 
-      // Apply slide animation classes
-      mobileMenu.style.transition = "max-height 0.35s ease, opacity 0.35s ease";
-      mobileMenu.style.overflow = "hidden";
-      mobileMenu.style.maxHeight = "0";
-      mobileMenu.style.opacity = "0";
-
-      const toggleMenu = () => {
-        const isOpening = mobileMenu.style.maxHeight === "0px" || mobileMenu.style.maxHeight === "0";
-        
-        if (isOpening) {
-          mobileMenu.classList.remove('hidden');
-          mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
-          mobileMenu.style.opacity = "1";
-          line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
-          line2.style.transform = 'rotate(-45deg) translate(4px, -4px)';
-        } else {
-          mobileMenu.style.maxHeight = "0";
-          mobileMenu.style.opacity = "0";
-          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
-          line1.style.transform = 'rotate(0deg) translate(0, 0)';
-          line2.style.transform = 'rotate(0deg) translate(0, 0)';
-        }
-      };
-
-      menuToggle.addEventListener('click', toggleMenu);
-
-      // Close on menu link click
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.style.maxHeight = "0";
-          mobileMenu.style.opacity = "0";
-          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
-          line1.style.transform = 'rotate(0deg) translate(0, 0)';
-          line2.style.transform = 'rotate(0deg) translate(0, 0)';
-        });
-      });
-
-      // Close on click outside
-      document.addEventListener('click', (e) => {
-        const isClickInside = mobileMenu.contains(e.target) || menuToggle.contains(e.target);
-        const isOpen = mobileMenu.style.maxHeight !== "0" && !mobileMenu.classList.contains('hidden');
-
-        if (!isClickInside && isOpen) {
-          mobileMenu.style.maxHeight = "0";
-          mobileMenu.style.opacity = "0";
-          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
-          line1.style.transform = 'rotate(0deg) translate(0, 0)';
-          line2.style.transform = 'rotate(0deg) translate(0, 0)';
-        }
-      });
-
-      // Shrink header on scroll
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          header.classList.add('shadow-lg');
-          headerContent.classList.add('h-16', 'md:h-20');
-          logo.classList.add('h-10', 'md:h-14');
-          logo.classList.remove('h-12', 'md:h-16');
-          nameImg.classList.add('h-5', 'md:h-6');
-          nameImg.classList.remove('h-6', 'md:h-8');
-        } else {
-          header.classList.remove('shadow-lg');
-          headerContent.classList.remove('h-16', 'md:h-20');
-          logo.classList.remove('h-10', 'md:h-14');
-          logo.classList.add('h-12', 'md:h-16');
-          nameImg.classList.remove('h-5', 'md:h-6');
-          nameImg.classList.add('h-6', 'md:h-8');
-        }
-      });
-    })
-    .catch(err => console.error('Failed to load header:', err));
-</script> 
-
-<div class="form-container">
-  <h2>Sell or Rent Your Property</h2>
-  <p class="description">Share your property details below and let <span style="color:#25D366;font-weight:600;">NIRVANA ESTATES</span> help you connect with the right buyer or tenant quickly.</p>
-
-  <!-- <form id="sellerForm" class="flex flex-col"> -->
 <form
   name="seller-property"
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
+  action="/thank-you.html"
   class="flex flex-col"
 >
-  <input type="hidden" name="form-name" value="seller-property" />
-  <input type="hidden" name="bot-field" />
+  <input type="hidden" name="form-name" value="seller-property">
+  <input type="hidden" name="bot-field">
 
-    <div class="field-card"><input type="text" name="name" placeholder="Full Name *" required></div>
-    <div class="field-card"><input type="tel" name="phone" placeholder="Phone Number *" required></div>
-    <div class="field-card"><input type="email" name="email" placeholder="Email Address (Optional)"></div>
-    <div class="field-card">
-      <select name="type" required>
-        <option value="">Select Property Type *</option>
-        <option value="Sell">Sell</option>
-        <option value="Rent">Rent</option>
-      </select>
-    </div>
-    <div class="field-card"><input type="text" name="location" placeholder="Property Location *" required></div>
-    <div class="field-card"><textarea name="description" rows="4" placeholder="Describe your property (e.g., 2BHK flat, sea-facing, semi-furnished, near Malad station) *" required></textarea></div>
+  <div class="field-card"><input name="name" placeholder="Full Name *" required></div>
+  <div class="field-card"><input name="phone" placeholder="Phone Number *" required></div>
+  <div class="field-card"><input type="email" name="email" placeholder="Email (Optional)"></div>
 
-    <button type="submit">Submit Property</button>
-  </form>
-
-  <div id="successMessage" class="hidden">
-    ✅ Your property details have been submitted successfully. Our team will contact you soon.
+  <div class="field-card">
+    <select name="type" required>
+      <option value="">Property Type *</option>
+      <option>Sell</option>
+      <option>Rent</option>
+    </select>
   </div>
-</div>
 
-<div id="formStatus" class="hidden text-center mt-6">
+  <div class="field-card"><input name="location" placeholder="Property Location *" required></div>
+  <div class="field-card"><textarea name="description" rows="4" placeholder="Describe your property *" required></textarea></div>
 
-  <!-- Success -->
-  <div id="successBox" class="hidden bg-emerald-500/10 border border-emerald-400 text-emerald-300 p-6 rounded-3xl shadow-xl backdrop-blur-md animate-pulse">
+  <button type="submit">Submit Property</button>
+</form>
+
+<!-- STATUS UI -->
+<div id="formStatus" class="hidden text-center mt-8">
+
+  <div id="successBox" class="hidden bg-emerald-500/10 border border-emerald-400 text-emerald-300 p-6 rounded-3xl shadow-xl animate-pulse">
     <h3 class="text-2xl font-extrabold mb-2">🎉 Submitted Successfully</h3>
-    <p class="text-sm opacity-90">
-      Thank you for sharing your property details.<br>
-      Our Nirvana Estates team will contact you shortly.
-    </p>
+    <p>Our team will contact you shortly.</p>
   </div>
 
-  <!-- Error -->
-  <div id="errorBox" class="hidden bg-rose-500/10 border border-rose-400 text-rose-300 p-6 rounded-3xl shadow-xl backdrop-blur-md">
+  <div id="errorBox" class="hidden bg-rose-500/10 border border-rose-400 text-rose-300 p-6 rounded-3xl shadow-xl">
     <h3 class="text-2xl font-extrabold mb-2">⚠️ Submission Failed</h3>
-    <p class="text-sm opacity-90">
-      Something went wrong.<br>
-      Please refresh the page and try again.
-    </p>
+    <p>Please refresh and try again.</p>
   </div>
 
 </div>
 
-
-<!-- Footer -->
-
-  <!-- FOOTER PLACEHOLDER -->
-  <div id="footer-placeholder"></div>
-<!-- footer.html -->
-<footer class="relative text-white">
-
-  <!-- Copyright Bar -->
-  <div class="bg-[#0f2b3d] text-gray-300 text-center text-sm py-4">
-    © <span id="year"></span> Nirvana Estates. All rights reserved.
-  </div>
-
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-
-<!-- <script>
-const sellerForm = document.getElementById("sellerForm");
-const successMessage = document.getElementById("successMessage");
-
-sellerForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const submitBtn = sellerForm.querySelector("button[type='submit']");
-  submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting...";
-
-  const formData = new FormData(sellerForm);
-  const data = Object.fromEntries(formData.entries());
-
-  try {
-    const res = await fetch(
-      "https://nirvana-estates-backend.onrender.com/submit-seller",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      }
-    );
-
-    const result = await res.json();
-
-    sellerForm.classList.add("hidden");
-    successMessage.classList.remove("hidden");
-
-    if (res.ok && result.success) {
-      successMessage.innerHTML =
-        "✅ Your property details have been submitted successfully.<br>Our team will contact you shortly.";
-    } else {
-      successMessage.innerHTML =
-        "❌ Submission failed. Please try again later.";
-    }
-
-  } catch (err) {
-    sellerForm.classList.add("hidden");
-    successMessage.classList.remove("hidden");
-    successMessage.innerHTML =
-      "❌ Server error. Please try again later.";
-  }
-});
-</script>
-
-<script>
-if (window.location.search.includes("seller-property")) {
-  document.getElementById("sellerForm").classList.add("hidden");
-  document.getElementById("successMessage").classList.remove("hidden");
-}
-</script> -->
-
+</div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -387,13 +162,17 @@ if (params.has("success")) {
   successBox.classList.remove("hidden");
 }
 
-if (params.has("error")) {
-  form.classList.add("hidden");
-  statusBox.classList.remove("hidden");
-  errorBox.classList.remove("hidden");
-}
+// fallback error
+form.addEventListener("submit", () => {
+  setTimeout(() => {
+    if (!window.location.search.includes("success")) {
+      form.classList.add("hidden");
+      statusBox.classList.remove("hidden");
+      errorBox.classList.remove("hidden");
+    }
+  }, 8000);
+});
 </script>
-
 
 </body>
 </html>
