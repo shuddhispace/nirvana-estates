@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell or Rent Your Property | Nirvana Estates</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 body {
   font-family: 'Poppins', sans-serif;
@@ -80,6 +78,12 @@ button {
   background: linear-gradient(270deg, #25D366, #00f0ff, #ff6f91);
   background-size: 600% 600%;
   animation: gradientMove 8s ease infinite;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(0,255,255,0.8);
 }
 
 @keyframes gradientMove {
@@ -87,15 +91,41 @@ button {
   50% { background-position:100% 50%; }
   100% { background-position:0% 50%; }
 }
+
+/* Status Boxes */
+#formStatus {
+  display: none;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.status-box {
+  padding: 1.5rem;
+  border-radius: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.status-success {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid #10b981;
+  color: #10b981;
+}
+
+.status-error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}
 </style>
 </head>
-
 <body>
 
 <canvas id="background-canvas"></canvas>
 
 <div class="form-container max-w-xl mx-auto px-4 py-16 relative z-10">
-
 <h2>Sell or Rent Your Property</h2>
 <p class="description">
 Share your property details below and let
@@ -108,7 +138,7 @@ help you connect with the right buyer or tenant.
   method="POST"
   data-netlify="true"
   netlify-honeypot="bot-field"
-  action="/thank-you.html"
+  action="?success=true"
   class="flex flex-col"
 >
   <input type="hidden" name="form-name" value="seller-property">
@@ -132,45 +162,43 @@ help you connect with the right buyer or tenant.
   <button type="submit">Submit Property</button>
 </form>
 
-<!-- STATUS UI -->
-<div id="formStatus" class="hidden text-center mt-8">
-
-  <div id="successBox" class="hidden bg-emerald-500/10 border border-emerald-400 text-emerald-300 p-6 rounded-3xl shadow-xl animate-pulse">
-    <h3 class="text-2xl font-extrabold mb-2">🎉 Submitted Successfully</h3>
-    <p>Our team will contact you shortly.</p>
+<!-- Status Box -->
+<div id="formStatus">
+  <div id="successBox" class="status-box status-success hidden">
+    <h3 class="text-2xl font-extrabold mb-2">🎉 Submitted Successfully!</h3>
+    <p>Thank you! Our team will contact you shortly.</p>
   </div>
-
-  <div id="errorBox" class="hidden bg-rose-500/10 border border-rose-400 text-rose-300 p-6 rounded-3xl shadow-xl">
+  <div id="errorBox" class="status-box status-error hidden">
     <h3 class="text-2xl font-extrabold mb-2">⚠️ Submission Failed</h3>
-    <p>Please refresh and try again.</p>
+    <p>Please refresh the page and try again.</p>
   </div>
-
 </div>
 
 </div>
 
 <script>
+// Show success box if ?success=true
 const params = new URLSearchParams(window.location.search);
 const form = document.querySelector("form[name='seller-property']");
-const statusBox = document.getElementById("formStatus");
+const formStatus = document.getElementById("formStatus");
 const successBox = document.getElementById("successBox");
 const errorBox = document.getElementById("errorBox");
 
-if (params.has("success")) {
-  form.classList.add("hidden");
-  statusBox.classList.remove("hidden");
+if (params.get("success") === "true") {
+  form.style.display = "none";
+  formStatus.style.display = "block";
   successBox.classList.remove("hidden");
 }
 
-// fallback error
+// Optional: show error if page loaded without success param
 form.addEventListener("submit", () => {
   setTimeout(() => {
     if (!window.location.search.includes("success")) {
-      form.classList.add("hidden");
-      statusBox.classList.remove("hidden");
+      form.style.display = "none";
+      formStatus.style.display = "block";
       errorBox.classList.remove("hidden");
     }
-  }, 8000);
+  }, 2000);
 });
 </script>
 
