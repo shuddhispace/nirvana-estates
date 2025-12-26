@@ -15,7 +15,6 @@ body {
   color: #e0f7fa;
   min-height: 100vh;
 }
-
 .field-card {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(0,255,255,0.25);
@@ -23,7 +22,6 @@ body {
   padding: 1rem 1.2rem;
   margin-bottom: 1rem;
 }
-
 input, select, textarea {
   width: 100%;
   background: transparent;
@@ -31,7 +29,6 @@ input, select, textarea {
   outline: none;
   color: #e0f7fa;
 }
-
 button {
   width: 100%;
   padding: 1rem;
@@ -47,76 +44,58 @@ button {
 
 <div class="max-w-xl mx-auto px-4 py-16">
 
-  <h2 class="text-3xl font-extrabold text-center text-cyan-400 mb-2">
-    Sell or Rent Your Property
-  </h2>
+<h2 class="text-3xl font-extrabold text-center text-cyan-400 mb-2">
+Sell or Rent Your Property
+</h2>
 
-  <p class="text-center mb-8 text-cyan-200">
-    Submit your property details and connect instantly with Nirvana Estates
-  </p>
+<p class="text-center mb-8 text-cyan-200">
+Submit your property details and connect with Nirvana Estates
+</p>
 
-  <form id="sellerForm">
+<form
+  name="seller-property"
+  method="POST"
+  action="/sellers.html"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+>
 
-    <div class="field-card">
-      <input type="text" name="name" placeholder="Full Name *" required>
-    </div>
+<input type="hidden" name="form-name" value="seller-property">
+<input type="hidden" name="bot-field">
 
-    <div class="field-card">
-      <input type="tel" name="phone" placeholder="Phone Number *" required>
-    </div>
-
-    <div class="field-card">
-      <input type="email" name="email" placeholder="Email (Optional)">
-    </div>
-
-    <div class="field-card">
-      <select name="type" required>
-        <option value="">Property Type *</option>
-        <option value="Sell">Sell</option>
-        <option value="Rent">Rent</option>
-      </select>
-    </div>
-
-    <div class="field-card">
-      <input type="text" name="location" placeholder="Property Location *" required>
-    </div>
-
-    <div class="field-card">
-      <textarea name="description" rows="4" placeholder="Property Description *" required></textarea>
-    </div>
-
-    <button type="submit">Submit via WhatsApp</button>
-
-  </form>
-
+<div class="field-card">
+  <input type="text" name="name" placeholder="Full Name *" required>
 </div>
 
-<script>
-document.getElementById("sellerForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+<div class="field-card">
+  <input type="tel" name="phone" placeholder="Phone Number *" required>
+</div>
 
-  const form = e.target;
-  const data = new FormData(form);
+<div class="field-card">
+  <input type="email" name="email" placeholder="Email (Optional)">
+</div>
 
-  const message = `
-*New Property Submission* 🏠
+<div class="field-card">
+  <select name="type" required>
+    <option value="">Property Type *</option>
+    <option value="Sell">Sell</option>
+    <option value="Rent">Rent</option>
+  </select>
+</div>
 
-*Name:* ${data.get("name")}
-*Phone:* ${data.get("phone")}
-*Email:* ${data.get("email") || "N/A"}
-*Purpose:* ${data.get("type")}
-*Location:* ${data.get("location")}
+<div class="field-card">
+  <input type="text" name="location" placeholder="Property Location *" required>
+</div>
 
-*Details:*
-${data.get("description")}
-`;
+<div class="field-card">
+  <textarea name="description" rows="4" placeholder="Property Description *" required></textarea>
+</div>
 
-  const whatsappNumber = "917039199717";
-  const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+<button type="submit">Submit Property</button>
 
-  window.open(whatsappURL, "_blank");
-});
-</script>
+</form>
+
+</div>
 
 </body>
 </html>
