@@ -155,7 +155,7 @@ button.active-glow {
 
 <!-- Header -->
 <div id="header-placeholder"></div>
-<!-- <script>
+ <script>
   fetch('header_main.html')
     .then(response => response.text())
     .then(data => {
@@ -241,13 +241,22 @@ button.active-glow {
       });
     })
     .catch(err => console.error('Failed to load header:', err));
-</script> -->
+</script> 
 
 <div class="form-container">
   <h2>Sell or Rent Your Property</h2>
   <p class="description">Share your property details below and let <span style="color:#25D366;font-weight:600;">NIRVANA ESTATES</span> help you connect with the right buyer or tenant quickly.</p>
 
-  <form id="sellerForm" class="flex flex-col">
+  <!-- <form id="sellerForm" class="flex flex-col"> -->
+<form
+  name="seller-property"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="flex flex-col"
+>
+  <input type="hidden" name="form-name" value="seller-property" />
+  <input type="hidden" name="bot-field" />
 
     <div class="field-card"><input type="text" name="name" placeholder="Full Name *" required></div>
     <div class="field-card"><input type="tel" name="phone" placeholder="Phone Number *" required></div>
@@ -270,6 +279,29 @@ button.active-glow {
   </div>
 </div>
 
+<div id="formStatus" class="hidden text-center mt-6">
+
+  <!-- Success -->
+  <div id="successBox" class="hidden bg-emerald-500/10 border border-emerald-400 text-emerald-300 p-6 rounded-3xl shadow-xl backdrop-blur-md animate-pulse">
+    <h3 class="text-2xl font-extrabold mb-2">🎉 Submitted Successfully</h3>
+    <p class="text-sm opacity-90">
+      Thank you for sharing your property details.<br>
+      Our Nirvana Estates team will contact you shortly.
+    </p>
+  </div>
+
+  <!-- Error -->
+  <div id="errorBox" class="hidden bg-rose-500/10 border border-rose-400 text-rose-300 p-6 rounded-3xl shadow-xl backdrop-blur-md">
+    <h3 class="text-2xl font-extrabold mb-2">⚠️ Submission Failed</h3>
+    <p class="text-sm opacity-90">
+      Something went wrong.<br>
+      Please refresh the page and try again.
+    </p>
+  </div>
+
+</div>
+
+
 <!-- Footer -->
 
   <!-- FOOTER PLACEHOLDER -->
@@ -288,7 +320,7 @@ button.active-glow {
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
-<script>
+<!-- <script>
 const sellerForm = document.getElementById("sellerForm");
 const successMessage = document.getElementById("successMessage");
 
@@ -333,6 +365,35 @@ sellerForm.addEventListener("submit", async (e) => {
   }
 });
 </script>
+
+<script>
+if (window.location.search.includes("seller-property")) {
+  document.getElementById("sellerForm").classList.add("hidden");
+  document.getElementById("successMessage").classList.remove("hidden");
+}
+</script> -->
+
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const form = document.querySelector("form[name='seller-property']");
+const statusBox = document.getElementById("formStatus");
+const successBox = document.getElementById("successBox");
+const errorBox = document.getElementById("errorBox");
+
+if (params.has("success")) {
+  form.classList.add("hidden");
+  statusBox.classList.remove("hidden");
+  successBox.classList.remove("hidden");
+}
+
+if (params.has("error")) {
+  form.classList.add("hidden");
+  statusBox.classList.remove("hidden");
+  errorBox.classList.remove("hidden");
+}
+</script>
+
 
 </body>
 </html>
