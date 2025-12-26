@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nirvana Estates - Trusted Real Estate in Malad, Kandivali & Borivali (MaKaBo). Buy, Sell, Rent with experts.">
+  <title>Nirvana Estates</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js -->
+  <script src="//unpkg.com/alpinejs" defer></script>
+
+  <style>
+    /* small animation used by your content */
+    @keyframes fade-in {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 1s ease-out forwards; }
+
+    html { scroll-behavior: smooth; }
+
+    /* header height variable — must match header.html h-16 (4rem) and md:h-20 (5rem) */
+    :root { --header-h: 4rem; }
+    @media (min-width: 768px) { :root { --header-h: 5rem; } }
+
+    /* hero section uses header height so it always fits in remaining viewport */
+    #hero-section {
+      padding-top: var(--header-h);
+      min-height: calc(100vh - var(--header-h));
+      scroll-margin-top: var(--header-h);
+    }
+
+    /* fixed pixel overlap for logo */
+    .logo-overlap {
+      margin-top: -40px; /* default for mobile */
+    }
+    @media (min-width: 640px) { /* sm */
+      .logo-overlap { margin-top: -50px; }
+    }
+    @media (min-width: 768px) { /* md */
+      .logo-overlap { margin-top: -60px; }
+    }
+    .frosted-bg {
+  background: rgba(0, 0, 0, 0.35); /* semi-transparent dark */
+  backdrop-filter: blur(8px);       /* frosted glass blur */
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 1rem;              /* rounded corners */
+  padding: 0.5rem 1rem;             /* padding around content */
+}
+
+  </style>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- header placeholder -->
+  <div id="header-placeholder"></div>
+<script>
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const line1 = document.getElementById('line1');
+      const line2 = document.getElementById('line2');
+      const header = document.getElementById('header');
+      const headerContent = document.getElementById('header-content');
+      const logo = document.getElementById('logo');
+      const nameImg = document.getElementById('name-img');
+
+      // Apply slide animation classes
+      mobileMenu.style.transition = "max-height 0.35s ease, opacity 0.35s ease";
+      mobileMenu.style.overflow = "hidden";
+      mobileMenu.style.maxHeight = "0";
+      mobileMenu.style.opacity = "0";
+
+      const toggleMenu = () => {
+        const isOpening = mobileMenu.style.maxHeight === "0px" || mobileMenu.style.maxHeight === "0";
+        
+        if (isOpening) {
+          mobileMenu.classList.remove('hidden');
+          mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+          mobileMenu.style.opacity = "1";
+          line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+          line2.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+        } else {
+          mobileMenu.style.maxHeight = "0";
+          mobileMenu.style.opacity = "0";
+          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        }
+      };
+
+      menuToggle.addEventListener('click', toggleMenu);
+
+      // Close on menu link click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.style.maxHeight = "0";
+          mobileMenu.style.opacity = "0";
+          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        });
+      });
+
+      // Close on click outside
+      document.addEventListener('click', (e) => {
+        const isClickInside = mobileMenu.contains(e.target) || menuToggle.contains(e.target);
+        const isOpen = mobileMenu.style.maxHeight !== "0" && !mobileMenu.classList.contains('hidden');
+
+        if (!isClickInside && isOpen) {
+          mobileMenu.style.maxHeight = "0";
+          mobileMenu.style.opacity = "0";
+          setTimeout(() => mobileMenu.classList.add('hidden'), 350);
+          line1.style.transform = 'rotate(0deg) translate(0, 0)';
+          line2.style.transform = 'rotate(0deg) translate(0, 0)';
+        }
+      });
+
+      // Shrink header on scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('shadow-lg');
+          headerContent.classList.add('h-16', 'md:h-20');
+          logo.classList.add('h-10', 'md:h-14');
+          logo.classList.remove('h-12', 'md:h-16');
+          nameImg.classList.add('h-5', 'md:h-6');
+          nameImg.classList.remove('h-6', 'md:h-8');
+        } else {
+          header.classList.remove('shadow-lg');
+          headerContent.classList.remove('h-16', 'md:h-20');
+          logo.classList.remove('h-10', 'md:h-14');
+          logo.classList.add('h-12', 'md:h-16');
+          nameImg.classList.remove('h-5', 'md:h-6');
+          nameImg.classList.add('h-6', 'md:h-8');
+        }
+      });
+    })
+    .catch(err => console.error('Failed to load header:', err));
+</script>
+
+
+
+  <!-- HERO SECTION --><!-- HERO SECTION -->
+
+  <!-- Premium Hero Section -->
+<section id="hero-section" class="relative flex flex-col items-center justify-center text-center overflow-hidden px-4 sm:px-6 md:px-12 mt-[-4rem] md:mt-[-5rem] min-h-screen">
+
+  <!-- background image + gradient overlay -->
+  <!-- <img src="logo/hero-bg.png" alt="Mumbai Real Estate" class="absolute inset-0 w-full h-full object-cover z-0 brightness-80 blur-sm"/> -->
+   <img src="logo/hero-bg.png"
+     alt="Mumbai Real Estate"
+     class="absolute inset-0 w-full h-full object-cover z-0 brightness-90 contrast-125 saturate-110"/>
+
+
+  <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/40 z-10 pointer-events-none"></div>
+
+  <!-- enhanced starfield -->
+  <!-- <canvas id="starfield" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></canvas> -->
+
+  <!-- hero content -->
+  <div class="relative z-20 max-w-3xl mx-auto text-white space-y-6 sm:space-y-8 md:space-y-10 py-20 sm:py-28">
+
+    <!-- logo with glow -->
+    <img src="logo/logo.png" alt="Nirvana Estates Logo"
+         class="mx-auto w-24 sm:w-28 md:w-32 h-auto drop-shadow-2xl logo-overlap animate-fade-in"/>
+
+    <!-- headline with glow shadow -->
+    <!-- <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug drop-shadow-2xl animate-fade-in delay-100">
+      Trusted Real Estate Guidance Since 2007
+    </h1> -->
+
+        <p class="text-base sm:text-lg md:text-xl text-gray-200 italic">
+      Turning every Move into a Milestone
+    </p>
+
+
+    <!-- subheading with gradient -->
+    <div class="bg-white/10 backdrop-blur-xl px-6 sm:px-10 py-6 sm:py-8 rounded-2xl shadow-2xl mt-6 inline-block">
+  <!-- <p class="text-base sm:text-lg md:text-xl text-gray-100 font-medium leading-snug"> -->
+    <p class="text-sm sm:text-base md:text-lg text-gray-100 leading-relaxed"></p>
+    Buy, sell, and rent proerties in<br>
+    <!-- <span class="font-semibold text-yellow-300"> -->
+      Malad, Kandivali & Borivali (MaKaBo)
+    </span> with transparency and local expertise.
+  </p>
+
+</div>
+
+
+
+    <!-- buttons with glow and scale hover -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-4 bg-white/10 backdrop-blur-xl px-6 sm:px-10 py-6 sm:py-8 rounded-2xl shadow-2xl">
+  <!-- <a href="tel:+917039199717"
+     class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
+     Call Us: 7039199717
+  </a> -->
+
+  <!-- <button id="revealPhoneBtn"
+  class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
+  Call Us
+</button> -->
+
+<a href="tel:+917039199717"
+   class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
+   Call Us
+</a>
+
+
+<!-- Hidden phone number display -->
+<div id="phoneNumber"
+     class="text-yellow-300 mt-2 text-center font-semibold hidden">
+  +91 7039199717
+</div>
+
+
+  <button id="openModal"
+          class="inline-block border-2 border-yellow-400 text-yellow-300 hover:bg-yellow-400 hover:text-[#0f2b3d] font-semibold px-8 py-3 rounded-full transition-all duration-300 text-center">
+     View Listings
+  </button>
+</div>
+
+
+
+  </div>
+</section>
+
+
+
+  <!-- MODAL -->
+  <div id="listingsModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 backdrop-blur-sm z-50">
+    <div class="modal-box relative bg-white/10 backdrop-blur-2xl p-8 rounded-2xl shadow-2xl w-11/12 sm:w-96 animate-fade-in">
+      <button id="closeModal" class="absolute top-3 right-3 text-white text-xl hover:text-red-400">✖</button>
+      <h2 class="text-white text-xl font-semibold mb-6 text-center"> Choose Your Path </h2>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="buyers.html" class="neon-btn flex-1 bg-gradient-to-r from-green-400 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold text-lg text-center overflow-hidden relative"> Buy <span class="shine"></span></a>
+        <a href="rentals.html" class="neon-btn flex-1 bg-gradient-to-r from-blue-400 to-indigo-600 text-white px-6 py-3 rounded-xl font-bold text-lg text-center overflow-hidden relative"> Rent <span class="shine"></span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STARFIELD SCRIPT
+  <script>
+    (function(){
+  const canvas = document.getElementById("starfield");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let stars = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    stars = Array.from({ length: 150 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5 + 0.5,
+      speed: 0.1 + Math.random() * 0.3,
+      opacity: Math.random(),
+      delta: Math.random() * 0.02
+    }));
+  }
+
+  function animateStars() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+      ctx.fill();
+      star.y += star.speed;
+      star.opacity += star.delta;
+      if(star.opacity > 1 || star.opacity < 0) star.delta *= -1;
+      if (star.y > canvas.height) { star.y = 0; star.x = Math.random()*canvas.width; }
+    });
+    requestAnimationFrame(animateStars);
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  animateStars();
+})();
+
+  </script> -->
+
+  <!-- MODAL SCRIPT -->
+  <script>
+    (function(){
+      const openModal = document.getElementById("openModal");
+      const closeModal = document.getElementById("closeModal");
+      const listingsModal = document.getElementById("listingsModal");
+      if (openModal && closeModal && listingsModal) {
+        openModal.addEventListener("click", () => {
+          listingsModal.classList.remove("hidden");
+          listingsModal.classList.add("flex");
+        });
+        closeModal.addEventListener("click", () => {
+          listingsModal.classList.add("hidden");
+          listingsModal.classList.remove("flex");
+        });
+        window.addEventListener("click", (e) => {
+          if (e.target === listingsModal) {
+            listingsModal.classList.add("hidden");
+            listingsModal.classList.remove("flex");
+          }
+        });
+      }
+    })();
+  </script>
+
+  <!-- SWIPER JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const swiper = new Swiper(".mySwiper", {
+        loop: true,
+        speed: 600,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+      });
+    });
+  </script>
+
+
+
+<!-- SECOND HERO SECTION -->
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+  <!-- Background Image (won't block clicks) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <img src="logo/second-bg.png" alt="City Skyline"
+      class="w-full h-full object-cover animate-slow-zoom brightness-110 contrast-110" />
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Swiper Container -->
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-12 py-12 md:py-20">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">LOOKING FOR YOUR DREAM HOME?</h2>
+            <p class="text-teal-300 italic mb-3">“WE GOT YOU”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              Discover verified listings, honest advice and local expertise with zero pressure.
+              From site visits to keys-in-hand, we’re by your side.
+            </p>
+
+            <!-- Explore Properties -->
+            <div class="relative inline-block">
+              <button id="exploreBtn"
+                class="bg-yellow-400 text-[#0f2b3d] px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
+                EXPLORE PROPERTIES
+              </button>
+
+              <!-- Desktop Dropdown (animated) -->
+             
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">WHY MaKaBo?</h2>
+            <p class="text-teal-300 italic mb-3">“MUMBAI’S NEXT BIG GROWTH BELT”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              Connected by Metro, rich infrastructure and excellent resale value —
+              Malad, Kandivali & Borivali are where smart investments thrive.
+            </p>
+            <a href="our-edge.html#our-edge-section1"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
+              KNOW THE POTENTIAL
+            </a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">HOW WE HELP YOU?</h2>
+            <p class="text-teal-300 italic mb-3">“NOT JUST AGENTS, PROPERTY PARTNERS”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              We shortlist what fits you, handle all heavy lifting, and negotiate like it’s our own deal.
+              Because finding the right home isn’t luck, it’s strategy.
+            </p>
+            <a href="our-edge.html#our-edge-section2"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
+              HOW WE WORK
+            </a>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide">
+          <div
+            class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-10 w-full max-w-2xl mx-auto flex flex-col justify-center text-center animate-fade-in">
+            <h2 class="text-2xl md:text-4xl font-bold mb-3 text-yellow-300">LET’S TALK BEFORE YOU DECIDE</h2>
+            <p class="text-teal-300 italic mb-3">“NO SPAM, NO PRESSURE.”</p>
+            <p class="text-gray-200 mb-6 text-sm md:text-base">
+              Real estate advice tailored to your needs.
+              Book a free one-on-one consultation today.
+            </p>
+            <a href="contact.html"
+              class="bg-yellow-400 text-[#0f2b3d] px-5 py-3 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition">
+              BOOK APPOINTMENT
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination + Navigation -->
+      <div class="swiper-pagination mt-6"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Modal -->
+<div id="mobileModal"
+  class="fixed inset-0 bg-black/80 backdrop-blur-xl hidden z-50 flex items-center justify-center p-6">
+  <div class="bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center space-y-6 animate-fade-in">
+    <h3 class="text-yellow-300 text-2xl font-bold mb-4">Explore Properties</h3>
+
+    <a href="buyers.html"
+      class="block w-full py-4 rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-[#0f2b3d] font-bold text-xl shadow-lg hover:scale-105 transform transition">
+       Buy
+    </a>
+    <a href="rentals.html"
+      class="block w-full py-4 rounded-2xl bg-gradient-to-r from-teal-400 to-teal-500 text-white font-bold text-xl shadow-lg hover:scale-105 transform transition">
+       Rent
+    </a>
+
+    <button id="closeMobileModal"
+      class="mt-6 px-6 py-2 rounded-full border border-gray-300 text-gray-200 hover:bg-white/20 transition">
+      ✖ Close
+    </button>
+  </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const exploreBtn   = document.getElementById("exploreBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const mobileModal  = document.getElementById("mobileModal");
+    const closeMobileModal = document.getElementById("closeMobileModal");
+
+    /* ------------------------------
+       DROPDOWN HELPERS (desktop)
+    ------------------------------ */
+    const showDropdown = () => {
+      dropdownMenu.classList.remove("opacity-0","scale-95","pointer-events-none","dropdown-out");
+      dropdownMenu.classList.add("dropdown-in");
+    };
+
+    const hideDropdown = () => {
+      dropdownMenu.classList.remove("dropdown-in");
+      dropdownMenu.classList.add("dropdown-out");
+    };
+
+    /* ----------------------------------------
+       EXPLORE BUTTON — Always opens MOBILE MODAL
+    ----------------------------------------- */
+    exploreBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileModal.classList.remove("hidden");
+    });
+
+    /* ------------------------------
+       CLOSE MOBILE MODAL
+    ------------------------------ */
+    if (closeMobileModal) {
+      closeMobileModal.addEventListener("click", () => {
+        mobileModal.classList.add("hidden");
+      });
+    }
+
+    mobileModal.addEventListener("click", (e) => {
+      if (e.target === mobileModal) {
+        mobileModal.classList.add("hidden");
+      }
+    });
+
+    /* ----------------------------------------
+       DESKTOP — close dropdown on outside click
+    ----------------------------------------- */
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth >= 768) {
+        if (dropdownMenu && !exploreBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+          hideDropdown();
+        }
+      }
+    });
+
+    /* ----------------------------------------
+       Dropdown animation cleanup
+    ----------------------------------------- */
+    if (dropdownMenu) {
+      dropdownMenu.addEventListener("animationend", (e) => {
+        if (e.animationName === "dropdownOut") {
+          dropdownMenu.classList.add("opacity-0","scale-95","pointer-events-none");
+        }
+      });
+    }
+
+  });
+</script>
+
+
+<!-- Animations + Fixes -->
+<style>
+  /* Card fade-in */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+  .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+
+  /* ✅ Keep dropdown visible even inside Swiper */
+  .swiper, .swiper-wrapper, .swiper-slide { overflow: visible !important; }
+
+  /* ✅ Perfect centering for every slide */
+  .mySwiper .swiper-slide {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 0.25rem; /* tiny padding to avoid arrow overlap */
+  }
+
+  /* ✅ Make arrows/pagination visible & clickable */
+  .mySwiper { 
+    --swiper-navigation-color: #fde047; /* yellow-300 */
+    --swiper-pagination-color: #fde047;
+    position: relative;
+  }
+  .mySwiper .swiper-button-next,
+  .mySwiper .swiper-button-prev {
+    z-index: 30; /* above cards */
+  }
+
+  /* 🔥 Dropdown animations */
+  @keyframes dropdownIn {
+    0%   { opacity: 0; transform: translateY(-6px) scale(0.96); }
+    100% { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+  @keyframes dropdownOut {
+    0%   { opacity: 1; transform: translateY(0)    scale(1); }
+    100% { opacity: 0; transform: translateY(-6px) scale(0.96); }
+  }
+  .dropdown-in  { animation: dropdownIn 160ms ease-out forwards; }
+  .dropdown-out { animation: dropdownOut 140ms ease-in  forwards; }
+/* ✅ Force all slider cards to same size */
+.mySwiper .swiper-slide > div {
+  height: 100%;
+  min-height: 420px;   /* same base height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* For larger screens, ensure equal alignment */
+@media (min-width: 768px) {
+  .mySwiper .swiper-slide > div {
+    min-height: 480px; /* taller but uniform on desktop */
+  }
+}
+
+
+</style>
+
+  <!-- FOOTER PLACEHOLDER -->
+  <div id="footer-placeholder"></div>
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+      .catch(err => console.error('Failed to load footer:', err));
+  </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const revealBtn = document.getElementById("revealPhoneBtn");
+    const phoneNumber = document.getElementById("phoneNumber");
+
+    if (revealBtn && phoneNumber) {
+      revealBtn.addEventListener("click", () => {
+        phoneNumber.classList.toggle("hidden");
+      });
+    }
+  });
+</script>
+
+
+</body>
+</html>
