@@ -4,103 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell or Rent Your Property | Nirvana Estates</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-body { font-family: 'Poppins', sans-serif; margin: 0; min-height: 100vh; background: #0f2b3d; overflow-x: hidden; color: #e0f7fa; position: relative; }
-#background-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-.form-container, .form-container * { pointer-events: auto; }
-h2 { font-size: 2.3rem; font-weight: 800; text-align: center; color: #00f0ff; margin-bottom: 0.5rem; text-shadow: 0 0 12px #00f0ff, 0 0 20px #25D366; }
-p.description { text-align: center; margin-bottom: 2rem; color: #b0e0e6; }
-.field-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); backdrop-filter: blur(12px); border-radius: 1.5rem; padding: 1rem 1.5rem; margin-bottom: 1rem; box-shadow: 0 8px 24px rgba(0,0,0,0.4); transition: 0.3s; }
-.field-card:hover, .field-card:focus-within { box-shadow: 0 0 18px #00f0ff; border-color: #00f0ff; }
-input, select, textarea { width: 100%; background: transparent; border: none; color: #e0f7fa; outline: none; }
-button { width: 100%; padding: 1rem; border-radius: 2rem; font-weight: 700; color: #fff; background: linear-gradient(270deg, #25D366, #00f0ff, #ff6f91); background-size: 600% 600%; animation: gradientMove 8s ease infinite; }
-@keyframes gradientMove { 0% { background-position:0% 50%; } 50% { background-position:100% 50%; } 100% { background-position:0% 50%; } }
+body { font-family:'Poppins',sans-serif; margin:0; min-height:100vh; background:#0f2b3d; color:#e0f7fa; }
+.form-container { max-width:480px; margin:0 auto; padding:2rem; }
+h2 { font-size:2.3rem; font-weight:800; text-align:center; color:#00f0ff; margin-bottom:0.5rem; text-shadow:0 0 12px #00f0ff,0 0 20px #25D366; }
+p.description { text-align:center; margin-bottom:2rem; color:#b0e0e6; }
+.field-card { background:rgba(255,255,255,0.05); border:1px solid rgba(0,255,255,0.2); border-radius:1.5rem; padding:1rem 1.5rem; margin-bottom:1rem; transition:0.3s; }
+.field-card:hover, .field-card:focus-within { border-color:#00f0ff; box-shadow:0 0 18px #00f0ff; }
+input, select, textarea { width:100%; background:transparent; border:none; color:#e0f7fa; outline:none; }
+button { width:100%; padding:1rem; border-radius:2rem; font-weight:700; color:#fff; background:linear-gradient(270deg,#25D366,#00f0ff,#ff6f91); background-size:600% 600%; animation:gradientMove 8s ease infinite; transition:all 0.3s; }
+@keyframes gradientMove { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
 </style>
 </head>
 <body>
 
-<canvas id="background-canvas"></canvas>
+<div class="form-container">
+  <h2>Sell or Rent Your Property</h2>
+  <p class="description">Share your property details below and let <span style="color:#25D366;font-weight:600;">NIRVANA ESTATES</span> help you connect with the right buyer or tenant.</p>
 
-<div class="form-container max-w-xl mx-auto px-4 py-16 relative z-10">
+  <!-- Netlify Form -->
+  <form name="seller-property" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html" class="flex flex-col">
+    <input type="hidden" name="form-name" value="seller-property">
+    <input type="hidden" name="bot-field">
 
-<h2>Sell or Rent Your Property</h2>
-<p class="description">
-Share your property details below and let
-<span class="text-green-400 font-semibold">NIRVANA ESTATES</span>
-help you connect with the right buyer or tenant.
-</p>
+    <div class="field-card"><input type="text" name="name" placeholder="Full Name *" required></div>
+    <div class="field-card"><input type="tel" name="phone" placeholder="Phone Number *" required></div>
+    <div class="field-card"><input type="email" name="email" placeholder="Email (Optional)"></div>
+    <div class="field-card">
+      <select name="type" required>
+        <option value="">Property Type *</option>
+        <option>Sell</option>
+        <option>Rent</option>
+      </select>
+    </div>
+    <div class="field-card"><input type="text" name="location" placeholder="Property Location *" required></div>
+    <div class="field-card"><textarea name="description" rows="4" placeholder="Describe your property *" required></textarea></div>
 
-<form
-  name="seller-property"
-  method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  action="/thank-you.html"
-  class="flex flex-col"
->
-  <input type="hidden" name="form-name" value="seller-property">
-  <input type="hidden" name="bot-field">
-
-  <div class="field-card"><input name="name" placeholder="Full Name *" required></div>
-  <div class="field-card"><input name="phone" placeholder="Phone Number *" required></div>
-  <div class="field-card"><input type="email" name="email" placeholder="Email (Optional)"></div>
-
-  <div class="field-card">
-    <select name="type" required>
-      <option value="">Property Type *</option>
-      <option>Sell</option>
-      <option>Rent</option>
-    </select>
-  </div>
-
-  <div class="field-card"><input name="location" placeholder="Property Location *" required></div>
-  <div class="field-card"><textarea name="description" rows="4" placeholder="Describe your property *" required></textarea></div>
-
-  <button type="submit">Submit Property</button>
-</form>
-
-<!-- STATUS UI -->
-<div id="formStatus" class="hidden text-center mt-8">
-  <div id="successBox" class="hidden bg-emerald-500/10 border border-emerald-400 text-emerald-300 p-6 rounded-3xl shadow-xl animate-pulse">
-    <h3 class="text-2xl font-extrabold mb-2">🎉 Submitted Successfully</h3>
-    <p>Our team will contact you shortly.</p>
-  </div>
-
-  <div id="errorBox" class="hidden bg-rose-500/10 border border-rose-400 text-rose-300 p-6 rounded-3xl shadow-xl">
-    <h3 class="text-2xl font-extrabold mb-2">⚠️ Submission Failed</h3>
-    <p>Please refresh and try again.</p>
-  </div>
+    <button type="submit">Submit Property</button>
+  </form>
 </div>
-
-</div>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-const form = document.querySelector("form[name='seller-property']");
-const statusBox = document.getElementById("formStatus");
-const successBox = document.getElementById("successBox");
-const errorBox = document.getElementById("errorBox");
-
-if (params.has("success")) {
-  form.classList.add("hidden");
-  statusBox.classList.remove("hidden");
-  successBox.classList.remove("hidden");
-}
-
-form.addEventListener("submit", () => {
-  setTimeout(() => {
-    if (!window.location.search.includes("success")) {
-      form.classList.add("hidden");
-      statusBox.classList.remove("hidden");
-      errorBox.classList.remove("hidden");
-    }
-  }, 8000);
-});
-</script>
 
 </body>
 </html>
