@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sell or Rent Property | Nirvana Estates</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f2b3d;
+  color: #e0f7fa;
+  min-height: 100vh;
+}
+.field-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(0,255,255,0.25);
+  border-radius: 1.5rem;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+input, select, textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e0f7fa;
+}
+button {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  background: linear-gradient(270deg, #25D366, #00f0ff);
+  color: #fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="max-w-xl mx-auto px-4 py-16">
+
+  <h2 class="text-3xl font-extrabold text-center text-cyan-400 mb-2">
+    Sell or Rent Your Property
+  </h2>
+
+  <p class="text-center mb-8 text-cyan-200">
+    Submit details & send directly via WhatsApp
+  </p>
+
+  <form id="sellerForm">
+
+    <div class="field-card">
+      <input name="name" placeholder="Full Name *" required />
+    </div>
+
+    <div class="field-card">
+      <input name="phone" placeholder="Phone Number *" required />
+    </div>
+
+    <div class="field-card">
+      <input name="email" placeholder="Email (Optional)" />
+    </div>
+
+    <div class="field-card">
+      <select name="type" required>
+        <option value="">Property Type *</option>
+        <option>Sell</option>
+        <option>Rent</option>
+      </select>
+    </div>
+
+    <div class="field-card">
+      <input name="location" placeholder="Property Location *" required />
+    </div>
+
+    <div class="field-card">
+      <textarea name="description" rows="4" placeholder="Property Details *" required></textarea>
+    </div>
+
+    <button type="submit">Send via WhatsApp</button>
+  </form>
+
+</div>
+
+<script>
+document.getElementById("sellerForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const data = new FormData(this);
+
+  const message = `
+🏠 *New Property Enquiry*
+
+👤 Name: ${data.get("name")}
+📞 Phone: ${data.get("phone")}
+📧 Email: ${data.get("email") || "N/A"}
+🏡 Type: ${data.get("type")}
+📍 Location: ${data.get("location")}
+
+📝 Details:
+${data.get("description")}
+`;
+
+  const whatsappNumber = "917039199717"; // +91 7039199717
+  const url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+});
+</script>
+
+</body>
+</html>
