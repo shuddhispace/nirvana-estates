@@ -30,11 +30,12 @@ const cors = require("cors");
 
 app.use(cors({
   origin: [
-    "https://elegant-nougat-883fc3.netlify.app",
+    "https://nirvana-estates.onrender.com",
     "https://nirvanaestates.co.in"
   ],
   methods: ["GET", "POST", "DELETE"],
 }));
+
 
 const uploadDir = path.join(__dirname, "public/uploads/images");
 fs.mkdirSync(uploadDir, { recursive: true });
