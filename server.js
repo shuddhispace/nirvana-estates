@@ -52,6 +52,8 @@ const storage = multer.diskStorage({
 
 
 const upload = multer({ storage: storage });
+console.log("REQ.BODY:", req.body);
+console.log("REQ.FILES:", req.files);
 
 // Admin upload route (Updated for YouTube Shorts only)
 app.post('/admin/upload-property', upload.array('images', 10), async (req, res) => {
