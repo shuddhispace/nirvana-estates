@@ -103,9 +103,10 @@ if (req.body.videos) {
 
     res.send("Property uploaded successfully (YouTube Shorts version)!");
   } catch (err) {
-    console.error("UPLOAD ERROR:", err);
-    res.status(500).send("Error uploading property.");
-  }
+  console.error("Upload Error:", err);
+  res.status(500).json({ success: false, message: "Error uploading property.", error: err.message });
+}
+
 });
 
 // Delete property by ID
