@@ -71,10 +71,15 @@ app.post('/admin/upload-property', upload.array('images', 10), async (req, res) 
       : [];
 
     // Handle YouTube video URLs
-    let videoLinks = [];
-    if (videos) {
-      videoLinks = Array.isArray(videos) ? videos : [videos];
-    }
+let videoLinks = [];
+if (req.body.videos) {
+  if (Array.isArray(req.body.videos)) {
+    videoLinks = req.body.videos.filter(v => v && v.trim() !== '');
+  } else if (req.body.videos.trim() !== '') {
+    videoLinks = [req.body.videos.trim()];
+  }
+}
+
 
     // ✅ Safe number parsing
     const property = {
