@@ -168,7 +168,7 @@ function propertyCard(p){
   sub.textContent=`${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft${builtupText} | ${p.location}`;
   
   const ctaRow=document.createElement('div'); ctaRow.className='mt-2 flex flex-wrap gap-2';
-  const details=document.createElement('a'); details.href=`property-details.html?id=${p.id}`; details.target='_blank'; details.className='px-3 py-2 rounded bg-[#0f2b3d] text-white text-sm font-semibold hover:bg-[#15425c]'; details.textContent='View Details';
+  const details=document.createElement('a'); details.href=`property-details.html?id=${p._id}`;details.target='_blank'; details.className='px-3 py-2 rounded bg-[#0f2b3d] text-white text-sm font-semibold hover:bg-[#15425c]'; details.textContent='View Details';
   const call=document.createElement('a'); call.href='tel:+917039199717'; call.className='px-3 py-2 rounded bg-green-600 text-white text-sm font-semibold hover:bg-green-700'; call.textContent='Call';
   ctaRow.append(details,call);
 
