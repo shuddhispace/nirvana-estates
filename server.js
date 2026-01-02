@@ -140,6 +140,24 @@ app.delete('/admin/delete-property/:id', async (req, res) => {
   }
 });
 
+
+app.post("/api/seller", async (req, res) => {
+  try {
+    const { name, phone, email, type, location, description } = req.body;
+
+    console.log("New Seller Lead:", req.body);
+
+    // Later you can:
+    // 1. Save to MongoDB
+    // 2. Send email via Nodemailer
+
+    res.json({ success: true, message: "Seller data received" });
+  } catch (err) {
+    console.error("Seller Error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
 // Existing seller form route and sitemap unchanged...
 
 // Dynamic sitemap.xml route
