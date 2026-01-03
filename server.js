@@ -30,8 +30,9 @@ const cors = require("cors");
 
 app.use(cors({
   origin: [
-    "https://nirvana-estates.onrender.com",
-    "https://nirvanaestates.co.in"
+    "https://nirvana-estates-static.onrender.com",
+    "https://nirvanaestates.co.in",
+    "https://nirvana-estates-backend.onrender.com"
   ],
   methods: ["GET", "POST", "DELETE"],
 }));
@@ -151,7 +152,8 @@ app.post("/api/seller", async (req, res) => {
     // 1. Save to MongoDB
     // 2. Send email via Nodemailer
 
-    res.json({ success: true, message: "Seller data received" });
+    // res.json({ success: true, message: "Seller data received" });
+    res.status(201).json({ success: true, message: "Seller data received" });
   } catch (err) {
     console.error("Seller Error:", err);
     res.status(500).json({ success: false });
