@@ -141,6 +141,7 @@ app.delete('/admin/delete-property/:id', async (req, res) => {
   }
 });
 
+const nodemailer = require("nodemailer");
 
 app.post("/api/seller", async (req, res) => {
   try {
@@ -148,17 +149,41 @@ app.post("/api/seller", async (req, res) => {
 
     console.log("New Seller Lead:", req.body);
 
-    // Later you can:
-    // 1. Save to MongoDB
-    // 2. Send email via Nodemailer
+    // 1️⃣ Create transporter (using your EMAIL_USER / EMAIL_PASS)
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // or any SMTP
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-    // res.json({ success: true, message: "Seller data received" });
-    res.status(201).json({ success: true, message: "Seller data received" });
+    // 2️⃣ Email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: "yourteam@example.com", // your inbox
+      subject: `New Seller Lead - ${name}`,
+      html: `
+        <h2>New Seller Lead Submitted</h2>
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Phone:</b> ${phone}</p>
+        <p><b>Email:</b> ${email || "N/A"}</p>
+        <p><b>Type:</b> ${type}</p>
+        <p><b>Location:</b> ${location}</p>
+        <p><b>Description:</b> ${description}</p>
+      `,
+    };
+
+    // 3️⃣ Send email
+    await transporter.sendMail(mailOptions);
+
+    res.status(201).json({ success: true, message: "Seller data received and email sent" });
   } catch (err) {
     console.error("Seller Error:", err);
-    res.status(500).json({ success: false });
+    res.status(500).json({ success: false, message: err.message });
   }
 });
+
 
 // Existing seller form route and sitemap unchanged...
 
