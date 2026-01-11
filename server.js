@@ -142,7 +142,6 @@ app.delete('/admin/delete-property/:id', async (req, res) => {
 });
 
 const nodemailer = require("nodemailer");
-
 app.post("/api/seller", async (req, res) => {
   try {
     const { name, phone, email, type, location, description } = req.body;
@@ -155,7 +154,9 @@ app.post("/api/seller", async (req, res) => {
       message: "Seller data received"
     });
 
-    // 🔁 SEND EMAIL IN BACKGROUND (non-blocking)
+    // ⛔ STOP response lifecycle
+    // (email continues in background)
+    
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -177,17 +178,18 @@ app.post("/api/seller", async (req, res) => {
         <p><b>Location:</b> ${location}</p>
         <p><b>Description:</b> ${description}</p>
       `,
-    }).then(() => {
-      console.log("Seller email sent");
-    }).catch(err => {
-      console.error("Email error:", err.message);
+    })
+    .then(info => {
+      console.log("✅ Seller email sent:", info.response);
+    })
+    .catch(err => {
+      console.error("❌ Email error:", err.message);
     });
 
   } catch (err) {
     console.error("Seller Error:", err);
   }
 });
-
 
 // Existing seller form route and sitemap unchanged...
 
