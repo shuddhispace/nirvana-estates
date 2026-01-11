@@ -142,35 +142,17 @@ app.delete('/admin/delete-property/:id', async (req, res) => {
 });
 
 const nodemailer = require("nodemailer");
-app.post("/api/seller", async (req, res) => {
-  try {
-    const { name, phone, email, type, location, description } = req.body;
 
-    console.log("New Seller Lead:", req.body);
-
-    // ✅ SEND RESPONSE IMMEDIATELY
-    res.status(200).json({
-      success: true,
-      message: "Seller data received"
-    });
-
-    // ⛔ STOP response lifecycle
-    // (email continues in background)
-    app.post("/api/seller", (req, res) => {
+app.post("/api/seller", (req, res) => {
   const { name, phone, email, type, location, description } = req.body;
 
   console.log("New Seller Lead:", req.body);
 
-  // ✅ Respond immediately
   res.status(200).json({ success: true });
 
-  // 🔁 Email in background
   const transporter = nodemailer.createTransport({
     service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
   });
 
   const mailOptions = {
@@ -189,13 +171,11 @@ app.post("/api/seller", async (req, res) => {
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.error("❌ EMAIL FAILED:", err.message);
-    } else {
-      console.log("✅ EMAIL SENT:", info.response);
-    }
+    if (err) console.error("❌ EMAIL FAILED:", err.message);
+    else console.log("✅ EMAIL SENT:", info.response);
   });
-});
+}); // <-- make sure this exists
+
 
 // Existing seller form route and sitemap unchanged...
 
