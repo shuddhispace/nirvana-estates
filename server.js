@@ -143,38 +143,55 @@ app.delete('/admin/delete-property/:id', async (req, res) => {
 
 const nodemailer = require("nodemailer");
 
-app.post("/api/seller", (req, res) => {
-  const { name, phone, email, type, location, description } = req.body;
+app.post("/api/seller", async (req, res) => {
+  try {
+    const { name, phone, email, type, location, description } = req.body;
 
-  console.log("New Seller Lead:", req.body);
+    console.log("New Seller Lead:", req.body);
 
-  res.status(200).json({ success: true });
+    // 1️⃣ Save lead in database immediately (optional, but recommended)
+    await Property.create({
+      title: `Seller Lead: ${name}`, // or a separate Seller collection if you want
+      location,
+      description,
+      price: 0, // not relevant
+      images: [],
+      videos: [],
+    });
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-  });
+    // 2️⃣ Send immediate response to frontend
+    res.status(200).json({ success: true, message: "Seller data received!" });
 
-  const mailOptions = {
-    from: `"Nirvana Estates" <${process.env.EMAIL_USER}>`,
-    to: "nirvanaestatess@gmail.com",
-    subject: `New Seller Lead - ${name}`,
-    html: `
-      <h2>New Seller Lead Submitted</h2>
-      <p><b>Name:</b> ${name}</p>
-      <p><b>Phone:</b> ${phone}</p>
-      <p><b>Email:</b> ${email || "N/A"}</p>
-      <p><b>Type:</b> ${type}</p>
-      <p><b>Location:</b> ${location}</p>
-      <p><b>Description:</b> ${description}</p>
-    `,
-  };
+    // 3️⃣ Send email in background
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+    });
 
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) console.error("❌ EMAIL FAILED:", err.message);
-    else console.log("✅ EMAIL SENT:", info.response);
-  });
-}); // <-- make sure this exists
+    const mailOptions = {
+      from: `"Nirvana Estates" <${process.env.EMAIL_USER}>`,
+      to: "nirvanaestatess@gmail.com",
+      subject: `New Seller Lead - ${name}`,
+      html: `
+        <h2>New Seller Lead Submitted</h2>
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Phone:</b> ${phone}</p>
+        <p><b>Email:</b> ${email || "N/A"}</p>
+        <p><b>Type:</b> ${type}</p>
+        <p><b>Location:</b> ${location}</p>
+        <p><b>Description:</b> ${description}</p>
+      `,
+    };
+
+    transporter.sendMail(mailOptions)
+      .then(info => console.log("✅ EMAIL SENT:", info.response))
+      .catch(err => console.error("❌ EMAIL FAILED:", err.message));
+
+  } catch (err) {
+    console.error("Seller Error:", err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
 
 
 // Existing seller form route and sitemap unchanged...
