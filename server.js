@@ -149,19 +149,24 @@ app.post("/api/seller", async (req, res) => {
 
     console.log("New Seller Lead:", req.body);
 
-    // 1️⃣ Create transporter (using your EMAIL_USER / EMAIL_PASS)
+    // ✅ SEND RESPONSE IMMEDIATELY
+    res.status(200).json({
+      success: true,
+      message: "Seller data received"
+    });
+
+    // 🔁 SEND EMAIL IN BACKGROUND (non-blocking)
     const transporter = nodemailer.createTransport({
-      service: "gmail", // or any SMTP
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // 2️⃣ Email options
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: "nirvanaestatess@gmail.com", // your inbox
+    transporter.sendMail({
+      from: `"Nirvana Estates" <${process.env.EMAIL_USER}>`,
+      to: "nirvanaestatess@gmail.com",
       subject: `New Seller Lead - ${name}`,
       html: `
         <h2>New Seller Lead Submitted</h2>
@@ -172,15 +177,14 @@ app.post("/api/seller", async (req, res) => {
         <p><b>Location:</b> ${location}</p>
         <p><b>Description:</b> ${description}</p>
       `,
-    };
+    }).then(() => {
+      console.log("Seller email sent");
+    }).catch(err => {
+      console.error("Email error:", err.message);
+    });
 
-    // 3️⃣ Send email
-    await transporter.sendMail(mailOptions);
-
-    res.status(201).json({ success: true, message: "Seller data received and email sent" });
   } catch (err) {
     console.error("Seller Error:", err);
-    res.status(500).json({ success: false, message: err.message });
   }
 });
 
