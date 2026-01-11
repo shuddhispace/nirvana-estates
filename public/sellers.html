@@ -162,7 +162,8 @@ fetch('header_main.html')
     </div>
 
     <!-- FORM -->
-    <form id="sellerForm" class="space-y-5 text-left">
+    <form id="sellerForm"
+      class="space-y-5 text-left">
 
       <div class="glass p-4">
         <input type="text" name="name" placeholder="Full Name *" required>
@@ -193,44 +194,33 @@ fetch('header_main.html')
         <textarea name="description" rows="4" placeholder="Property Description *" required></textarea>
       </div>
 
-      <!-- <button id="submitBtn" class="submit-btn w-full py-4 rounded-full font-bold text-lg">
+      <button id="submitBtn" class="submit-btn w-full py-4 rounded-full font-bold text-lg">
         Submit Property
-      </button> -->
-      <button
-  id="submitBtn"
-  type="submit"
-  class="submit-btn w-full py-4 rounded-full font-bold text-lg">
-  Submit Property
-</button>
-
+      </button>
     </form>
   </div>
 </main>
+
 <script>
 const form = document.getElementById("sellerForm");
 const loader = document.getElementById("loader");
 const successMsg = document.getElementById("successMsg");
 const errorMsg = document.getElementById("errorMsg");
-const submitBtn = document.getElementById("submitBtn");
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async e => {
   e.preventDefault();
 
   form.classList.add("hidden");
   loader.classList.remove("hidden");
-  submitBtn.disabled = true;
 
-  const formData = Object.fromEntries(new FormData(form).entries());
+  const data = Object.fromEntries(new FormData(form));
 
   try {
-    const res = await fetch(
-      "https://nirvana-estates-backend.onrender.com/api/seller",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      }
-    );
+    const res = await fetch("https://api.nirvanaestates.co.in/api/seller", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
     loader.classList.add("hidden");
 
@@ -240,15 +230,11 @@ form.addEventListener("submit", async (e) => {
       errorMsg.classList.remove("hidden");
     }
   } catch (err) {
-  loader.classList.add("hidden");
-  errorMsg.classList.remove("hidden");
-  form.classList.remove("hidden");
-  submitBtn.disabled = false;
-}
-
+    loader.classList.add("hidden");
+    errorMsg.classList.remove("hidden");
+  }
 });
 </script>
-
 
 
 <!-- Footer -->

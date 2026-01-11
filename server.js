@@ -161,7 +161,7 @@ app.post("/api/seller", async (req, res) => {
     // 2️⃣ Email options
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: "yourteam@example.com", // your inbox
+      to: "nirvanaestatess@gmail.com", // your inbox
       subject: `New Seller Lead - ${name}`,
       html: `
         <h2>New Seller Lead Submitted</h2>
