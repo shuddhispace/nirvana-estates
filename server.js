@@ -156,39 +156,45 @@ app.post("/api/seller", async (req, res) => {
 
     // ⛔ STOP response lifecycle
     // (email continues in background)
-    
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    app.post("/api/seller", (req, res) => {
+  const { name, phone, email, type, location, description } = req.body;
 
-    transporter.sendMail({
-      from: `"Nirvana Estates" <${process.env.EMAIL_USER}>`,
-      to: "nirvanaestatess@gmail.com",
-      subject: `New Seller Lead - ${name}`,
-      html: `
-        <h2>New Seller Lead Submitted</h2>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Phone:</b> ${phone}</p>
-        <p><b>Email:</b> ${email || "N/A"}</p>
-        <p><b>Type:</b> ${type}</p>
-        <p><b>Location:</b> ${location}</p>
-        <p><b>Description:</b> ${description}</p>
-      `,
-    })
-    .then(info => {
-      console.log("✅ Seller email sent:", info.response);
-    })
-    .catch(err => {
-      console.error("❌ Email error:", err.message);
-    });
+  console.log("New Seller Lead:", req.body);
 
-  } catch (err) {
-    console.error("Seller Error:", err);
-  }
+  // ✅ Respond immediately
+  res.status(200).json({ success: true });
+
+  // 🔁 Email in background
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: `"Nirvana Estates" <${process.env.EMAIL_USER}>`,
+    to: "nirvanaestatess@gmail.com",
+    subject: `New Seller Lead - ${name}`,
+    html: `
+      <h2>New Seller Lead Submitted</h2>
+      <p><b>Name:</b> ${name}</p>
+      <p><b>Phone:</b> ${phone}</p>
+      <p><b>Email:</b> ${email || "N/A"}</p>
+      <p><b>Type:</b> ${type}</p>
+      <p><b>Location:</b> ${location}</p>
+      <p><b>Description:</b> ${description}</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error("❌ EMAIL FAILED:", err.message);
+    } else {
+      console.log("✅ EMAIL SENT:", info.response);
+    }
+  });
 });
 
 // Existing seller form route and sitemap unchanged...
