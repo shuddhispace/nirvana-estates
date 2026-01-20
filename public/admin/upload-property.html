@@ -73,7 +73,7 @@
       <!-- ✅ Images -->
       <div>
         <label class="font-medium">Upload Images (multiple)</label>
-        <input type="file" name="images" accept="image/*" multiple required class="w-full p-2 border rounded" id="imagesInput" />
+        <<input type="file" name="images" accept="image/*" multiple class="w-full p-2 border rounded" id="imagesInput" />
         <div id="imagesPreview" class="grid grid-cols-3 gap-2 mt-2"></div>
       </div>
 
@@ -126,18 +126,34 @@ async function loadProperties() {
     const info = document.createElement('div');
     info.className = 'p-4 flex flex-col gap-1';
     info.innerHTML = `
-      <h3 class="text-lg font-semibold text-[#0f2b3d]">${p.title}</h3>
-      <h4 class="text-lg font-bold text-[#0f2b3d]">₹${Number(p.price).toLocaleString('en-IN')}</h4>
-      <p class="text-sm text-gray-700">
-        ${p.bedrooms} Bed | ${p.bathrooms} Bath | Carpet: ${p.carpetArea} sq ft | Built-up: ${p.builtupArea} sq ft
-      </p>
-      <p class="text-sm text-gray-600 font-medium">${p.location}</p>
-      ${p.negotiable ? `<span class="mt-1 text-green-600 font-medium text-sm">Negotiable</span>` : ''}
-      <div class="flex justify-between items-center mt-3 gap-2">
-        <button class="w-1/2 bg-[#0f2b3d] text-white py-2 rounded-lg text-sm hover:bg-[#153a53] transition">View Details</button>
-        <a href="tel:+919876543210" class="w-1/2 text-center border border-[#0f2b3d] text-[#0f2b3d] py-2 rounded-lg text-sm hover:bg-[#0f2b3d] hover:text-white transition">Call</a>
-      </div>
-    `;
+  <h3 class="text-lg font-semibold text-[#0f2b3d]">${p.title || ''}</h3>
+
+  ${
+    p.price
+      ? `<h4 class="text-lg font-bold text-[#0f2b3d]">
+           ₹${Number(p.price).toLocaleString('en-IN')}
+         </h4>`
+      : `<h4 class="text-sm font-semibold text-gray-500">
+           Price on request
+         </h4>`
+  }
+
+  <p class="text-sm text-gray-700">
+    ${
+      [
+        p.bedrooms ? `${p.bedrooms} Bed` : null,
+        p.bathrooms ? `${p.bathrooms} Bath` : null,
+        p.carpetArea ? `Carpet: ${p.carpetArea} sq ft` : null,
+        p.builtupArea ? `Built-up: ${p.builtupArea} sq ft` : null
+      ].filter(Boolean).join(' | ')
+    }
+  </p>
+
+  ${p.location ? `<p class="text-sm text-gray-600 font-medium">${p.location}</p>` : ''}
+
+  ${p.negotiable ? `<span class="mt-1 text-green-600 font-medium text-sm">Negotiable</span>` : ''}
+`;
+
 
     // 🗑️ Delete button
     const delBtn = document.createElement('button');
