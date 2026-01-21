@@ -142,7 +142,7 @@ function renderDescription(desc){
   if(!desc) return '';
 
   const lines = desc
-    .split('\n')
+    .split(/\r?\n|•/)
     .map(l => l.trim())
     .filter(Boolean);
 
