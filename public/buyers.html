@@ -138,6 +138,22 @@ function fixMediaUrl(src){
   return `${BACKEND}/${src.replace(/^\/+/, '')}`;
 }
 
+function renderDescription(desc){
+  if(!desc) return '';
+
+  const lines = desc
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean);
+
+  if(!lines.length) return '';
+
+  return `
+    <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+      ${lines.map(l => `<li>${l}</li>`).join('')}
+    </ul>
+  `;
+}
 
 function createMediaSlide(src,type){
   const div=document.createElement('div');
@@ -239,6 +255,11 @@ function propertyCard(p){
   body.append(title);
   if (p.price) body.append(price);
   if (meta.length) body.append(sub);
+  if (p.description) {
+  const descBlock = document.createElement('div');
+  descBlock.innerHTML = renderDescription(p.description);
+  body.appendChild(descBlock);
+}
   body.append(ctaRow);
 
   card.appendChild(body);
