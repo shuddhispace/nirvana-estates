@@ -24,6 +24,9 @@ body { background-color: #f9fafb; }
 .carousel{
   scroll-behavior: smooth;
 }
+.card ul {
+  list-style: disc !important;
+}
 
 </style>
 </head>
@@ -146,10 +149,14 @@ function renderDescription(desc){
     .map(l => l.trim())
     .filter(Boolean);
 
-  if(!lines.length) return '';
+  // Single line → normal paragraph
+  if(lines.length === 1){
+    return `<p class="text-sm text-gray-700">${lines[0]}</p>`;
+  }
 
+  // Multiple lines → bullets
   return `
-    <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+    <ul class="list-disc list-inside pl-2 text-sm text-gray-700 space-y-1">
       ${lines.map(l => `<li>${l}</li>`).join('')}
     </ul>
   `;
