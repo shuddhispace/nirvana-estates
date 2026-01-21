@@ -144,13 +144,30 @@ function fixMediaUrl(src){
 function renderDescription(desc){
   if(!desc) return '';
 
-  const lines = desc
-    .split(/\r?\n|•/)
+  const rawLines = desc.split(/\r?\n/);
+
+  // Detect bullet-style lines
+  const bulletLines = rawLines
+    .map(l => l.trim())
+    .filter(l => /^[-*•]\s+/.test(l))
+    .map(l => l.replace(/^[-*•]\s+/, '').trim());
+
+  // If bullet symbols found → bullets
+  if (bulletLines.length > 0) {
+    return `
+      <ul class="list-disc list-inside pl-2 text-sm text-gray-700 space-y-1">
+        ${bulletLines.map(l => `<li>${l}</li>`).join('')}
+      </ul>
+    `;
+  }
+
+  // Otherwise split by newlines
+  const lines = rawLines
     .map(l => l.trim())
     .filter(Boolean);
 
-  // Single line → normal paragraph
-  if(lines.length === 1){
+  // Single line → paragraph
+  if (lines.length === 1) {
     return `<p class="text-sm text-gray-700">${lines[0]}</p>`;
   }
 
