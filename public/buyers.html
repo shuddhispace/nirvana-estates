@@ -141,42 +141,48 @@ function fixMediaUrl(src){
   return `${BACKEND}/${src.replace(/^\/+/, '')}`;
 }
 
-function renderDescription(desc){
-  if(!desc) return '';
+function renderDescription(desc) {
+  if (!desc) return '';
 
-  const rawLines = desc.split(/\r?\n/);
+  const lines = desc.split(/\r?\n/);
 
-  // Detect bullet-style lines
-  const bulletLines = rawLines
-    .map(l => l.trim())
-    .filter(l => /^[-*•]\s+/.test(l))
-    .map(l => l.replace(/^[-*•]\s+/, '').trim());
+  let html = '';
+  let inList = false;
 
-  // If bullet symbols found → bullets
-  if (bulletLines.length > 0) {
-    return `
-      <ul class="list-disc list-inside pl-2 text-sm text-gray-700 space-y-1">
-        ${bulletLines.map(l => `<li>${l}</li>`).join('')}
-      </ul>
-    `;
-  }
+  lines.forEach(line => {
+    const trimmed = line.trim();
 
-  // Otherwise split by newlines
-  const lines = rawLines
-    .map(l => l.trim())
-    .filter(Boolean);
+    // Empty line → close list if open
+    if (trimmed === '') {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      return;
+    }
 
-  // Single line → paragraph
-  if (lines.length === 1) {
-    return `<p class="text-sm text-gray-700">${lines[0]}</p>`;
-  }
+    // Bullet detection: -, *, •
+    const isBullet = /^[-*•]\s+/.test(trimmed);
 
-  // Multiple lines → bullets
-  return `
-    <ul class="list-disc list-inside pl-2 text-sm text-gray-700 space-y-1">
-      ${lines.map(l => `<li>${l}</li>`).join('')}
-    </ul>
-  `;
+    if (isBullet) {
+      if (!inList) {
+        html += '<ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">';
+        inList = true;
+      }
+      html += `<li>${trimmed.replace(/^[-*•]\s+/, '')}</li>`;
+    } else {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      html += `<p class="text-sm text-gray-700 mb-2">${trimmed}</p>`;
+    }
+  });
+
+  // Close list if file ends with bullets
+  if (inList) html += '</ul>';
+
+  return html;
 }
 
 function createMediaSlide(src,type){
