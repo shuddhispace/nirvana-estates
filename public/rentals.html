@@ -164,6 +164,48 @@ function createMediaSlide(src,type){
   return div;
 }
 
+function renderDescription(desc) {
+  if (!desc) return '';
+
+  const lines = desc.split(/\r?\n/);
+  let html = '';
+  let inList = false;
+
+  lines.forEach(line => {
+    const trimmed = line.trim();
+
+    // Empty line closes list
+    if (trimmed === '') {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      return;
+    }
+
+    // Detect bullet lines
+    const isBullet = /^[-*•]\s+/.test(trimmed);
+
+    if (isBullet) {
+      if (!inList) {
+        html += '<ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">';
+        inList = true;
+      }
+      html += `<li>${trimmed.replace(/^[-*•]\s+/, '')}</li>`;
+    } else {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      html += `<p class="text-sm text-gray-700 mb-2">${trimmed}</p>`;
+    }
+  });
+
+  if (inList) html += '</ul>';
+
+  return html;
+}
+
 function propertyCard(p){
   const card = document.createElement('article');
   card.className =
