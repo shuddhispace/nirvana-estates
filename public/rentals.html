@@ -12,9 +12,28 @@ body { background-color: #f9fafb; }
 .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 0.75rem; padding: 0.5rem 0; -webkit-overflow-scrolling: touch; }
 .carousel::-webkit-scrollbar { display: none; }
 .carousel-item { flex: 0 0 100%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; }
-.short-media { width: auto; max-width: 280px; height: 500px; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 6px 18px rgba(0,0,0,0.1); transition: transform .3s; }
+.short-media {
+  width: 100%;          /* fill the card width */
+  max-width: 100%;      /* ensure no overflow */
+  height: 500px;        /* fixed height keeps grid aligned */
+  object-fit: cover;    /* crops image, keeps grid uniform */
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform .3s;
+}
 .short-media:hover { transform: scale(1.02); }
-@media(min-width:1024px){ #grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; } .short-media { max-width: 100%; height: 350px; } .card-body { display: flex; flex-direction: column; gap:0.5rem; } }
+@media(min-width:1024px){
+  #grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .short-media { width: 100%; max-width: 100%; height: 350px; object-fit: cover; }
+  .card-body { display: flex; flex-direction: column; gap:0.5rem; }
+}
+.modal img {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;  /* shows full image inside modal */
+}
 .carousel{
   cursor: grab;
 }
