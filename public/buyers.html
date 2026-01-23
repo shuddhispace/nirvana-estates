@@ -156,27 +156,27 @@ function fixMediaUrl(src){
   return `${BACKEND}/${src.replace(/^\/+/, '')}`;
 }
 
-function createMediaSlide(src,type){
-  const div=document.createElement('div');
-  div.className='carousel-item';
-  
-  if(type==='image'){
-    const wrapper = document.createElement('div');
-    wrapper.className = 'media-wrapper';
+function createMediaSlide(src, type){
+  const div = document.createElement('div');
+  div.className = 'carousel-item';
 
+  const wrapper = document.createElement('div');
+  wrapper.className = 'media-wrapper';
+
+  if(type === 'image'){
     const img = document.createElement('img');
     img.src = fixMediaUrl(src);
     img.alt = 'Property Image';
     img.loading = 'lazy';
     img.className = 'short-media';
-
     wrapper.appendChild(img);
-    div.appendChild(wrapper);
-  } else {
-    let videoId='';
-    if(src.includes('shorts/')) videoId=src.split('shorts/')[1].split('?')[0];
-    else if(src.includes('youtu.be/')) videoId=src.split('youtu.be/')[1].split('?')[0];
-    else if(src.includes('watch?v=')) videoId=src.split('watch?v=')[1].split('&')[0];
+
+  } else if(type === 'video'){
+    let videoId = '';
+
+    if(src.includes('shorts/')) videoId = src.split('shorts/')[1].split('?')[0];
+    else if(src.includes('youtu.be/')) videoId = src.split('youtu.be/')[1].split('?')[0];
+    else if(src.includes('watch?v=')) videoId = src.split('watch?v=')[1].split('&')[0];
 
     const iframe = document.createElement('iframe');
     iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0`;
@@ -184,8 +184,10 @@ function createMediaSlide(src,type){
     iframe.allowFullscreen = true;
     iframe.className = 'short-media';
 
-    div.appendChild(iframe);
+    wrapper.appendChild(iframe);
   }
+
+  div.appendChild(wrapper);
   return div;
 }
 
