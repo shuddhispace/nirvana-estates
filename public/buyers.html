@@ -135,10 +135,17 @@ const INR = n => Number(n).toLocaleString('en-IN', { style: 'currency', currency
 
 const BACKEND = "https://nirvana-estates-backend.onrender.com";
 
+// function fixMediaUrl(src){
+//   if(!src) return '';
+//   if(src.startsWith('http')) return src;
+//   return `${BACKEND}/${src.replace(/^\/+/, '')}`;
+// }
+
 function fixMediaUrl(src){
-  if(!src) return '';
-  if(src.startsWith('http')) return src;
-  return `${BACKEND}/${src.replace(/^\/+/, '')}`;
+  if (!src) return '';
+  return src.startsWith('http')
+    ? src
+    : `${BACKEND}/${src.replace(/^\/+/, '')}`;
 }
 
 function renderDescription(desc) {
