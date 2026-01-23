@@ -1,3 +1,4 @@
+// cloudinary.js
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
@@ -8,14 +9,11 @@ cloudinary.config({
 });
 
 const storage = new CloudinaryStorage({
-  cloudinary,
+  cloudinary, // this is correct
   params: {
-    folder: 'nirvana-estates',
+    folder: 'nirvana-estates/properties',
     allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
   },
 });
 
-module.exports = {
-  cloudinary,
-  storage,
-};
+module.exports = { cloudinary, storage };
