@@ -284,7 +284,7 @@ async function load(){
     const res = await fetch(`${BACKEND}/api/properties`);
     const list = await res.json();
     const grid = document.getElementById('grid'); grid.innerHTML='';
-    list.filter(p=>(p.category||'').toLowerCase()==='Buyers').forEach(p=>grid.appendChild(propertyCard(p)));
+    list.filter(p=>(p.category||'').toLowerCase()==='buyers').forEach(p=>grid.appendChild(propertyCard(p)));
   }catch(e){ console.error(e); document.getElementById('grid').innerHTML='<div class="text-red-600">Failed to load properties.</div>'; }
 }
 load();
