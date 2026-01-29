@@ -115,30 +115,50 @@ async function loadProperties() {
     // Image section
     const imgSection = document.createElement('div');
     imgSection.className = 'relative';
-    // imgSection.innerHTML = `
-    //   <img src="${p.images && p.images[0] ? p.images[0] : '/images/default.jpg'}" class="w-full h-56 object-cover" alt="${p.title}">
-    //   <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
-    //     ${p.category || ''}
-    //   </span>
-    // `;
+    let mediaHTML = '';
 
-    imgSection.innerHTML = p.images && p.images[0]
-  ? `
+if (p.images && p.images.length > 0) {
+  mediaHTML = `
     <img src="${p.images[0]}"
          class="w-full h-56 object-cover"
          alt="${p.title}">
-    <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
-      ${p.category || ''}
-    </span>
-  `
-  : `
-    <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-      No Image Uploaded
-    </div>
-    <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
-      ${p.category || ''}
-    </span>
   `;
+}
+else if (p.videos && p.videos.length > 0) {
+  let vid = p.videos[0];
+  let vidId = '';
+
+  if (vid.includes('shorts/')) {
+    vidId = vid.split('shorts/')[1].split('?')[0];
+  } else if (vid.includes('youtu.be/')) {
+    vidId = vid.split('youtu.be/')[1].split('?')[0];
+  } else if (vid.includes('watch?v=')) {
+    vidId = vid.split('watch?v=')[1].split('&')[0];
+  }
+
+  mediaHTML = `
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/${vidId}"
+      class="w-full h-56"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  `;
+}
+else {
+  mediaHTML = `
+    <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+      No Media Uploaded
+    </div>
+  `;
+}
+
+imgSection.innerHTML = `
+  ${mediaHTML}
+  <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
+    ${p.category || ''}
+  </span>
+`;
 
     // Info section
     const info = document.createElement('div');
