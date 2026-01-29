@@ -115,12 +115,30 @@ async function loadProperties() {
     // Image section
     const imgSection = document.createElement('div');
     imgSection.className = 'relative';
-    imgSection.innerHTML = `
-      <img src="${p.images && p.images[0] ? p.images[0] : '/images/default.jpg'}" class="w-full h-56 object-cover" alt="${p.title}">
-      <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
-        ${p.category || ''}
-      </span>
-    `;
+    // imgSection.innerHTML = `
+    //   <img src="${p.images && p.images[0] ? p.images[0] : '/images/default.jpg'}" class="w-full h-56 object-cover" alt="${p.title}">
+    //   <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
+    //     ${p.category || ''}
+    //   </span>
+    // `;
+
+    imgSection.innerHTML = p.images && p.images[0]
+  ? `
+    <img src="${p.images[0]}"
+         class="w-full h-56 object-cover"
+         alt="${p.title}">
+    <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
+      ${p.category || ''}
+    </span>
+  `
+  : `
+    <div class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+      No Image Uploaded
+    </div>
+    <span class="absolute top-3 left-3 bg-[#0f2b3d] text-white text-xs px-3 py-1 rounded-full shadow-md">
+      ${p.category || ''}
+    </span>
+  `;
 
     // Info section
     const info = document.createElement('div');
